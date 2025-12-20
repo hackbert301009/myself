@@ -31,6 +31,15 @@
         .progress { background-color: #0d1117; height: 10px; border-radius: 0; }
         .progress-bar { background-color: #00ff88; transition: width 0.5s ease; }
         .countdown-timer { font-size: 2rem; font-weight: bold; color: #fff; }
+        .text-highlight {
+        color: #ffffff !important; /* Reinweiß */
+        text-shadow: 0 0 10px rgba(0, 255, 136, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+        font-weight: 700;    
+        }
+
+        .text-bright-gray {
+        color: #cbd5e0 !important; /* Ein helles, klares Grau für Untertexte */
+        }
     </style>
 </head>
 <body>
@@ -52,8 +61,9 @@
     <div class="countdown-timer mb-4" id="timer">00:00:00:00</div>
     
     <div class="pt-3 border-top border-secondary">
-        <p class="small text-muted mb-0">Albert Heruth | Fachinformatiker f. Systemintegration</p>
-        <p class="small text-muted italic">Stay tuned<span class="cursor">_</span></p>
+    <p class="small text-highlight mb-0">Albert Heruth</p>
+    <p class="small text-bright-gray">Fachinformatiker f. Systemintegration</p>
+    <p class="small text-muted italic">Stay tuned<span class="cursor">_</span></p>
     </div>
 </div>
 
