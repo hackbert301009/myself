@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - System Error | Albert Heruth</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #ff4d4d; /* Rot für Error */
+            font-family: 'JetBrains Mono', monospace;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .error-container {
+            max-width: 700px;
+            width: 90%;
+            border: 2px solid #ff4d4d;
+            padding: 2rem;
+            background: rgba(255, 77, 77, 0.05);
+            box-shadow: 0 0 20px rgba(255, 77, 77, 0.2);
+        }
+        .error-code { font-size: 5rem; font-weight: bold; margin-bottom: 0; }
+        .cursor { animation: blink 1s infinite; background: #ff4d4d; color: #0d1117; padding: 0 5px; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .btn-outline-danger:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="error-container">
+    <p class="mb-0 text-uppercase fw-bold">[Critical Alert]</p>
+    <h1 class="error-code">404</h1>
+    <p class="lead mb-4">> SEGMENTATION_FAULT: Page not found in current namespace.</p>
+    
+    <div class="mb-4">
+        <p class="small mb-1">Dumping debug info...</p>
+        <div class="p-3 bg-black text-white-50 small border border-secondary">
+            REQUEST_URI: <span id="uri"></span><br>
+            TIMESTAMP: <span id="ts"></span><br>
+            STATUS: 0x00000194 (NOT_FOUND)<br>
+            ACTION: Return to safe environment.
+        </div>
+    </div>
+
+    <div class="d-flex gap-3">
+        <a href="index.html" class="btn btn-outline-danger px-4 fw-bold">cd /home/</a>
+        <a href="kontakt.html" class="btn btn-danger px-4 fw-bold">report_error</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('uri').innerText = window.location.pathname;
+    document.getElementById('ts').innerText = new Date().toISOString();
+</script>
+
+</body>
+</html>
