@@ -1,0 +1,11 @@
+<div class="timeline-item">
+    <div class="timeline-marker"></div>
+    <div class="timeline-content">
+        <h5 class="text-white fw-bold">NEUER JOB TITEL</h5>
+        <span class="text-white-50 small mb-2 d-block">ZEITRAUM | FIRMA</span>
+        <p class="text-bright small">
+            Beschreibung was du gemacht hast...
+        </p>
+        <img src="bild.jpg" class="img-fluid rounded border border-secondary mt-2">
+    </div>
+</div>

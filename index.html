@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Systemintegration & Dev</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-terminal-fill text-primary"></i> <span class="console-font">root@portfolio:~#</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aktuelles.html">Aktuelles</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Person</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="ueber-mich.html"><i class="bi bi-person me-2"></i>Über mich</a></li>
+                            <li><a class="dropdown-item" href="lebenslauf.html"><i class="bi bi-file-earmark-text me-2"></i>Lebenslauf</a></li>
+                            <li><a class="dropdown-item" href="zertifikate.html"><i class="bi bi-award me-2"></i>Zertifikate</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="traeume.html"><i class="bi bi-rocket me-2"></i>Träume & Ziele</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Projekte</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="server.html"><i class="bi bi-hdd-rack me-2"></i>Server & Infra</a></li>
+                            <li><a class="dropdown-item" href="netzwerk.html"><i class="bi bi-diagram-3 me-2"></i>Netzwerk</a></li>
+                            <li><a class="dropdown-item" href="app-entwicklung.html"><i class="bi bi-android2 me-2"></i>App Entwicklung</a></li>
+                            <li><a class="dropdown-item" href="iot.html"><i class="bi bi-cpu me-2"></i>Mikrokontroller / IoT</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item ms-lg-3">
+                        <a href="kontakt.html" class="btn btn-primary rounded-pill px-4 glitch-hover" data-text="Kontakt">Kontakt</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+        <canvas id="networkCanvas"></canvas>
+        
+        <div class="container content-layer">
+            <div class="row align-items-center min-vh-100 py-5">
+                <div class="col-lg-6 order-2 order-lg-1 fade-in-up">
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-dark border border-primary mb-3">
+                        <span class="status-blink text-primary">●</span>
+                        <span class="console-font small text-primary">System.out.println("Albert Heruth");</span>
+                    </div>
+                    
+                    <h1 class="display-3 fw-bold text-white mb-2 glitch" data-text="Albert Heruth">Albert Heruth</h1>
+                    
+                    <div class="mb-4 console-font text-info small">
+                        <span>[User_Age]: </span><span id="ageCounter">Initializing...</span>
+                    </div>
+
+                    <p class="lead text-bright opacity-75 mb-5">
+                        Fachinformatiker für Systemintegration.<br>
+                        <span class="typing-text console-font text-primary" id="typewriter"></span>
+                    </p>
+                    
+                    <div class="d-flex gap-3">
+                        <a href="server.html" class="btn btn-primary px-4 py-2 fw-bold glitch-hover" data-text="Meine Server">Meine Server</a>
+                        <a href="app-entwicklung.html" class="btn btn-outline-light px-4 py-2 console-font">./apps_code.sh</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 order-1 order-lg-2 text-center mb-5 mb-lg-0 fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="hero-img-container position-relative d-inline-block">
+                        <div class="position-absolute top-50 start-50 translate-middle w-100 h-100 rounded-circle border border-primary opacity-25" style="transform: scale(1.1);"></div>
+                        <img src="profilbild.png" alt="Profilbild" class="hero-img position-relative z-2" onerror="this.src='https://via.placeholder.com/350x350/111/333?text=User+Img'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="py-5 position-relative" style="background: radial-gradient(circle at center, #16243d 0%, #080c17 100%); overflow: hidden;">
+        
+        <div class="position-absolute top-50 start-50 translate-middle" 
+             style="width: 800px; height: 800px; background: var(--primary-color); opacity: 0.03; filter: blur(120px); border-radius: 50%; z-index: 0; pointer-events: none;">
+        </div>
+
+        <div class="container py-4 position-relative" style="z-index: 1;">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="text-white fw-bold mb-2">Core Modules</h2>
+                    <p class="console-font text-primary small">> select_module --view details</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="tech-card p-4 h-100 position-relative d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="mb-4 text-primary">
+                                <i class="bi bi-hdd-rack fs-1"></i>
+                            </div>
+                            <h4 class="text-white mb-2">Server & Infra</h4>
+                            <p class="text-bright small opacity-75">Linux Administration, Proxmox Virtualisierung & Docker Container Management.</p>
+                        </div>
+                        <div class="mt-3 d-flex align-items-center justify-content-between border-top border-secondary pt-3" style="border-color: rgba(255,255,255,0.1) !important;">
+                            <span class="badge border border-secondary text-muted console-font">sys_admin</span>
+                            <a href="server.html" class="link-primary text-decoration-none stretched-link console-font small">access ></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="tech-card p-4 h-100 position-relative d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="mb-4 text-primary">
+                                <i class="bi bi-diagram-3 fs-1"></i>
+                            </div>
+                            <h4 class="text-white mb-2">Netzwerk</h4>
+                            <p class="text-bright small opacity-75">VLAN Konfiguration, Routing Protokolle, Firewall Rules & Security Hardening.</p>
+                        </div>
+                        <div class="mt-3 d-flex align-items-center justify-content-between border-top border-secondary pt-3" style="border-color: rgba(255,255,255,0.1) !important;">
+                            <span class="badge border border-secondary text-muted console-font">net_ops</span>
+                            <a href="netzwerk.html" class="link-primary text-decoration-none stretched-link console-font small">access ></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="tech-card p-4 h-100 position-relative d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="mb-4 text-primary">
+                                <i class="bi bi-android2 fs-1"></i>
+                            </div>
+                            <h4 class="text-white mb-2">App Dev</h4>
+                            <p class="text-bright small opacity-75">Native Android Entwicklung, Java/Kotlin & Mobile Tools für SysAdmins.</p>
+                        </div>
+                        <div class="mt-3 d-flex align-items-center justify-content-between border-top border-secondary pt-3" style="border-color: rgba(255,255,255,0.1) !important;">
+                            <span class="badge border border-secondary text-muted console-font">dev_env</span>
+                            <a href="app-entwicklung.html" class="link-primary text-decoration-none stretched-link console-font small">access ></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="tech-card p-4 h-100 position-relative d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="mb-4 text-primary">
+                                <i class="bi bi-cpu fs-1"></i>
+                            </div>
+                            <h4 class="text-white mb-2">Hardware / IoT</h4>
+                            <p class="text-bright small opacity-75">Arduino Prototyping, Raspberry Pi Projekte & Smart Home Automation.</p>
+                        </div>
+                        <div class="mt-3 d-flex align-items-center justify-content-between border-top border-secondary pt-3" style="border-color: rgba(255,255,255,0.1) !important;">
+                            <span class="badge border border-secondary text-muted console-font">hardware</span>
+                            <a href="iot.html" class="link-primary text-decoration-none stretched-link console-font small">access ></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-auto py-4 bg-black border-top border-secondary text-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-md-start mb-3 mb-md-0">
+                    <span class="console-font text-bright small">root@portfolio:~$ exit</span>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="social-icons d-flex justify-content-center gap-4">
+                        <a href="https://github.com/hackbert301009" class="text-white"><i class="bi bi-github"></i></a>
+                        <a href="https://www.linkedin.com/in/albert-heruth-37aa74379/" class="text-white"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:albert.heruth@gmail.com" class="text-white"><i class="bi bi-envelope-fill"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <span class="text-bright small">© 2025 Albert Heruth | System Ready</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="lock.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

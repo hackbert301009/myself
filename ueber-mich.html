@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Über mich | root</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-terminal-fill text-primary"></i> <span class="console-font">root@portfolio:~#</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link " href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aktuelles.html">Aktuelles</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Person</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item active " href="ueber-mich.html"><i class="bi bi-person me-2"></i>Über mich</a></li>
+                            <li><a class="dropdown-item " href="ueber-mich.html"><i class="bi bi-file-earmark-text me-2"></i>Lebenslauf</a></li>
+                            <li><a class="dropdown-item" href="zertifikate.html"><i class="bi bi-award me-2"></i>Zertifikate</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="traeume.html"><i class="bi bi-rocket me-2"></i>Träume & Ziele</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Projekte</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="server.html"><i class="bi bi-hdd-rack me-2"></i>Server & Infra</a></li>
+                            <li><a class="dropdown-item" href="netzwerk.html"><i class="bi bi-diagram-3 me-2"></i>Netzwerk</a></li>
+                            <li><a class="dropdown-item" href="app-entwicklung.html"><i class="bi bi-android2 me-2"></i>App Entwicklung</a></li>
+                            <li><a class="dropdown-item" href="iot.html"><i class="bi bi-cpu me-2"></i>Mikrokontroller / IoT</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item ms-lg-3">
+                        <a href="kontakt.html" class="btn btn-primary rounded-pill px-4 glitch-hover" data-text="Kontakt">Kontakt</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="py-5 mt-5">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <div class="d-flex align-items-center gap-4 mb-4">
+                        <div class="profile-container">
+                            <img src="profilbild.jpg" class="profile-img" alt="Profilbild" onerror="this.src='https://via.placeholder.com/200x200/333/fff?text=User'">
+                            <div class="status-ring"></div>
+                        </div>
+                        <div>
+                            <span class="badge bg-dark border border-success text-success mb-2">● Online / Working</span>
+                            <h1 class="display-5 fw-bold text-white mb-0">Albert Heruth</h1>
+                            <p class="text-primary console-font h5">./system_integrator</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-white h4 mb-3">Ich verbinde Welten.</h3>
+                    <p class="text-bright lead mb-4">
+                        Hardware trifft Software, Kabel treffen Code. 
+                        Meine Leidenschaft ist es, komplexe Systeme nicht nur zum Laufen zu bringen, sondern sie zu verstehen und zu optimieren.
+                        Ich suche nicht nach dem Fehler – ich suche nach der Lösung.
+                    </p>
+                    
+                    <div class="d-flex gap-3 flex-wrap">
+                        <button class="btn btn-primary px-4 py-2 fw-bold" type="button" data-bs-toggle="offcanvas" data-bs-target="#cvOffcanvas">
+                            <i class="bi bi-file-earmark-person"></i> Lebenslauf öffnen
+                        </button>
+                        
+                        <a href="#skills" class="btn btn-outline-light px-4 py-2">Skills ansehen</a>
+                    </div>
+
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="https://github.com/hackbert301009" class="btn btn-dark border border-secondary text-white"><i class="bi bi-github"></i> GitHub</a>
+                        <a href="https://www.linkedin.com/in/albert-heruth-37aa74379/" class="btn btn-dark border border-secondary text-white"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="terminal-window shadow-lg">
+                        <div class="terminal-header d-flex align-items-center px-3 py-2">
+                            <div class="terminal-dots d-flex gap-2 me-3">
+                                <span class="bg-danger rounded-circle" style="width: 10px; height: 10px;"></span>
+                                <span class="bg-warning rounded-circle" style="width: 10px; height: 10px;"></span>
+                                <span class="bg-success rounded-circle" style="width: 10px; height: 10px;"></span>
+                            </div>
+                            <span class="text-white-50 small console-font">root@portfolio:~/about_me</span>
+                        </div>
+                        <div class="terminal-body p-3 console-font" id="terminalOutput">
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-darker">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <h3 class="text-white border-start border-primary border-4 ps-3 mb-4">Meine Philosophie</h3>
+                    <p class="text-bright">
+                        In der Systemintegration geht es oft darum, schnell Brände zu löschen. Aber mein Ansatz ist präventiv. 
+                        Ein gut dokumentiertes, automatisiertes System brennt nicht.
+                    </p>
+                    <p class="text-bright">
+                        Ich liebe Open Source Lösungen, scheue mich aber nicht vor proprietärer Enterprise-Hardware. 
+                        Am Ende zählt: <strong>Es muss stabil laufen.</strong>
+                    </p>
+                    <div class="row mt-4 g-3">
+                        <div class="col-6">
+                            <div class="p-3 border border-secondary rounded bg-dark h-100">
+                                <i class="bi bi-tools text-primary fs-3"></i>
+                                <h5 class="text-white mt-2">Problem Solver</h5>
+                                <p class="small text-bright mb-0">Debugging ist mein Hobby.</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 border border-secondary rounded bg-dark h-100">
+                                <i class="bi bi-infinity text-primary fs-3"></i>
+                                <h5 class="text-white mt-2">DevOps Mindset</h5>
+                                <p class="small text-bright mb-0">CI/CD & Automation.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div id="skills" class="col-lg-6">
+                    <h3 class="text-white border-start border-primary border-4 ps-3 mb-4">Tech Stack</h3>
+                     <div class="mb-3">
+                        <div class="d-flex justify-content-between text-bright small mb-1">
+                            <span>Linux (Debian/Ubuntu) & Bash</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="progress bg-dark border border-secondary" style="height: 8px;">
+                            <div class="progress-bar bg-primary" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between text-bright small mb-1">
+                            <span>Windows Server / AD / GPO</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress bg-dark border border-secondary" style="height: 8px;">
+                            <div class="progress-bar bg-success" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between text-bright small mb-1">
+                            <span>Docker / Kubernetes / Proxmox</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress bg-dark border border-secondary" style="height: 8px;">
+                            <div class="progress-bar bg-info" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between text-bright small mb-1">
+                            <span>Java / Android Dev</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="progress bg-dark border border-secondary" style="height: 8px;">
+                            <div class="progress-bar bg-warning" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="offcanvas offcanvas-end bg-dark text-white" tabindex="-1" id="cvOffcanvas" aria-labelledby="cvOffcanvasLabel" style="min-width: 350px; width: 50vw;">
+        <div class="offcanvas-header border-bottom border-secondary">
+            <h5 class="offcanvas-title console-font" id="cvOffcanvasLabel">> cat lebenslauf.txt</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            
+            <div class="text-center mb-5">
+                <img src="profilbild.png" class="rounded-circle mb-3 border border-2 border-primary" width="100" height="100" style="object-fit: cover;">
+                <h4>Albert Heruth</h4>
+                <p class="text-muted">Fachinformatiker Systemintegration</p>
+                <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i> </a>
+            </div>
+
+            <div class="timeline">
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h5 class="text-primary fw-bold">Fachinformatiker Systemintegration</h5>
+                        <span class="text-white-50 small mb-2 d-block">2025 - Heute | Eyespec FAW Group</span>
+                        <p class="text-bright small">
+                            Bei der EyeSpec Gmbh, helfe ich die Systeme und die Server immer Sicher und auf dem neusten Stand zu halten.
+                            Wenn es in der IT gerade nichts oder nur wenig zu tun gibt, dann helfe ich noch bei der Software Entwicklung, interner SaaS-Lösungen. 
+                            Oder ich beteilige mich bei der Kamerainspektion.
+                        </p>
+                        
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h5 class="text-white fw-bold">Juniorstudium</h5>
+                        <span class="text-white-50 small mb-2 d-block">2023 - 2025 | CAU Kiel</span>
+                        <p class="text-bright small">
+                            Abschluss mit Schwerpunkt Informatik/Mathematik.
+                            Bildungsgang: Angewandte Mathematik
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h5 class="text-white fw-bold">Schulabschluss</h5>
+                        <span class="text-white-50 small mb-2 d-block">2025 | Realschule St.Michaelisdonn</span>
+                        <p class="text-bright small">
+                            Abschluss mit Schwerpunkt Informatik/Mathematik.
+                            Leitung der Computer-AG.
+                            Durchschnitt: 1,1
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="alert alert-dark border-primary mt-5">
+                <i class="bi bi-info-circle text-primary"></i> <small>Dieser Lebenslauf ist digital signiert und immer aktuell.</small>
+            </div>
+
+        </div>
+    </div>
+    <footer class="mt-auto py-4 bg-black border-top border-secondary text-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-md-start mb-3 mb-md-0">
+                    <span class="console-font text-bright small">root@portfolio:~$ exit</span>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="social-icons d-flex justify-content-center gap-4">
+                        <a href="https://github.com/hackbert301009" class="text-white"><i class="bi bi-github"></i></a>
+                        <a href="https://www.linkedin.com/in/albert-heruth-37aa74379/" class="text-white"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:albert.heruth@gmail.com" class="text-white"><i class="bi bi-envelope-fill"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <span class="text-bright small">© 2025 Albert Heruth | System Ready</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="about.js"></script>
+</body>
+</html>

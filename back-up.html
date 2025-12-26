@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Systemintegration & Dev</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-terminal-fill text-primary"></i> <span class="console-font">root@portfolio:~#</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aktuelles.html">Aktuelles</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Person</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="ueber-mich.html"><i class="bi bi-person me-2"></i>Über mich</a></li>
+                            <li><a class="dropdown-item" href="lebenslauf.html"><i class="bi bi-file-earmark-text me-2"></i>Lebenslauf</a></li>
+                            <li><a class="dropdown-item" href="zertifikate.html"><i class="bi bi-award me-2"></i>Zertifikate</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="traeume.html"><i class="bi bi-rocket me-2"></i>Träume & Ziele</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Projekte</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="server.html"><i class="bi bi-hdd-rack me-2"></i>Server & Infra</a></li>
+                            <li><a class="dropdown-item" href="netzwerk.html"><i class="bi bi-diagram-3 me-2"></i>Netzwerk</a></li>
+                            <li><a class="dropdown-item" href="app-entwicklung.html"><i class="bi bi-android2 me-2"></i>App Entwicklung</a></li>
+                            <li><a class="dropdown-item" href="iot.html"><i class="bi bi-cpu me-2"></i>Mikrokontroller / IoT</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item ms-lg-3">
+                        <a href="kontakt.html" class="btn btn-primary rounded-pill px-4 glitch-hover" data-text="Kontakt">Kontakt</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+        <canvas id="networkCanvas"></canvas>
+        
+        <div class="container content-layer">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <div class="badge bg-dark border border-primary text-primary mb-3 console-font">
+                        System.out.println("Albert Heruth");
+                    </div>
+                    <h1 class="display-3 mb-2 fw-bold text-white glitch" data-text="Albert Heruth">Albert Heruth</h1>
+                    
+                    <div class="mb-4 console-font text-info small">
+                        <span>[User_Age]: </span><span id="ageCounter">Lade Alter...</span>
+                    </div>
+
+                    <p class="lead text-white-50 mb-5">
+                        Fachinformatiker für Systemintegration.<br>
+                        <span class="typing-text console-font text-primary" id="typewriter"></span>
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="server.html" class="btn btn-primary px-4 py-2 fw-bold">Meine Server</a>
+                        <a href="app-entwicklung.html" class="btn btn-outline-light px-4 py-2">Apps & Code</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 text-center mb-5 mb-lg-0">
+                    <div class="hero-img-container">
+                        <img src="profilbild.png" alt="Profilbild" class="hero-img" onerror="this.src='https://via.placeholder.com/350x350/111/333?text=User+Img'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-darker">
+        <div class="container py-5">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="tech-card p-4">
+                        <i class="bi bi-hdd-rack text-primary fs-1 mb-3"></i>
+                        <h4 class="text-white">Server</h4>
+                        <p class="text-bright small opacity-75">Linux, Virtualisierung, Docker Container.</p>
+                        <a href="server.html" class="link-primary text-decoration-none stretched-link">Details ></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="tech-card p-4">
+                        <i class="bi bi-router text-primary fs-1 mb-3"></i>
+                        <h4 class="text-white">Netzwerk</h4>
+                        <p class="text-bright small opacity-75">VLANs, Routing, Firewalls & Security.</p>
+                        <a href="netzwerk.html" class="link-primary text-decoration-none stretched-link">Details ></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="tech-card p-4">
+                        <i class="bi bi-phone text-primary fs-1 mb-3"></i>
+                        <h4 class="text-white">Apps</h4>
+                        <p class="text-bright small opacity-75">Android Entwicklung & Mobile Tools.</p>
+                        <a href="app-entwicklung.html" class="link-primary text-decoration-none stretched-link">Details ></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="tech-card p-4">
+                        <i class="bi bi-cpu text-primary fs-1 mb-3"></i>
+                        <h4 class="text-white">IoT / Hardware</h4>
+                        <p class="text-bright small opacity-75">Arduino, Raspberry Pi & Smart Home.</p>
+                        <a href="iot.html" class="link-primary text-decoration-none stretched-link">Details ></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </body>
+</html>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

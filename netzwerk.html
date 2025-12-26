@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networking | root</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-terminal-fill text-primary"></i> <span class="console-font">root@portfolio:~#</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link " href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aktuelles.html">Aktuelles</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Person</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item  " href="ueber-mich.html"><i class="bi bi-person me-2"></i>Über mich</a></li>
+                            <li><a class="dropdown-item " href="ueber-mich.html"><i class="bi bi-file-earmark-text me-2"></i>Lebenslauf</a></li>
+                            <li><a class="dropdown-item" href="zertifikate.html"><i class="bi bi-award me-2"></i>Zertifikate</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="traeume.html"><i class="bi bi-rocket me-2"></i>Träume & Ziele</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Projekte</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="server.html"><i class="bi bi-hdd-rack me-2"></i>Server & Infra</a></li>
+                            <li><a class="dropdown-item active" href="netzwerk.html"><i class="bi bi-diagram-3 me-2"></i>Netzwerk</a></li>
+                            <li><a class="dropdown-item" href="app-entwicklung.html"><i class="bi bi-android2 me-2"></i>App Entwicklung</a></li>
+                            <li><a class="dropdown-item" href="iot.html"><i class="bi bi-cpu me-2"></i>Mikrokontroller / IoT</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item ms-lg-3">
+                        <a href="kontakt.html" class="btn btn-primary rounded-pill px-4 glitch-hover" data-text="Kontakt">Kontakt</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5 mt-5 text-center">
+        <div class="container py-4">
+            <h1 class="display-4 fw-bold text-white mb-2">Network Operations</h1>
+            <p class="text-primary console-font">> tcpdump -i eth0 -n "port 80 or port 443"</p>
+        </div>
+    </section>
+
+    <section class="pb-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="p-4 border border-secondary rounded bg-darker h-100">
+                        <h3 class="text-white h4 mb-4"><i class="bi bi-layers-half text-primary me-2"></i>Layer 2 & 3 Expertise</h3>
+                        <div class="skill-item mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-bright">VLAN Tagging (802.1Q)</span>
+                                <span class="text-primary">90%</span>
+                            </div>
+                            <div class="progress bg-dark" style="height: 4px;"><div class="progress-bar bg-primary" style="width: 90%"></div></div>
+                        </div>
+                        <p class="text-bright small mt-4 opacity-75">
+                            Konfiguration von Managed Switches, Einrichtung von Subnetzen und Optimierung von Routing-Tabellen für effizienten Datentransfer.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="p-4 border border-secondary rounded bg-darker h-100">
+                        <h3 class="text-white h4 mb-4"><i class="bi bi-shield-lock text-danger me-2"></i>Network Security</h3>
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="bi bi-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <h6 class="text-white mb-1">Stateful Inspection & NAT</h6>
+                                <p class="text-bright small opacity-75">Erstellung von Statefull-Inspection-Rules und NAT-Konfigurationen zur Absicherung interner Netze.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <h6 class="text-white mb-1">VPN (WireGuard)</h6>
+                                <p class="text-bright small opacity-75">Sichere Standortvernetzung und Client-to-Site Lösungen.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <h3 class="text-white mb-4">Live Traffic Analysis</h3>
+            <div class="network-monitor p-3 rounded border border-primary bg-black shadow-lg">
+                <div class="d-flex justify-content-between mb-2 console-font x-small border-bottom border-secondary pb-2">
+                    <span class="text-success fw-bold">INTERFACE: ETH0</span>
+                    <span class="text-primary status-blink fw-bold">CAPTURING LIVE TRAFFIC...</span>
+                </div>
+                
+                <div class="row text-white x-small fw-bold mb-1 console-font">
+                    <div class="col-2 col-md-2">TIME</div>
+                    <div class="col-4 col-md-3">SOURCE</div>
+                    <div class="col-4 col-md-3">DESTINATION</div>
+                    <div class="col-2 col-md-2 d-none d-md-block">PROTO</div>
+                    <div class="col-2 col-md-2 text-end">LENGTH</div>
+                </div>
+                
+                <div id="trafficFlow" class="console-font x-small" style="height: 320px; overflow: hidden; background: #000; padding: 10px; display: flex; flex-direction: column;">
+                </div>
+            </div>
+        </div>
+    </section>
+        <footer class="mt-auto py-4 bg-black border-top border-secondary text-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-md-start mb-3 mb-md-0">
+                    <span class="console-font text-bright small">root@portfolio:~$ exit</span>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="social-icons d-flex justify-content-center gap-4">
+                        <a href="https://github.com/hackbert301009" class="text-white"><i class="bi bi-github"></i></a>
+                        <a href="https://www.linkedin.com/in/albert-heruth-37aa74379/" class="text-white"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:albert.heruth@gmail.com" class="text-white"><i class="bi bi-envelope-fill"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <span class="text-bright small">© 2025 Albert Heruth | System Ready</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const trafficContainer = document.getElementById('trafficFlow');
+    
+    const sources = ['192.168.178.1', '192.168.178.50', '192.168.178.12', '192.168.178.5', '8.8.8.8'];
+    const destinations = ['142.250.185.78', '192.168.178.1', '1.1.1.1', '192.168.178.50', '216.58.212.142'];
+    const protocols = ['TCP', 'UDP', 'TLSv1.3', 'DNS', 'HTTP', 'ICMP', 'SSH'];
+
+    function addPacket() {
+        const now = new Date();
+        const time = now.getHours().toString().padStart(2, '0') + ":" + 
+                     now.getMinutes().toString().padStart(2, '0') + ":" + 
+                     now.getSeconds().toString().padStart(2, '0');
+        
+        const src = sources[Math.floor(Math.random() * sources.length)];
+        const dest = destinations[Math.floor(Math.random() * destinations.length)];
+        const proto = protocols[Math.floor(Math.random() * protocols.length)];
+        const length = Math.floor(Math.random() * 1400) + 64;
+
+        let colorClass = 'text-success';
+        if(proto === 'TCP') colorClass = 'text-primary';
+        if(proto === 'SSH') colorClass = 'text-warning';
+        if(proto === 'ICMP') colorClass = 'text-danger';
+
+        const packetRow = document.createElement('div');
+        packetRow.className = "row py-1 border-bottom border-secondary animate-fade-in";
+        packetRow.style.margin = "0";
+        packetRow.innerHTML = `
+            <div class="col-2 text-muted">${time}</div>
+            <div class="col-3 ${colorClass}">${src}</div>
+            <div class="col-3 text-white">${dest}</div>
+            <div class="col-2 text-muted">${proto}</div>
+            <div class="col-2 text-end text-muted">${length}</div>
+        `;
+
+        // Neues Paket oben einfügen
+        trafficContainer.prepend(packetRow);
+
+        // Limit auf 12 Zeilen, um Performance zu halten
+        if (trafficContainer.children.length > 12) {
+            trafficContainer.removeChild(trafficContainer.lastChild);
+        }
+    }
+
+    // Sofort 5 Pakete vorgenerieren, damit es nicht leer aussieht
+    for(let i=0; i<5; i++) { addPacket(); }
+
+    // Endlosschleife für neue Pakete
+    function loop() {
+        addPacket();
+        setTimeout(loop, Math.random() * 2000 + 500);
+    }
+    loop();
+});
+</script>
+
+<style>
+/* Kleiner Fade-In Effekt für neue Zeilen */
+.animate-fade-in {
+    animation: fadeInRow 0.4s ease-out forwards;
+}
+
+@keyframes fadeInRow {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="network-live.js"></script>
+</body>
+</html>

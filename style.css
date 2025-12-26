@@ -1,0 +1,771 @@
+/* --- Variablen --- */
+:root {
+    --primary-color: #00ff88; /* Helles Hacker-Grün/Mint */
+    --primary-dark: #00cc6a;
+    --bg-dark: #0b1120;       /* Sehr dunkles Blau/Schwarz */
+    --bg-card: #151e32;
+    --text-color: #e2e8f0;
+}
+
+/* --- Grundlayout --- */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+}
+
+.bg-darker {
+    background-color: #080c17;
+}
+
+/* Monospace Font für Code-Elemente */
+.console-font {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: rgba(11, 17, 32, 0.85) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dropdown-menu {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.dropdown-item {
+    color: var(--text-color);
+}
+.dropdown-item:hover {
+    background-color: var(--primary-color);
+    color: #000;
+}
+
+/* --- Hero Section & Canvas --- */
+.hero-section {
+    position: relative;
+    min-height: 100vh; /* Volle Bildschirmhöhe */
+    display: flex;
+    align-items: center;
+    background: radial-gradient(circle at center, #1a2540 0%, #0b1120 100%);
+    overflow: hidden;
+}
+
+#networkCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Im Hintergrund */
+    opacity: 0.4;
+}
+
+.content-layer {
+    position: relative;
+    z-index: 2; /* Über dem Canvas */
+}
+
+/* --- Tech Cards --- */
+.tech-card {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1); /* Grüner Glow */
+    border-color: var(--primary-color);
+}
+
+/* --- Glitch Effect (CSS Magic) --- */
+.glitch {
+    position: relative;
+    color: white;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark);
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(30px, 9999px, 10px, 0); }
+    5% { clip: rect(70px, 9999px, 90px, 0); }
+    10% { clip: rect(10px, 9999px, 30px, 0); }
+    100% { clip: rect(50px, 9999px, 20px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(10px, 9999px, 50px, 0); }
+    5% { clip: rect(80px, 9999px, 10px, 0); }
+    10% { clip: rect(20px, 9999px, 60px, 0); }
+    100% { clip: rect(10px, 9999px, 80px, 0); }
+}
+
+/* --- Buttons --- */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #0b1120;
+}
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 0 15px var(--primary-color); /* Neon Glow */
+}
+.btn-outline-light {
+    border-color: rgba(255,255,255,0.2);
+}
+.btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-color: white;
+}
+
+/* --- Hero Image --- */
+.hero-img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+}
+/* --- Blog Styles --- */
+
+/* Input Felder im Hacker Style */
+.form-control, .form-select {
+    color: var(--text-color) !important;
+}
+.form-control:focus, .form-select:focus {
+    background-color: #0f172a !important;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+    color: white !important;
+}
+
+/* Blog Card Design */
+.blog-card {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s;
+}
+
+.blog-card:hover {
+    border-color: var(--primary-color);
+}
+
+.bg-darker {
+    background-color: #05080f !important;
+}
+
+/* Like Button Animation */
+.like-btn i {
+    transition: transform 0.2s;
+}
+.like-btn:active i {
+    transform: scale(1.4);
+}
+
+.pulse-anim {
+    animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+}
+
+/* Scrollbar für Kommentare hübsch machen */
+.comments-list {
+    max-height: 150px;
+    overflow-y: auto;
+}
+.comments-list::-webkit-scrollbar {
+    width: 5px;
+}
+.comments-list::-webkit-scrollbar-thumb {
+    background: #333; 
+    border-radius: 5px;
+}
+/* --- Über Mich Styles --- */
+
+/* Terminal Window Design */
+.terminal-window {
+    background-color: #1e1e1e; /* VS Code Dunkelgrau */
+    border-radius: 8px;
+    border: 1px solid #333;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+    height: 400px; /* Feste Höhe */
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-header {
+    background-color: #252526;
+    border-bottom: 1px solid #333;
+    height: 40px;
+}
+
+.terminal-body {
+    background-color: #0c0c0c; /* Fast Schwarz für den Body */
+    flex-grow: 1;
+    overflow-y: auto; /* Scrollbar wenn Text zu lang */
+    font-size: 0.95rem;
+}
+
+/* Scrollbar im Terminal verstecken/stylen */
+.terminal-body::-webkit-scrollbar {
+    width: 8px;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+    background: #333; 
+    border-radius: 4px;
+}
+
+/* Blinken für den Cursor */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Progress Bars Custom */
+.progress {
+    background-color: #1e293b; /* Dunkler Hintergrund für Balken */
+}
+/* --- TRÄUME & ZIELE PAGE STYLES --- */
+
+/* Text Gradient (Farbverlauf im Text) */
+.text-gradient {
+    background: linear-gradient(90deg, #00ff88 0%, #00b8ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+/* Gradient für Icons */
+.text-gradient-icon {
+    background: -webkit-linear-gradient(45deg, #00ff88, #00b8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism Card (Milchglas Effekt) */
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 40px rgba(0, 255, 136, 0.1);
+}
+
+/* Switches Customizing */
+.custom-switch .form-check-input {
+    background-color: #333;
+    border-color: #555;
+}
+.custom-switch .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* --- ANIMATIONEN --- */
+
+/* Fade In Up (Initial beim Laden) */
+.fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade In on Scroll (Wird per JS Klasse hinzugefügt) */
+.fade-in-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* --- CERTIFICATE CARDS --- */
+
+.cert-card {
+    background-color: #111; /* Dunkler als normale Cards */
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 25px;
+    position: relative;
+    overflow: hidden; /* Wichtig für den Scanner */
+    cursor: pointer;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    height: 100%;
+}
+
+.cert-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color); /* Grüner Rand bei Hover */
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.15);
+}
+
+/* Der Scanner Balken (Laser) */
+.cert-scanner {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 10px; /* Dicke des Lasers */
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    box-shadow: 0 0 15px var(--primary-color);
+    opacity: 0.6;
+    z-index: 10;
+    transition: none; /* Reset */
+}
+
+/* Animation trigger bei Hover */
+.cert-card:hover .cert-scanner {
+    animation: scan 1.5s linear infinite;
+}
+
+@keyframes scan {
+    0% { top: -10%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 110%; opacity: 0; }
+}
+
+/* Badge Anpassung im Card Header */
+.cert-card .badge {
+    font-size: 0.8em;
+    letter-spacing: 1px;
+}
+/* --- APP SHOWCASE / SMARTPHONE MOCKUP --- */
+
+.smartphone-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    perspective: 1000px; /* Für 3D Effekt */
+}
+
+/* Der Handy Rahmen */
+.smartphone-frame {
+    width: 300px;
+    height: 600px;
+    background-color: #000;
+    border: 12px solid #1a1a1a; /* Dunkelgrauer Rahmen */
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        inset 0 0 20px rgba(255,255,255,0.1), /* Innerer Glanz */
+        0 0 0 2px #333, /* Äußerer feiner Rand */
+        0 20px 50px rgba(0,0,0,0.5); /* Schatten unten */
+    transition: transform 0.5s ease;
+}
+
+.smartphone-container:hover .smartphone-frame {
+    transform: rotateY(-5deg) rotateX(5deg); /* Leichte Drehung bei Hover */
+}
+
+/* Die Notch oben (Kamera) */
+.notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 25px;
+    background-color: #1a1a1a;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    z-index: 10;
+}
+
+/* Der Bildschirm */
+.screen {
+    width: 100%;
+    height: 100%;
+    background-color: #0f0f0f;
+    position: relative;
+}
+
+.app-screenshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Bild füllt den Screen */
+}
+
+/* Scan-Line Effekt auf dem Handy */
+.scan-line {
+    position: absolute;
+    top: -20%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    animation: scanPhone 3s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scanPhone {
+    0% { top: -20%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 120%; opacity: 0; }
+}
+
+/* Schatten unter dem Handy */
+.phone-shadow {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* --- CODE WINDOW --- */
+.code-window {
+    border: 1px solid #333;
+    overflow: hidden;
+}
+.code-body pre {
+    white-space: pre-wrap; /* Zeilenumbruch erlauben */
+    max-height: 250px;
+    overflow-y: auto;
+}
+/* Scrollbar für Code */
+.code-body pre::-webkit-scrollbar { width: 5px; }
+.code-body pre::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
+/* Hilfsklasse für hellen Text */
+.text-bright {
+    color: #e2e8f0 !important; /* Fast Weiß */
+}
+.opacity-75 {
+    opacity: 0.75; /* Macht es ganz leicht transparent, sieht edler aus */
+}
+/* Server Card Styles */
+.server-card {
+    transition: all 0.3s ease;
+    background: linear-gradient(145deg, #161b22, #0d1117);
+}
+
+.server-card:hover {
+    border-color: var(--primary-color) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+}
+
+.bg-darker {
+    background-color: #0d1117 !important;
+}
+
+/* Konsolen-Style für IP-Adressen */
+code {
+    background: rgba(0, 255, 136, 0.05);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+.transition-all {
+    transition: width 1.5s ease-in-out !important;
+}
+
+/* Der kleine pulsierende Effekt für den Online-Status */
+.pulse-bg {
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(25, 135, 84, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(25, 135, 84, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(25, 135, 84, 0); }
+}
+#liveUptime {
+    font-weight: bold;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+}
+/* IoT Blueprint Look */
+.blueprint-section {
+    background-color: rgba(0, 50, 100, 0.1);
+    border: 1px dashed rgba(0, 184, 255, 0.3);
+    position: relative;
+}
+
+.blueprint-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(rgba(0, 184, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px; /* Punkt-Raster wie auf technischem Papier */
+    pointer-events: none;
+}
+
+.hardware-badge {
+    display: inline-block;
+    background: #00b8ff;
+    color: #000;
+    padding: 2px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    font-size: 0.75rem;
+    border-radius: 4px;
+}
+
+.hardware-frame {
+    border: 2px solid #333;
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.5); /* Harter Schatten */
+    transition: all 0.3s ease;
+}
+
+.hardware-frame:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 15px 15px 0px rgba(0, 184, 255, 0.2);
+    border-color: #00b8ff;
+}
+
+.dashed-border {
+    border-style: dashed !important;
+}
+/* Network Page Styles */
+.network-monitor {
+    background: #050505;
+    box-shadow: inset 0 0 20px rgba(0, 255, 136, 0.1);
+    min-height: 300px;
+}
+
+.x-small {
+    font-size: 0.7rem;
+}
+
+.dashed-line {
+    border-top: 1px dashed #333;
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* Animation für den "Capturing" Status */
+@keyframes blink {
+    50% { opacity: 0; }
+}
+.text-primary.status-blink {
+    animation: blink 1s step-end infinite;
+}
+.status-blink {
+    animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+/* Hilfsklasse für besseren Kontrast */
+.text-bright {
+    color: #f8f9fa !important; /* Sehr helles Weiß/Grau */
+}
+
+.opacity-75 {
+    opacity: 0.75;
+}
+/* Terminal Contact Form */
+.terminal-card {
+    background-color: #1a1a1a; /* Dunklerer Hintergrund */
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.terminal-header {
+    background-color: #0d1117;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.terminal-input {
+    background-color: #000;
+    border: 1px solid #333;
+    color: #00ff88;
+    caret-color: #00ff88; /* Cursorfarbe */
+    font-family: 'JetBrains Mono', monospace;
+    padding: 8px 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.terminal-input::placeholder {
+    color: #555;
+    font-style: italic;
+}
+
+.terminal-input:focus {
+    background-color: #000;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(0, 255, 136, 0.25);
+    color: #00ff88;
+}
+
+.terminal-input:-webkit-autofill,
+.terminal-input:-webkit-autofill:hover, 
+.terminal-input:-webkit-autofill:focus, 
+.terminal-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px #0d1117 inset !important;
+    -webkit-text-fill-color: #00ff88 !important;
+}
+
+.social-icons a {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.social-icons a:hover {
+    color: var(--primary-color) !important;
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* Glitch Effekt für Buttons bei Hover */
+.glitch-hover {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0); /* Hardwarebeschleunigung */
+}
+
+.glitch-hover::before,
+.glitch-hover::after {
+    content: attr(data-text); /* Nimmt den Text vom Button */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: currentColor; /* Übernimmt die Farbe des Buttons */
+    color: var(--bs-body-bg); /* Textfarbe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: inset(0 100% 0 0); /* Anfangs unsichtbar */
+    transition: clip-path 0.3s ease;
+}
+
+.glitch-hover:hover::before {
+    clip-path: inset(0 0 0 0);
+    animation: glitch-anim-1 0.3s steps(10) forwards;
+}
+
+.glitch-hover:hover::after {
+    clip-path: inset(0 0 0 0);
+    animation: glitch-anim-2 0.3s steps(10) forwards;
+    animation-delay: 0.1s; /* Leichte Verzögerung */
+}
+
+@keyframes glitch-anim-1 {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { transform: translate(0); }
+    20% { transform: translate(2px, -2px); }
+    40% { transform: translate(-2px, 2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(-2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* Anpassung der Platzhalter für Glitch-Button */
+.btn-primary.glitch-hover::before,
+.btn-primary.glitch-hover::after {
+    background: var(--primary-color);
+    color: var(--bs-dark);
+}
+
+.bg-darker {
+    background-color: #0d1117 !important;
+}
+.text-bright {
+    color: #e2e8f0 !important; /* Hellgrau/Weiß für bessere Lesbarkeit */
+}
+
+.opacity-75 {
+    opacity: 0.75;
+}
+/* --- Modern Glass Cards (Ersetzt die alten .tech-card Styles) --- */
+.tech-card {
+    background: rgba(21, 30, 50, 0.4); /* Sehr transparentes Dunkelblau */
+    backdrop-filter: blur(12px);       /* Der Milchglas-Effekt */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Sehr feiner Rand */
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Federnder Hover-Effekt */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.tech-card:hover {
+    transform: translateY(-8px) scale(1.02); /* Leichtes Vergrößern */
+    background: rgba(21, 30, 50, 0.6);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.2), inset 0 0 10px rgba(0, 255, 136, 0.1);
+}
+
+/* Icons in den Karten zum Leuchten bringen */
+.tech-card i {
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+.tech-card:hover i {
+    transform: scale(1.2);
+    text-shadow: 0 0 15px var(--primary-color);
+}
+
+/* Die Badges (z.B. sys_admin) unten in der Karte schöner machen */
+.tech-card .badge {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: var(--primary-color) !important;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
