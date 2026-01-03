@@ -1,35 +1,40 @@
-// --- 1. Die Datenbank (Simuliert) ---
-// Hier trägst du deine Blog-Posts ein!
+// --- 1. Die Datenbank ---
 const defaultPosts = [
     {
         id: 1,
         title: "Mein neuer Proxmox Server Build",
         date: "2025-12-23",
         category: "Server",
-        content: "Endlich ist die Hardware angekommen! Ich habe heute meinen neuen Homelab-Server aufgebaut. Mit 64GB RAM und einem Ryzen 9 bietet er genug Leistung für diverse VMs und Container. Die Installation von Proxmox VE 8 lief reibungslos. Als nächstes plane ich die Migration meines Home Assistant.",
+        // Hier habe ich dein Hacker-Setup Bild eingefügt:
+        image: "server.jpeg", 
+        content: "Endlich ist die Hardware angekommen! Ich habe heute meinen neuen Homelab-Server aufgebaut. Mit 64GB RAM und einem Ryzen 9 bietet er genug Leistung für diverse VMs und Container. Die Installation von Proxmox VE 8 lief reibungslos.",
         likes: 12,
         comments: [
             { user: "Gast", text: "Welches Gehäuse hast du benutzt?" }
         ]
     },
     {
-        id: 2,
-        title: "Update meiner Android App",
-        date: "2025-12-26",
-        category: "App Dev",
-        content: "Version 2.0 meiner Netzwerk-Scanner App ist live. Ich habe den Code von Java auf Kotlin migriert und Dark Mode Support hinzugefügt. Besonders stolz bin ich auf die optimierte Ping-Routine, die jetzt asynchron läuft und das UI nicht mehr blockiert.",
-        likes: 5,
-        comments: []
+        id: 3,
+        title: "Launch von meiner ersten app",
+        date: "2026-01-05",
+        category: "APP",
+        // Hier habe ich dein Hacker-Setup Bild eingefügt:
+        image: "my-love.png.png", 
+        content: "In 2 Wocehn ist es soweit, ich launche meine erste eigene Webseite. Es waren schmerz, verzweiflung und anstrengung, doch immer mit dem Ziel und dem Grund vor Augen und nun ist es bald soweit, meine erste eigene Webseite landet im Google Play Store, ich freue mich sehr!",
+        likes: 7,
+        comments:[]       
     },
     {
-        id: 3,
-        title: "VLANs richtig konfigurieren",
-        date: "2024-12-25",
-        category: "Netzwerk",
-        content: "Sicherheit im Heimnetzwerk ist essenziell. Heute zeige ich, wie man IoT-Geräte in ein separates VLAN sperrt, damit der smarte Kühlschrank nicht auf das NAS zugreifen kann. Die Konfiguration über den Unifi Controller und die Firewall-Regeln erkläre ich Schritt für Schritt...",
-        likes: 24,
+        id: 2,
+        title: "Contributing bei Nebula OS",
+        date: "2026-01-03",
+        category: "OS",
+        // Hier habe ich dein Hacker-Setup Bild eingefügt:
+        image: "nebula.png", 
+        content: "Ich war die letzten 3 Monate der glücklichen, die in der Lage waren bei Nebula OS, einer eigenen Linux Distribution mit eigenem Compiler und Interpretersprache mitzuarbeiten und meinen Teil zu dem Projekt zu leisten. Es hat mir wirklich sehr viel Spaß gemacht und auch großen Dank, an das Team!!",
+        likes: 3,
         comments: [
-            { user: "Admin", text: "Gute Anleitung, danke!" }
+            { user: "Gast", text: "Ist die Distro schon frei verfügbar?" }
         ]
     },
     {
@@ -37,15 +42,17 @@ const defaultPosts = [
         title: "Herzlich Willkommen!",
         date: "2025-12-27",
         category: "Wichtig!",
-        content: "Hallo an alle, hier findet ihr immer wieder spannende neue Blogs, rund um mich, euch und was so in der Welt passiert.Ich bin aktuell noch viel am Verbessern im Backend. Wenn jemand sich mit CMS Systemen auskennt, meldet euch immer gerne. Macht es gut!",
+        // Hier wieder das Setup Bild als Beispiel (oder ein anderes)
+        image: "welcome.jpg", 
+        content: "Hallo an alle! Hier findet ihr immer wieder spannende neue Blogs rund um Tech, meine Projekte und was so in der Welt passiert. Meldet euch gerne bei Fragen!",
         likes: 0,
         comments: [
-            { user: "Admin", text: "Lest es euch gerne durch!" }
+            { user: "Admin", text: "Viel Spaß beim Lesen!" }
         ]
     }
 ];
 
-// Lade Daten aus dem LocalStorage oder nimm die Standards
+// Lade Daten
 let posts = JSON.parse(localStorage.getItem('myPortfolioPosts')) || defaultPosts;
 
 // --- 2. Initialisierung ---
@@ -58,11 +65,11 @@ const postCountLabel = document.getElementById('postCount');
 searchInput.addEventListener('input', renderPosts);
 filterSelect.addEventListener('change', renderPosts);
 
-// --- 3. Render Funktion (Zeigt die Posts an) ---
+// --- 3. Render Funktion ---
 function renderPosts() {
-    blogContainer.innerHTML = ''; // Container leeren
+    blogContainer.innerHTML = '';
     
-    // 1. Filtern (Suche)
+    // Filtern
     let searchTerm = searchInput.value.toLowerCase();
     let filteredPosts = posts.filter(post => 
         post.title.toLowerCase().includes(searchTerm) || 
@@ -70,60 +77,84 @@ function renderPosts() {
         post.category.toLowerCase().includes(searchTerm)
     );
 
-    // 2. Sortieren
+    // Sortieren
     const sortMode = filterSelect.value;
     filteredPosts.sort((a, b) => {
         if (sortMode === 'newest') return new Date(b.date) - new Date(a.date);
         if (sortMode === 'oldest') return new Date(a.date) - new Date(b.date);
+        if (sortMode === 'likes') return b.likes - a.likes;
         if (sortMode === 'longest') return b.content.length - a.content.length;
     });
 
-    // Counter updaten
     postCountLabel.innerText = filteredPosts.length;
 
-    // 3. HTML bauen
+    // HTML Generieren
     filteredPosts.forEach(post => {
-        // Formatiere Datum
-        const dateObj = new Date(post.date);
-        const dateStr = dateObj.toLocaleDateString('de-DE');
+        const dateStr = new Date(post.date).toLocaleDateString('de-DE');
 
-        // Kommentare generieren
+        // Kommentare bauen
         let commentsHtml = '';
         post.comments.forEach(c => {
-            commentsHtml += `<div class="comment-item small border-start border-secondary ps-2 mb-2 text-white-50">
-                <strong>${c.user}:</strong> ${c.text}
+            commentsHtml += `
+            <div class="comment-item mb-2">
+                <span class="text-primary small console-font">${c.user}:</span> 
+                <span class="text-light small opacity-75">${c.text}</span>
             </div>`;
         });
 
-        const cardHtml = `
-            <div class="col-lg-6"> <div class="card blog-card h-100">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <span class="badge bg-primary text-dark">${post.category}</span>
-                            <small class="text-bright console-font">${dateStr}</small>
-                        </div>
-                        <h3 class="card-title h4 text-white mb-3">${post.title}</h3>
-                        <p class="card-text text-light opacity-75">${post.content}</p>
-                        
-                        <hr class="border-secondary">
-                        
-                        <div class="d-flex justify-content-between align-items-center">
-                            <button class="btn btn-sm btn-outline-success like-btn" onclick="likePost(${post.id})">
-                                <i class="bi bi-heart-fill"></i> <span id="likes-${post.id}">${post.likes}</span>
-                            </button>
-                            <button class="btn btn-sm btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#comments-${post.id}">
-                                <i class="bi bi-chat-left-text"></i> Kommentare (${post.comments.length})
-                            </button>
-                        </div>
+        // Bild Logik: Prüfen ob Bild vorhanden ist
+        let imageHtml = '';
+        if (post.image) {
+            imageHtml = `
+            <div class="blog-img-wrapper">
+                <img src="${post.image}" alt="${post.title}" class="blog-img">
+                <div class="blog-category-badge">${post.category}</div>
+            </div>
+            `;
+        } else {
+            // Wenn kein Bild, Badge einfach oben anzeigen
+            imageHtml = `
+            <div class="p-4 pb-0">
+                <span class="badge bg-dark border border-secondary text-primary">${post.category}</span>
+            </div>
+            `;
+        }
 
-                        <div class="collapse mt-3" id="comments-${post.id}">
-                            <div class="card card-body bg-dark border border-secondary p-2">
-                                <div class="comments-list mb-2" id="comment-list-${post.id}">
-                                    ${commentsHtml}
-                                </div>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control bg-darker text-white border-secondary" placeholder="Kommentar..." id="input-${post.id}">
-                                    <button class="btn btn-primary" onclick="addComment(${post.id})">Senden</button>
+        // Card HTML
+        const cardHtml = `
+            <div class="col-lg-6 col-xl-4 d-flex align-items-stretch"> 
+                <div class="card blog-card w-100 overflow-hidden">
+                    
+                    ${imageHtml}
+
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-bright console-font">${dateStr}</small>
+                            <small class="text-bright console-font">ID: ${post.id}</small>
+                        </div>
+                        
+                        <h3 class="h4 text-white fw-bold mb-3">${post.title}</h3>
+                        <p class="text-light opacity-75 flex-grow-1">${post.content}</p>
+                        
+                        <div class="border-top border-secondary pt-3 mt-3">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <button class="btn btn-sm btn-outline-success like-btn rounded-pill px-3" onclick="likePost(${post.id})">
+                                    <i class="bi bi-heart-fill"></i> <span id="likes-${post.id}" class="ms-1 fw-bold">${post.likes}</span>
+                                </button>
+                                <button class="btn btn-sm btn-outline-light rounded-pill px-3" type="button" data-bs-toggle="collapse" data-bs-target="#comments-${post.id}">
+                                    <i class="bi bi-chat-left-dots"></i> ${post.comments.length}
+                                </button>
+                            </div>
+
+                            <div class="collapse" id="comments-${post.id}">
+                                <div class="bg-black rounded p-3 border border-secondary">
+                                    <div class="comments-list mb-3" id="comment-list-${post.id}">
+                                        ${commentsHtml.length > 0 ? commentsHtml : '<span class="text-muted small">Noch keine Kommentare.</span>'}
+                                    </div>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Kommentar..." id="input-${post.id}">
+                                        <button class="btn btn-primary" onclick="addComment(${post.id})">Post</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -135,49 +166,41 @@ function renderPosts() {
     });
 }
 
-// --- 4. Aktionen (Like & Comment) ---
-
+// --- 4. Funktionen ---
 window.likePost = function(id) {
     const post = posts.find(p => p.id === id);
     if(post) {
         post.likes++;
-        saveAndRender(); // Speichern & Neu anzeigen
-        
-        // Kleiner visueller Effekt (nur via JS Trigger möglich wenn Element da ist)
-        const btn = document.querySelector(`button[onclick="likePost(${id})"]`);
-        if(btn) btn.classList.add('pulse-anim');
+        saveAndRender();
+        // Animation finden und auslösen
+        setTimeout(() => {
+            const btn = document.querySelector(`button[onclick="likePost(${id})"]`);
+            if(btn) btn.classList.add('pulse-anim');
+        }, 50);
     }
 };
 
 window.addComment = function(id) {
     const inputField = document.getElementById(`input-${id}`);
     const text = inputField.value;
-    
     if (text.trim() === "") return;
 
     const post = posts.find(p => p.id === id);
     if(post) {
-        post.comments.push({
-            user: "Besucher", // Hier könnte später ein echter Name stehen
-            text: text
-        });
-        inputField.value = ''; // Feld leeren
+        post.comments.push({ user: "Guest_User", text: text });
         saveAndRender();
-        
-        // Kommentarbereich offen lassen nach Render (Trick)
+        // Kommentarfeld wieder öffnen nach Re-Render
         setTimeout(() => {
-            const collapseElement = document.getElementById(`comments-${id}`);
-            const bsCollapse = new bootstrap.Collapse(collapseElement, { toggle: false });
-            bsCollapse.show();
+            const el = document.getElementById(`comments-${id}`);
+            if(el) el.classList.add('show');
         }, 100);
     }
 };
 
-// Hilfsfunktion: Speichern im LocalStorage
 function saveAndRender() {
     localStorage.setItem('myPortfolioPosts', JSON.stringify(posts));
     renderPosts();
 }
 
-// Start
+// Init
 renderPosts();
