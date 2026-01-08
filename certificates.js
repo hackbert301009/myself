@@ -2,6 +2,15 @@
 // Kategorie-Optionen: 'linux', 'network', 'dev', 'security', 'hardware'
 const certificates = [
     {
+        id: "Wisstor",
+        title: "Wisstor Datenschutz-Schulung",
+        issuer: "Wissto International",
+        date: "2026",
+        category: "security",
+        img: "dsgvo.jpg", 
+        verified: true
+    },
+    {
         id: "LPIC-1",
         title: "LPIC-1 Linux Administrator (in progress)",
         issuer: "Linux Professional Institute",
