@@ -1,0 +1,115 @@
+---
+import PageHeader from '../PageHeader.astro';
+import { getLangFromUrl, useTranslations, pick, localizedPath } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const lp = (p: string) => localizedPath(p, lang);
+
+const roadmap = [
+  {
+    status: { de: 'In Arbeit', en: 'In progress' },
+    tone: 'accent',
+    progress: 70,
+    title: { de: 'Forschung & Wettbewerbe', en: 'Research & competitions' },
+    desc: { de: 'SterilVision wissenschaftlich vertiefen und beim BWKI weiterbringen.', en: 'Deepen SterilVision scientifically and advance it in the BWKI competition.' },
+  },
+  {
+    status: { de: 'Geplant', en: 'Planned' },
+    tone: 'iris',
+    progress: 30,
+    title: { de: 'CV-Modelle in Produktion', en: 'CV models in production' },
+    desc: { de: 'Eigene Vision-Pipelines (u. a. PixLang) produktionsreif und wartbar machen.', en: 'Make my own vision pipelines (incl. PixLang) production-ready and maintainable.' },
+  },
+  {
+    status: { de: 'Laufend', en: 'Ongoing' },
+    tone: 'lime',
+    progress: 50,
+    title: { de: 'Tiefere ML-Theorie', en: 'Deeper ML theory' },
+    desc: { de: 'Transformer, Diffusion Models und die mathematischen Grundlagen dahinter.', en: 'Transformers, diffusion models and the mathematics behind them.' },
+  },
+];
+
+const bucket = [
+  { done: true, label: { de: 'Eigene DSL bauen (PixLang)', en: 'Build my own DSL (PixLang)' } },
+  { done: true, label: { de: 'Bei einem KI-Wettbewerb antreten (BWKI)', en: 'Enter an AI competition (BWKI)' } },
+  { done: true, label: { de: 'Zu Open Source beitragen (kornia, Ryven)', en: 'Contribute to open source (kornia, Ryven)' } },
+  { done: false, label: { de: 'Ein Paper veröffentlichen', en: 'Publish a paper' } },
+  { done: false, label: { de: 'KI-Modell auf Edge-Hardware deployen', en: 'Deploy an AI model on edge hardware' } },
+  { done: false, label: { de: 'Eigene App im Play Store veröffentlichen', en: 'Ship my own app on the Play Store' } },
+];
+
+const toneCls: Record<string, string> = {
+  accent: 'border-accent/40 text-accent',
+  iris: 'border-iris/40 text-iris-soft',
+  lime: 'border-lime/40 text-lime',
+};
+const barCls: Record<string, string> = { accent: 'bg-accent', iris: 'bg-iris', lime: 'bg-lime' };
+---
+
+<PageHeader label={t('goals.label')} title={t('goals.title')} lead={t('goals.lead')} />
+
+<section class="py-16">
+  <div class="mx-auto max-w-6xl px-5">
+    <!-- Roadmap -->
+    <h2 class="reveal mb-8 text-2xl font-semibold">{t('goals.roadmap')}</h2>
+    <div class="mb-20 grid gap-5 md:grid-cols-3">
+      {
+        roadmap.map((r) => (
+          <article class="card reveal flex flex-col p-6">
+            <span class={`label-mono mb-4 w-fit rounded-md border px-2 py-1 !text-[0.58rem] ${toneCls[r.tone]}`}>
+              {pick(r.status, lang)}
+            </span>
+            <h3 class="font-display text-lg font-semibold text-text">{pick(r.title, lang)}</h3>
+            <p class="mt-2 flex-1 text-sm text-muted">{pick(r.desc, lang)}</p>
+            <div class="mt-5 h-1.5 overflow-hidden rounded-full bg-surface-2">
+              <div class={`h-full rounded-full ${barCls[r.tone]}`} style={`width:${r.progress}%`} />
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="grid gap-12 lg:grid-cols-2">
+      <!-- Dream -->
+      <div class="reveal">
+        <p class="label-mono mb-3">{'> ./execute_dream.sh'}</p>
+        <h2 class="mb-4 text-2xl font-semibold">{t('goals.dream')}</h2>
+        <div class="card p-6">
+          <h3 class="font-display text-xl font-semibold text-gradient">
+            {lang === 'de' ? 'AI / Computer-Vision Researcher & Engineer' : 'AI / Computer-Vision Researcher & Engineer'}
+          </h3>
+          <p class="mt-3 text-muted">
+            {lang === 'de'
+              ? 'Mein langfristiges Ziel: die Brücke zwischen Forschung und realen, funktionierenden Systemen schlagen — intelligente Bildverarbeitung, die in der echten Welt einen Unterschied macht.'
+              : 'My long-term goal: bridge research and real, working systems — intelligent vision that makes a difference in the real world.'}
+          </p>
+        </div>
+      </div>
+
+      <!-- Bucket list -->
+      <div class="reveal">
+        <p class="label-mono mb-3">{'> cat bucket_list.txt'}</p>
+        <h2 class="mb-4 text-2xl font-semibold">{t('goals.bucket')}</h2>
+        <ul class="space-y-2.5">
+          {
+            bucket.map((b) => (
+              <li class="flex items-center gap-3 rounded-lg border border-line bg-surface/40 px-4 py-3">
+                <span class:list={['grid h-5 w-5 shrink-0 place-items-center rounded border font-mono text-xs', b.done ? 'border-lime text-lime' : 'border-line text-faint']}>
+                  {b.done ? '✓' : ''}
+                </span>
+                <span class:list={['text-sm', b.done ? 'text-muted line-through' : 'text-text']}>{pick(b.label, lang)}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal mt-16 text-center">
+      <a href={lp('/kontakt')} class="inline-block rounded-lg bg-accent px-6 py-3 font-semibold text-ink transition-[filter] hover:brightness-110">
+        {t('contact.title')}
+      </a>
+    </div>
+  </div>
+</section>

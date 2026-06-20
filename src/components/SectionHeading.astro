@@ -1,0 +1,15 @@
+---
+interface Props {
+  label: string;
+  title: string;
+  lead?: string;
+  id?: string;
+}
+const { label, title, lead, id } = Astro.props;
+---
+
+<div class="reveal mb-12 max-w-2xl" id={id}>
+  <p class="label-mono mb-3">{label}</p>
+  <h2 class="text-3xl font-semibold sm:text-4xl md:text-5xl">{title}</h2>
+  {lead && <p class="mt-4 text-lg text-muted">{lead}</p>}
+</div>

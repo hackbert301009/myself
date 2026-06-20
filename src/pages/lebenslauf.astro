@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import CvPage from '../components/pages/CvPage.astro';
+import { useTranslations } from '../i18n/utils';
+const t = useTranslations('de');
+---
+
+<Base title={`${t('cv.title')} — Albert Heruth`}>
+  <CvPage />
+</Base>

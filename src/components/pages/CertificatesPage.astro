@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import PageHeader from '../PageHeader.astro';
+import { getLangFromUrl, useTranslations, pick } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const certs = (await getCollection('certificates')).sort((a, b) => a.data.order - b.data.order);
+
+const CAT: Record<string, { label: string; cls: string }> = {
+  academic: { label: lang === 'de' ? 'Akademisch' : 'Academic', cls: 'text-iris-soft border-iris/40' },
+  ml: { label: 'ML / AI', cls: 'text-accent border-accent/40' },
+  linux: { label: 'Linux', cls: 'text-lime border-lime/40' },
+  security: { label: 'Security', cls: 'text-accent-soft border-accent/30' },
+  network: { label: 'Network', cls: 'text-muted border-line-strong' },
+  dev: { label: 'Dev', cls: 'text-muted border-line-strong' },
+};
+---
+
+<PageHeader label={t('certs.label')} title={t('certs.title')} lead={t('certs.lead')} />
+
+<section class="py-16">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        certs.map((cert) => {
+          const c = CAT[cert.data.category] ?? CAT.dev;
+          const hasImg = !!cert.data.image;
+          return (
+            <article class:list={['card group flex flex-col overflow-hidden p-0 reveal', hasImg ? 'cert-clickable cursor-zoom-in' : '']}>
+              {hasImg && (
+                <div class="relative aspect-[4/3] overflow-hidden border-b border-line bg-ink">
+                  <Image
+                    src={cert.data.image!}
+                    alt={pick(cert.data.title, lang)}
+                    widths={[300, 600]}
+                    class="cert-img h-full w-full object-cover opacity-80 transition-opacity group-hover:opacity-100"
+                  />
+                  <span class="absolute right-2 top-2 rounded-md bg-ink/70 px-2 py-1 font-mono text-[0.6rem] text-muted opacity-0 transition-opacity group-hover:opacity-100">⤢ zoom</span>
+                </div>
+              )}
+              <div class="flex flex-1 flex-col p-5">
+                <div class="mb-2 flex items-center justify-between gap-2">
+                  <span class={`label-mono rounded-md border px-2 py-1 !text-[0.58rem] ${c.cls}`}>{c.label}</span>
+                  <span class="font-mono text-xs text-faint">{cert.data.year}</span>
+                </div>
+                <h3 class="font-semibold text-text">
+                  {pick(cert.data.title, lang)}
+                  {cert.data.needsConfirmation && <span class="ml-1 font-mono text-[0.6rem] text-iris-soft" title="zu bestätigen">ⓘ</span>}
+                </h3>
+                <p class="mt-1 text-sm text-muted">{cert.data.issuer}</p>
+                {cert.data.credentialUrl && (
+                  <a href={cert.data.credentialUrl} rel="noopener" class="mt-3 font-mono text-xs text-muted transition-colors hover:text-accent">
+                    → verify
+                  </a>
+                )}
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-ink/90 p-6 backdrop-blur-sm">
+  <button id="lightbox-close" class="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-lg border border-line text-muted hover:text-text" aria-label="Close">✕</button>
+  <img id="lightbox-img" class="max-h-[90vh] max-w-[90vw] rounded-lg border border-line-strong object-contain" alt="" />
+</div>
+
+<script>
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img') as HTMLImageElement | null;
+  const open = (src: string) => {
+    if (!lb || !lbImg) return;
+    lbImg.src = src;
+    lb.classList.remove('hidden');
+    lb.classList.add('flex');
+  };
+  const close = () => {
+    lb?.classList.add('hidden');
+    lb?.classList.remove('flex');
+  };
+  document.querySelectorAll<HTMLElement>('.cert-clickable').forEach((card) => {
+    card.addEventListener('click', () => {
+      const img = card.querySelector<HTMLImageElement>('.cert-img');
+      if (img) open(img.currentSrc || img.src);
+    });
+  });
+  document.getElementById('lightbox-close')?.addEventListener('click', close);
+  lb?.addEventListener('click', (e) => {
+    if (e.target === lb) close();
+  });
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && close());
+</script>

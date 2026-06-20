@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { pick } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  lang: Lang;
+  featured?: boolean;
+}
+const { project, lang, featured = false } = Astro.props;
+const { title, summary, category, tech, year, repo, demo, cover, status, needsConfirmation } =
+  project.data;
+
+const CATEGORY: Record<string, { label: string; cls: string }> = {
+  cv: { label: 'Computer Vision', cls: 'text-accent border-accent/40' },
+  ml: { label: 'Machine Learning', cls: 'text-iris-soft border-iris/40' },
+  embedded: { label: 'Embedded / IoT', cls: 'text-lime border-lime/40' },
+  web: { label: 'Web / App', cls: 'text-accent-soft border-accent/30' },
+  security: { label: 'Security', cls: 'text-iris-soft border-iris/40' },
+  systems: { label: 'Systems / DevOps', cls: 'text-muted border-line-strong' },
+};
+const cat = CATEGORY[category] ?? CATEGORY.systems;
+---
+
+<article
+  class:list={[
+    'card reveal group flex flex-col overflow-hidden p-0',
+    featured ? 'md:col-span-2' : '',
+  ]}
+>
+  {
+    cover && (
+      <div class="relative aspect-[16/9] overflow-hidden border-b border-line">
+        <Image
+          src={cover}
+          alt={title}
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          class="h-full w-full object-cover opacity-85 transition-[transform,opacity] duration-700 group-hover:scale-[1.04] group-hover:opacity-100"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+      </div>
+    )
+  }
+
+  <div class="flex flex-1 flex-col p-6">
+    <div class="mb-3 flex items-center justify-between gap-3">
+      <span class={`label-mono rounded-md border px-2 py-1 !text-[0.6rem] ${cat.cls}`}>
+        {cat.label}
+      </span>
+      <span class="font-mono text-xs text-faint">{year}</span>
+    </div>
+
+    <h3 class="text-xl font-semibold text-text">
+      {title}
+      {
+        needsConfirmation && (
+          <span
+            class="ml-2 align-middle font-mono text-[0.6rem] font-normal text-iris-soft"
+            title="Inhalt muss noch bestätigt werden"
+          >
+            ⓘ
+          </span>
+        )
+      }
+    </h3>
+
+    <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{pick(summary, lang)}</p>
+
+    <div class="mt-4 flex flex-wrap gap-1.5">
+      {
+        tech.slice(0, 5).map((tag) => (
+          <span class="rounded-md bg-surface-2 px-2 py-0.5 font-mono text-[0.65rem] text-faint">
+            {tag}
+          </span>
+        ))
+      }
+    </div>
+
+    {
+      (repo || demo) && (
+        <div class="mt-5 flex gap-4 border-t border-line pt-4 font-mono text-xs">
+          {repo && (
+            <a href={repo} rel="noopener" class="text-muted transition-colors hover:text-accent">
+              → code
+            </a>
+          )}
+          {demo && (
+            <a href={demo} rel="noopener" class="text-muted transition-colors hover:text-accent">
+              → demo
+            </a>
+          )}
+          <span class="ml-auto text-faint">{status}</span>
+        </div>
+      )
+    }
+  </div>
+</article>

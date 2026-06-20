@@ -1,0 +1,213 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="relative flex min-h-[100svh] items-center overflow-hidden">
+  <!-- Three.js neural field -->
+  <canvas id="hero-canvas" class="absolute inset-0 -z-10 h-full w-full"></canvas>
+  <!-- Hairline grid + vignette overlays -->
+  <div class="grid-backdrop pointer-events-none absolute inset-0 -z-10 opacity-60"></div>
+  <div
+    class="pointer-events-none absolute inset-0 -z-10"
+    style="background: radial-gradient(60% 50% at 50% 40%, transparent 40%, var(--color-ink) 100%);"
+  >
+  </div>
+
+  <div class="mx-auto w-full max-w-6xl px-5 pt-28 pb-16">
+    <div class="max-w-3xl">
+      <div class="reveal mb-6 inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/60 px-4 py-1.5 backdrop-blur">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-70"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-lime"></span>
+        </span>
+        <span class="label-mono !text-muted !tracking-[0.2em]">{t('hero.status')}</span>
+      </div>
+
+      <p class="reveal label-mono mb-4">{t('hero.role')}</p>
+
+      <h1 class="reveal text-5xl font-semibold leading-[1.02] sm:text-6xl md:text-7xl">
+        <span class="block text-text">{t('hero.title.1')}</span>
+        <span class="block text-gradient">{t('hero.title.2')}</span>
+      </h1>
+
+      <p class="reveal mt-7 max-w-xl text-lg leading-relaxed text-muted" style="transition-delay:.08s">
+        {t('hero.lead')}
+      </p>
+
+      <div class="reveal mt-9 flex flex-wrap gap-3" style="transition-delay:.16s">
+        <a
+          href="#projects"
+          class="rounded-lg bg-accent px-6 py-3 font-semibold text-ink transition-[filter] hover:brightness-110"
+        >
+          {t('hero.cta.work')}
+        </a>
+        <a
+          href="#contact"
+          class="rounded-lg border border-line-strong px-6 py-3 font-medium text-text transition-colors hover:border-accent hover:text-accent"
+        >
+          {t('hero.cta.contact')}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="pointer-events-none absolute bottom-7 left-1/2 -translate-x-1/2">
+    <div class="h-9 w-5 rounded-full border border-line-strong p-1">
+      <div class="mx-auto h-2 w-1 animate-bounce rounded-full bg-accent"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import * as THREE from 'three';
+
+  const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement | null;
+  if (canvas) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+    camera.position.z = 18;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // ── Build a neural point field ──────────────────────────────
+    const COUNT = window.innerWidth < 640 ? 90 : 150;
+    const RADIUS = 11;
+    const positions: THREE.Vector3[] = [];
+    for (let i = 0; i < COUNT; i++) {
+      // Distribute points in a slightly flattened sphere.
+      const u = Math.random();
+      const v = Math.random();
+      const theta = 2 * Math.PI * u;
+      const phi = Math.acos(2 * v - 1);
+      const r = RADIUS * Math.cbrt(Math.random());
+      positions.push(
+        new THREE.Vector3(
+          r * Math.sin(phi) * Math.cos(theta),
+          r * Math.sin(phi) * Math.sin(theta) * 0.7,
+          r * Math.cos(phi),
+        ),
+      );
+    }
+
+    // Round sprite texture for the nodes.
+    const sprite = (() => {
+      const c = document.createElement('canvas');
+      c.width = c.height = 64;
+      const ctx = c.getContext('2d')!;
+      const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      g.addColorStop(0, 'rgba(255,255,255,1)');
+      g.addColorStop(0.3, 'rgba(160,230,255,0.9)');
+      g.addColorStop(1, 'rgba(160,230,255,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 64, 64);
+      return new THREE.CanvasTexture(c);
+    })();
+
+    const pointsGeo = new THREE.BufferGeometry().setFromPoints(positions);
+    const colorCyan = new THREE.Color('#67e8f9');
+    const colorIris = new THREE.Color('#a78bfa');
+    const colorArr = new Float32Array(COUNT * 3);
+    for (let i = 0; i < COUNT; i++) {
+      const c = Math.random() > 0.5 ? colorCyan : colorIris;
+      colorArr[i * 3] = c.r;
+      colorArr[i * 3 + 1] = c.g;
+      colorArr[i * 3 + 2] = c.b;
+    }
+    pointsGeo.setAttribute('color', new THREE.BufferAttribute(colorArr, 3));
+    const pointsMat = new THREE.PointsMaterial({
+      size: 0.55,
+      map: sprite,
+      vertexColors: true,
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    });
+    const points = new THREE.Points(pointsGeo, pointsMat);
+
+    // ── Connect nearby points with faint lines ──────────────────
+    const linePositions: number[] = [];
+    const THRESH = 4.2;
+    for (let i = 0; i < COUNT; i++) {
+      for (let j = i + 1; j < COUNT; j++) {
+        if (positions[i].distanceTo(positions[j]) < THRESH) {
+          linePositions.push(
+            positions[i].x, positions[i].y, positions[i].z,
+            positions[j].x, positions[j].y, positions[j].z,
+          );
+        }
+      }
+    }
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+    const lineMat = new THREE.LineBasicMaterial({
+      color: new THREE.Color('#22d3ee'),
+      transparent: true,
+      opacity: 0.14,
+      blending: THREE.AdditiveBlending,
+    });
+    const lines = new THREE.LineSegments(lineGeo, lineMat);
+
+    const group = new THREE.Group();
+    group.add(points, lines);
+    scene.add(group);
+
+    // ── Resize ──────────────────────────────────────────────────
+    const resize = () => {
+      const w = canvas.clientWidth || window.innerWidth;
+      const h = canvas.clientHeight || window.innerHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    // ── Pointer parallax ────────────────────────────────────────
+    const target = { x: 0, y: 0 };
+    window.addEventListener(
+      'pointermove',
+      (e) => {
+        target.x = (e.clientX / window.innerWidth - 0.5) * 0.6;
+        target.y = (e.clientY / window.innerHeight - 0.5) * 0.6;
+      },
+      { passive: true },
+    );
+
+    // ── Animate (pause when offscreen) ──────────────────────────
+    let raf = 0;
+    let visible = true;
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !reduced) loop();
+    });
+    io.observe(canvas);
+
+    let t = 0;
+    const render = () => {
+      group.rotation.y += 0.0012;
+      group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, target.y, 0.04);
+      group.rotation.z = THREE.MathUtils.lerp(group.rotation.z, target.x * 0.3, 0.04);
+      t += 0.01;
+      group.position.y = Math.sin(t) * 0.4;
+      renderer.render(scene, camera);
+    };
+    const loop = () => {
+      if (!visible || reduced) return;
+      render();
+      raf = requestAnimationFrame(loop);
+    };
+
+    if (reduced) {
+      render(); // single static frame
+    } else {
+      loop();
+    }
+  }
+</script>

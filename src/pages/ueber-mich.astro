@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import AboutPage from '../components/pages/AboutPage.astro';
+import { useTranslations } from '../i18n/utils';
+const t = useTranslations('de');
+---
+
+<Base title={`${t('nav.about')} — Albert Heruth`}>
+  <AboutPage />
+</Base>

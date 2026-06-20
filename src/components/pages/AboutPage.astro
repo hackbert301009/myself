@@ -1,0 +1,115 @@
+---
+import { Image } from 'astro:assets';
+import PageHeader from '../PageHeader.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import profileImg from '../../assets/profile.png';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const skills = [
+  'Computer Vision', 'PyTorch', 'OpenCV', 'Python', 'Machine Learning', 'Deep Learning',
+  'Angewandte Mathematik', 'C / C++', 'ESP32 / Arduino', 'Raspberry Pi', 'Flask / FastAPI',
+  'Streamlit', 'Linux', 'Docker', 'Kotlin / Android', 'Git',
+];
+
+// Terminal lines (DE/EN)
+const term = lang === 'de'
+  ? [
+      { cmd: 'whoami', out: ['albert heruth — ai & computer-vision engineer'] },
+      { cmd: 'cat fokus.txt', out: ['computer vision · neuronale netze', 'embedded systems · angewandte mathematik'] },
+      { cmd: 'uptime', out: ['läuft seit 2009 · load: neugier hoch'] },
+      { cmd: './status.sh', out: ['[ok] verfügbar für projekte'] },
+    ]
+  : [
+      { cmd: 'whoami', out: ['albert heruth — ai & computer-vision engineer'] },
+      { cmd: 'cat focus.txt', out: ['computer vision · neural networks', 'embedded systems · applied mathematics'] },
+      { cmd: 'uptime', out: ['running since 2009 · load: curiosity high'] },
+      { cmd: './status.sh', out: ['[ok] available for projects'] },
+    ];
+---
+
+<PageHeader label={t('about.label')} title={t('about.title')} />
+
+<section class="py-16">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="grid items-start gap-12 lg:grid-cols-[1fr_1.3fr]">
+      <!-- Profile + terminal -->
+      <div class="reveal space-y-6">
+        <div class="relative mx-auto w-full max-w-xs">
+          <div
+            class="absolute -inset-3 -z-10 rounded-3xl opacity-40 blur-2xl"
+            style="background: conic-gradient(from 120deg, var(--color-iris), var(--color-accent), var(--color-iris));"
+          >
+          </div>
+          <div class="overflow-hidden rounded-2xl border border-line-strong">
+            <Image src={profileImg} alt="Albert Heruth" widths={[320, 480]} class="w-full" />
+          </div>
+        </div>
+
+        <div class="overflow-hidden rounded-xl border border-line bg-ink/80">
+          <div class="flex items-center gap-2 border-b border-line px-4 py-2.5 font-mono text-xs text-faint">
+            <span class="h-2.5 w-2.5 rounded-full" style="background:#ff5f57"></span>
+            <span class="h-2.5 w-2.5 rounded-full" style="background:#febc2e"></span>
+            <span class="h-2.5 w-2.5 rounded-full" style="background:#28c840"></span>
+            <span class="ml-2">root@hackbert:~/about</span>
+          </div>
+          <pre id="terminal" class="min-h-[10rem] whitespace-pre-wrap p-4 font-mono text-[0.8rem] leading-relaxed text-muted"></pre>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="reveal space-y-6">
+        <p class="text-lg leading-relaxed text-muted">{t('about.p1')}</p>
+        <p class="text-lg leading-relaxed text-muted">{t('about.p2')}</p>
+
+        <div class="rounded-xl border-l-2 border-accent bg-surface/40 p-5">
+          <p class="label-mono mb-2">{t('about.philosophy')}</p>
+          <p class="text-text">{t('about.philosophy.p')}</p>
+        </div>
+
+        <div>
+          <p class="label-mono mb-3 !text-faint">{t('about.skills')}</p>
+          <div class="flex flex-wrap gap-2">
+            {
+              skills.map((s) => (
+                <span class="rounded-lg border border-line bg-surface/60 px-3 py-1.5 font-mono text-xs text-muted">
+                  {s}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ term }}>
+  const el = document.getElementById('terminal');
+  if (el && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let html = '';
+    const prompt = '<span style="color:var(--color-accent)">$</span> ';
+    const type = async (text) => {
+      for (const ch of text) {
+        html += ch;
+        el.innerHTML = html + '<span style="opacity:.6">▋</span>';
+        await new Promise((r) => setTimeout(r, 22));
+      }
+    };
+    (async () => {
+      for (const line of term) {
+        html += prompt;
+        await type(line.cmd);
+        html += '\n';
+        for (const o of line.out) html += '<span style="color:var(--color-text)">' + o + '</span>\n';
+        html += '\n';
+        el.innerHTML = html;
+        await new Promise((r) => setTimeout(r, 350));
+      }
+      el.innerHTML = html.replace(/\n$/, '');
+    })();
+  } else if (el) {
+    el.innerHTML = term.map((l) => '$ ' + l.cmd + '\n' + l.out.join('\n')).join('\n\n');
+  }
+</script>

@@ -1,0 +1,130 @@
+---
+import PageHeader from '../PageHeader.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const socials = [
+  { href: 'https://github.com/hackbert301009', label: 'GitHub', handle: '@hackbert301009' },
+  { href: 'https://www.linkedin.com/in/albert-heruth-37aa74379/', label: 'LinkedIn', handle: 'Albert Heruth' },
+  { href: 'mailto:albert.heruth@gmail.com', label: 'E-Mail', handle: 'albert.heruth@gmail.com' },
+];
+---
+
+<PageHeader label={t('contact.label')} title={t('contact.title')} lead={t('contact.lead')} />
+
+<section class="py-16">
+  <div class="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[1.3fr_1fr]">
+    <!-- AJAX form (stays on page) -->
+    <form
+      id="contact-form"
+      action="https://formspree.io/f/xeolbyyz"
+      method="POST"
+      class="reveal grid gap-4"
+    >
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="block">
+          <span class="label-mono mb-2 block !text-faint">{t('contact.name')}</span>
+          <input
+            type="text"
+            name="name"
+            required
+            class="w-full rounded-lg border border-line bg-surface px-4 py-3 text-text outline-none transition-colors placeholder:text-faint focus:border-accent"
+          />
+        </label>
+        <label class="block">
+          <span class="label-mono mb-2 block !text-faint">{t('contact.email')}</span>
+          <input
+            type="email"
+            name="email"
+            required
+            class="w-full rounded-lg border border-line bg-surface px-4 py-3 text-text outline-none transition-colors placeholder:text-faint focus:border-accent"
+          />
+        </label>
+      </div>
+      <label class="block">
+        <span class="label-mono mb-2 block !text-faint">{t('contact.message')}</span>
+        <textarea
+          name="message"
+          required
+          rows="6"
+          class="w-full rounded-lg border border-line bg-surface px-4 py-3 text-text outline-none transition-colors placeholder:text-faint focus:border-accent"
+        ></textarea>
+      </label>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <button
+          type="submit"
+          id="submit-btn"
+          class="rounded-lg bg-accent px-6 py-3 font-semibold text-ink transition-[filter] hover:brightness-110 disabled:opacity-60"
+        >
+          {t('contact.send')}
+        </button>
+        <p id="form-status" class="font-mono text-sm" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <!-- Direct channels -->
+    <aside class="reveal">
+      <p class="label-mono mb-5 !text-faint">{t('contact.elsewhere')}</p>
+      <div class="flex flex-col gap-3">
+        {
+          socials.map((s) => (
+            <a
+              href={s.href}
+              rel="me noopener"
+              class="card group flex items-center justify-between p-4"
+            >
+              <span>
+                <span class="block text-sm font-semibold text-text">{s.label}</span>
+                <span class="font-mono text-xs text-muted">{s.handle}</span>
+              </span>
+              <span class="text-faint transition-colors group-hover:text-accent">→</span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="mt-6 rounded-lg border border-line bg-surface/40 p-4 font-mono text-xs text-faint">
+        <span class="text-accent">●</span> {t('hero.status')}<br />
+        <span class="text-muted">Deutschland / Remote</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script is:inline define:vars={{ sending: t('contact.sending'), ok: t('contact.success'), err: t('contact.error'), sendLabel: t('contact.send') }}>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  const btn = document.getElementById('submit-btn');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!status || !btn) return;
+    btn.disabled = true;
+    status.textContent = sending;
+    status.className = 'font-mono text-sm text-muted';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        form.reset();
+        status.textContent = ok;
+        status.className = 'font-mono text-sm text-lime';
+      } else {
+        const data = await res.json().catch(() => ({}));
+        status.textContent = data?.errors?.[0]?.message || err;
+        status.className = 'font-mono text-sm text-iris-soft';
+      }
+    } catch {
+      status.textContent = err;
+      status.className = 'font-mono text-sm text-iris-soft';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = sendLabel;
+    }
+  });
+</script>

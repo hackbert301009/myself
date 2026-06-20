@@ -1,0 +1,95 @@
+---
+import { getCollection } from 'astro:content';
+import PageHeader from '../PageHeader.astro';
+import { getLangFromUrl, useTranslations, pick } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const labs = (await getCollection('labs')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<PageHeader label={t('labs.label')} title={t('labs.title')} lead={t('labs.lead')} />
+
+<section class="py-14">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="grid gap-6 lg:grid-cols-2">
+      {
+        labs.map((lab) => {
+          const { title, summary, kind, embed, link, tech, needsCamera } = lab.data;
+          return (
+            <article class="card reveal flex flex-col overflow-hidden p-0">
+              <div class="flex items-center justify-between border-b border-line px-5 py-3">
+                <div class="flex items-center gap-2 font-mono text-xs text-faint">
+                  <span class="h-2.5 w-2.5 rounded-full bg-danger/60" style="background:#ff5f57" />
+                  <span class="h-2.5 w-2.5 rounded-full" style="background:#febc2e" />
+                  <span class="h-2.5 w-2.5 rounded-full" style="background:#28c840" />
+                  <span class="ml-2">{kind === 'browser' ? embed : 'link'}</span>
+                </div>
+                {needsCamera && <span class="label-mono !text-iris-soft !text-[0.58rem]">{t('labs.camera')}</span>}
+              </div>
+
+              {kind === 'browser' ? (
+                <div class="lab-embed relative aspect-video bg-ink" data-embed={embed}>
+                  <button class="lab-launch group absolute inset-0 grid place-items-center">
+                    <span class="pointer-events-none flex flex-col items-center gap-3">
+                      <span class="grid h-16 w-16 place-items-center rounded-full border border-accent/50 bg-accent/10 transition-transform group-hover:scale-110">
+                        <svg class="h-7 w-7 translate-x-0.5 text-accent" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </span>
+                      <span class="font-mono text-sm text-text">{t('labs.launch')}</span>
+                      <span class="font-mono text-[0.65rem] text-faint">{t('labs.privacy')}</span>
+                    </span>
+                  </button>
+                </div>
+              ) : (
+                <div class="grid aspect-video place-items-center bg-gradient-to-br from-surface-2 to-ink">
+                  <a href={link} rel="noopener" class="flex flex-col items-center gap-3">
+                    <span class="grid h-16 w-16 place-items-center rounded-full border border-iris/50 bg-iris/10">
+                      <svg class="h-7 w-7 text-iris-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </span>
+                    <span class="font-mono text-sm text-text">{kind === 'repo' ? 'GitHub →' : t('labs.fullscreen')}</span>
+                  </a>
+                </div>
+              )}
+
+              <div class="flex flex-1 flex-col p-5">
+                <h3 class="font-display text-lg font-semibold text-text">{title}</h3>
+                <p class="mt-2 flex-1 text-sm text-muted">{pick(summary, lang)}</p>
+                <div class="mt-4 flex flex-wrap items-center gap-1.5">
+                  {tech.map((tg) => (
+                    <span class="rounded-md bg-surface-2 px-2 py-0.5 font-mono text-[0.65rem] text-faint">{tg}</span>
+                  ))}
+                  {kind === 'browser' && (
+                    <a href={embed} rel="noopener" class="ml-auto font-mono text-xs text-muted transition-colors hover:text-accent">
+                      {t('labs.fullscreen')} →
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // Inject the iframe only on click, so multiple camera demos don't all start at once.
+  document.querySelectorAll<HTMLElement>('.lab-embed').forEach((box) => {
+    const btn = box.querySelector('.lab-launch');
+    btn?.addEventListener('click', () => {
+      const src = box.dataset.embed;
+      if (!src) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.allow = 'camera; microphone; autoplay';
+      iframe.className = 'absolute inset-0 h-full w-full border-0';
+      iframe.setAttribute('loading', 'lazy');
+      box.replaceChildren(iframe);
+    });
+  });
+</script>

@@ -1,0 +1,160 @@
+---
+import { getCollection } from 'astro:content';
+import Hero from '../Hero.astro';
+import ProjectCard from '../ProjectCard.astro';
+import { getLangFromUrl, useTranslations, localizedPath, pick } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const lp = (p: string) => localizedPath(p, lang);
+
+const allProjects = await getCollection('projects');
+const featured = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+const labs = (await getCollection('labs')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
+const posts = (await getCollection('posts'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const domains = [
+  { key: 'cv', icon: 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z|M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z', accent: 'text-accent' },
+  { key: 'embedded', icon: 'M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2|M5 5h14v14H5z|M9 9h6v6H9z', accent: 'text-lime' },
+  { key: 'systems', icon: 'M3 4h18v6H3zM3 14h18v6H3z|M7 7h.01M7 17h.01', accent: 'text-iris-soft' },
+  { key: 'security', icon: 'M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-4Z', accent: 'text-accent-soft' },
+];
+
+const stats = [
+  { v: String(allProjects.length) + '+', k: t('home.stats.projects') },
+  { v: '22', k: t('home.stats.repos') },
+  { v: '4', k: t('home.stats.domains') },
+];
+---
+
+<Hero />
+
+<!-- STATS BAR -->
+<section class="border-y border-line bg-surface/30">
+  <div class="mx-auto grid max-w-6xl grid-cols-3 divide-x divide-line px-5">
+    {
+      stats.map((s) => (
+        <div class="reveal flex flex-col items-center gap-1 py-7">
+          <span class="font-display text-3xl font-semibold text-text sm:text-4xl">{s.v}</span>
+          <span class="label-mono !text-faint !tracking-[0.18em]">{s.k}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<!-- DOMAINS -->
+<section class="py-24 sm:py-28">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="reveal mb-12 max-w-2xl">
+      <p class="label-mono mb-3">// ls ./expertise</p>
+      <h2 class="text-3xl font-semibold sm:text-4xl">{t('home.explore')}</h2>
+      <p class="mt-4 text-lg text-muted">{t('home.explore.lead')}</p>
+    </div>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        domains.map((d) => (
+          <a href={lp('/projekte')} class="card reveal group flex flex-col gap-4 p-6">
+            <svg class:list={['h-8 w-8', d.accent]} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              {d.icon.split('|').map((p) => (
+                <path d={p} stroke-linecap="round" stroke-linejoin="round" />
+              ))}
+            </svg>
+            <div>
+              <h3 class="font-display text-lg font-semibold text-text">{t(`domains.${d.key}` as any)}</h3>
+              <p class="mt-1.5 text-sm text-muted">{t(`domains.${d.key}.desc` as any)}</p>
+            </div>
+            <span class="mt-auto font-mono text-xs text-accent opacity-0 transition-opacity group-hover:opacity-100">
+              → {t('nav.projects')}
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS -->
+<section class="border-t border-line py-24 sm:py-28">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="reveal mb-12 flex flex-wrap items-end justify-between gap-4">
+      <div class="max-w-2xl">
+        <p class="label-mono mb-3">// featured</p>
+        <h2 class="text-3xl font-semibold sm:text-4xl">{t('home.featured')}</h2>
+        <p class="mt-4 text-lg text-muted">{t('home.featured.lead')}</p>
+      </div>
+      <a href={lp('/projekte')} class="rounded-lg border border-line-strong px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-accent hover:text-accent">
+        {t('home.viewall')} →
+      </a>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+      {featured.map((project) => <ProjectCard project={project} lang={lang} />)}
+    </div>
+  </div>
+</section>
+
+<!-- LABS TEASER -->
+<section class="relative overflow-hidden border-t border-line bg-surface/30 py-24 sm:py-28">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="reveal mb-12 flex flex-wrap items-end justify-between gap-4">
+      <div class="max-w-2xl">
+        <p class="label-mono mb-3">// ./run_experiment</p>
+        <h2 class="text-3xl font-semibold sm:text-4xl">{t('home.labs.title')}</h2>
+        <p class="mt-4 text-lg text-muted">{t('home.labs.lead')}</p>
+      </div>
+      <a href={lp('/labs')} class="rounded-lg border border-line-strong px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-accent hover:text-accent">
+        {t('nav.labs')} →
+      </a>
+    </div>
+    <div class="grid gap-5 sm:grid-cols-3">
+      {
+        labs.map((l) => (
+          <a href={lp('/labs')} class="card reveal group flex flex-col gap-3 p-6">
+            <span class="label-mono !text-iris-soft">{l.data.tech[0]}</span>
+            <h3 class="font-display text-lg font-semibold text-text">{l.data.title}</h3>
+            <p class="text-sm text-muted">{pick(l.data.summary, lang)}</p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- LATEST NEWS -->
+{
+  posts.length > 0 && (
+    <section class="border-t border-line py-24 sm:py-28">
+      <div class="mx-auto max-w-6xl px-5">
+        <div class="reveal mb-12 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="label-mono mb-3">// tail aktuelles.log</p>
+            <h2 class="text-3xl font-semibold sm:text-4xl">{t('home.news.title')}</h2>
+          </div>
+          <a href={lp('/aktuelles')} class="rounded-lg border border-line-strong px-5 py-2.5 text-sm font-medium text-text transition-colors hover:border-accent hover:text-accent">
+            {t('nav.news')} →
+          </a>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          {posts.map((post) => (
+            <a href={lp(`/aktuelles/${post.id}`)} class="card reveal group flex flex-col gap-3 p-6">
+              <div class="flex items-center justify-between">
+                <span class="label-mono !text-accent">{post.data.category}</span>
+                <span class="font-mono text-xs text-faint">
+                  {post.data.date.toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-US')}
+                </span>
+              </div>
+              <h3 class="font-display text-lg font-semibold text-text">{pick(post.data.title, lang)}</h3>
+              <p class="text-sm text-muted">{pick(post.data.excerpt, lang)}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

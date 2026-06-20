@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import ContactPage from '../components/pages/ContactPage.astro';
+import { useTranslations } from '../i18n/utils';
+const t = useTranslations('de');
+---
+
+<Base title={`${t('nav.contact')} — Albert Heruth`}>
+  <ContactPage />
+</Base>

@@ -1,0 +1,167 @@
+@import 'tailwindcss';
+
+/* Self-hosted variable fonts */
+@import '@fontsource-variable/space-grotesk';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+/*
+  ─────────────────────────────────────────────────────────────
+  DESIGN SYSTEM — "Neural Lab"
+  A sophisticated dark interface for an AI / Computer-Vision engineer.
+  Signature duotone: electric cyan ↔ iris violet, on deep blue-black.
+  Mono micro-labels nod to the systems/hacker roots.
+  ─────────────────────────────────────────────────────────────
+*/
+@theme {
+  /* Canvas & surfaces */
+  --color-ink: #070a12;
+  --color-surface: #0d1320;
+  --color-surface-2: #131b2c;
+  --color-line: rgba(150, 170, 210, 0.12);
+  --color-line-strong: rgba(150, 170, 210, 0.22);
+
+  /* Text */
+  --color-text: #e7ecf5;
+  --color-muted: #9aa6be;
+  --color-faint: #5c6781;
+
+  /* Signal colors */
+  --color-accent: #22d3ee; /* cyan */
+  --color-accent-soft: #67e8f9;
+  --color-iris: #8b5cf6; /* violet */
+  --color-iris-soft: #a78bfa;
+  --color-lime: #a3e635; /* sparse positive highlight */
+
+  /* Typography */
+  --font-display: 'Space Grotesk Variable', system-ui, sans-serif;
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    color: #fff;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  /* Thin custom scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-ink); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-2);
+    border-radius: 999px;
+    border: 2px solid var(--color-ink);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-line-strong); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Mono label — small uppercase technical caption used throughout */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* Gradient text for hero emphasis */
+  .text-gradient {
+    background: linear-gradient(105deg, var(--color-accent-soft) 0%, #fff 40%, var(--color-iris-soft) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Glass card */
+  .card {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--color-surface) 92%, transparent), var(--color-ink));
+    border: 1px solid var(--color-line);
+    border-radius: 1rem;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+  }
+  .card:hover {
+    border-color: var(--color-line-strong);
+    transform: translateY(-3px);
+  }
+
+  /* Hairline grid backdrop */
+  .grid-backdrop {
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  }
+
+  /* Article prose (markdown bodies) */
+  .prose {
+    color: var(--color-muted);
+    line-height: 1.75;
+  }
+  .prose > * + * { margin-top: 1.25rem; }
+  .prose h2 { color: var(--color-text); font-size: 1.5rem; margin-top: 2.5rem; }
+  .prose h3 { color: var(--color-text); font-size: 1.2rem; margin-top: 2rem; }
+  .prose strong { color: var(--color-text); font-weight: 600; }
+  .prose a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+  .prose code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--color-surface-2);
+    padding: 0.15em 0.4em;
+    border-radius: 0.35rem;
+  }
+  .prose ul { list-style: disc; padding-left: 1.4rem; }
+  .prose em { color: var(--color-faint); }
+
+  /* Reveal-on-scroll (driven by IntersectionObserver in Base layout) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}

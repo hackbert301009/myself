@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import GoalsPage from '../components/pages/GoalsPage.astro';
+import { useTranslations } from '../i18n/utils';
+const t = useTranslations('de');
+---
+
+<Base title={`${t('goals.title')} — Albert Heruth`}>
+  <GoalsPage />
+</Base>
