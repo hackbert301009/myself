@@ -6,50 +6,46 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const socials = [
-  { href: 'https://github.com/hackbert301009', label: 'GitHub', handle: '@hackbert301009' },
-  { href: 'https://www.linkedin.com/in/albert-heruth-37aa74379/', label: 'LinkedIn', handle: 'Albert Heruth' },
-  { href: 'mailto:albert.heruth@gmail.com', label: 'E-Mail', handle: 'albert.heruth@gmail.com' },
+  { href: 'https://github.com/hackbert301009', label: 'GitHub', handle: '@hackbert301009', ext: true },
+  { href: 'https://www.linkedin.com/in/albert-heruth-37aa74379/', label: 'LinkedIn', handle: 'Albert Heruth', ext: true },
+  { href: 'mailto:albert.heruth@gmail.com', label: t('contact.email'), handle: 'albert.heruth@gmail.com', ext: false },
+  { href: 'tel:+4915204277531', label: t('contact.phone'), handle: '015204277531', ext: false },
 ];
 ---
 
 <PageHeader label={t('contact.label')} title={t('contact.title')} lead={t('contact.lead')} />
 
-<section class="py-16">
-  <div class="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[1.3fr_1fr]">
+<section class="pb-28">
+  <div class="mx-auto grid max-w-5xl gap-12 px-5 lg:grid-cols-[1.3fr_1fr]">
     <!-- AJAX form (stays on page) -->
-    <form
-      id="contact-form"
-      action="https://formspree.io/f/xeolbyyz"
-      method="POST"
-      class="reveal grid gap-4"
-    >
+    <form id="contact-form" action="https://formspree.io/f/xeolbyyz" method="POST" class="reveal grid gap-4">
       <div class="grid gap-4 sm:grid-cols-2">
         <label class="block">
-          <span class="label-mono mb-2 block !text-faint">{t('contact.name')}</span>
+          <span class="mb-2 block text-sm font-medium text-text">{t('contact.name')}</span>
           <input
             type="text"
             name="name"
             required
-            class="w-full rounded-lg border border-line bg-surface px-4 py-3 text-text outline-none transition-colors placeholder:text-faint focus:border-accent"
+            class="w-full rounded-xl border border-line bg-surface px-4 py-3 text-text outline-none transition-[border-color,box-shadow] placeholder:text-faint focus:border-accent focus:ring-2 focus:ring-accent/30"
           />
         </label>
         <label class="block">
-          <span class="label-mono mb-2 block !text-faint">{t('contact.email')}</span>
+          <span class="mb-2 block text-sm font-medium text-text">{t('contact.email')}</span>
           <input
             type="email"
             name="email"
             required
-            class="w-full rounded-lg border border-line bg-surface px-4 py-3 text-text outline-none transition-colors placeholder:text-faint focus:border-accent"
+            class="w-full rounded-xl border border-line bg-surface px-4 py-3 text-text outline-none transition-[border-color,box-shadow] placeholder:text-faint focus:border-accent focus:ring-2 focus:ring-accent/30"
           />
         </label>
       </div>
       <label class="block">
-        <span class="label-mono mb-2 block !text-faint">{t('contact.message')}</span>
+        <span class="mb-2 block text-sm font-medium text-text">{t('contact.message')}</span>
         <textarea
           name="message"
           required
           rows="6"
-          class="w-full rounded-lg border border-line bg-surface px-4 py-3 text-text outline-none transition-colors placeholder:text-faint focus:border-accent"
+          class="w-full rounded-xl border border-line bg-surface px-4 py-3 text-text outline-none transition-[border-color,box-shadow] placeholder:text-faint focus:border-accent focus:ring-2 focus:ring-accent/30"
         ></textarea>
       </label>
 
@@ -57,37 +53,38 @@ const socials = [
         <button
           type="submit"
           id="submit-btn"
-          class="rounded-lg bg-accent px-6 py-3 font-semibold text-ink transition-[filter] hover:brightness-110 disabled:opacity-60"
+          class="press rounded-full bg-accent px-6 py-3 text-sm font-medium text-white transition-[filter] hover:brightness-110 disabled:opacity-60"
         >
           {t('contact.send')}
         </button>
-        <p id="form-status" class="font-mono text-sm" role="status" aria-live="polite"></p>
+        <p id="form-status" class="text-sm" role="status" aria-live="polite"></p>
       </div>
     </form>
 
     <!-- Direct channels -->
     <aside class="reveal">
-      <p class="label-mono mb-5 !text-faint">{t('contact.elsewhere')}</p>
+      <p class="mb-5 text-sm font-medium text-faint">{t('contact.elsewhere')}</p>
       <div class="flex flex-col gap-3">
         {
           socials.map((s) => (
             <a
               href={s.href}
-              rel="me noopener"
-              class="card group flex items-center justify-between p-4"
+              target={s.ext ? '_blank' : undefined}
+              rel={s.ext ? 'me noopener noreferrer' : 'me'}
+              class="card press group flex items-center justify-between p-4"
             >
               <span>
                 <span class="block text-sm font-semibold text-text">{s.label}</span>
-                <span class="font-mono text-xs text-muted">{s.handle}</span>
+                <span class="text-xs text-muted">{s.handle}</span>
               </span>
               <span class="text-faint transition-colors group-hover:text-accent">→</span>
             </a>
           ))
         }
       </div>
-      <div class="mt-6 rounded-lg border border-line bg-surface/40 p-4 font-mono text-xs text-faint">
-        <span class="text-accent">●</span> {t('hero.status')}<br />
-        <span class="text-muted">Deutschland / Remote</span>
+      <div class="mt-6 rounded-xl border border-line bg-surface p-4 text-sm text-muted">
+        <span class="font-medium text-lime">●</span> {t('hero.status')}<br />
+        <span>Deutschland / Remote</span>
       </div>
     </aside>
   </div>
@@ -103,7 +100,7 @@ const socials = [
     if (!status || !btn) return;
     btn.disabled = true;
     status.textContent = sending;
-    status.className = 'font-mono text-sm text-muted';
+    status.className = 'text-sm text-muted';
     try {
       const res = await fetch(form.action, {
         method: 'POST',
@@ -113,15 +110,15 @@ const socials = [
       if (res.ok) {
         form.reset();
         status.textContent = ok;
-        status.className = 'font-mono text-sm text-lime';
+        status.className = 'text-sm text-lime';
       } else {
         const data = await res.json().catch(() => ({}));
         status.textContent = data?.errors?.[0]?.message || err;
-        status.className = 'font-mono text-sm text-iris-soft';
+        status.className = 'text-sm text-accent';
       }
     } catch {
       status.textContent = err;
-      status.className = 'font-mono text-sm text-iris-soft';
+      status.className = 'text-sm text-accent';
     } finally {
       btn.disabled = false;
       btn.textContent = sendLabel;

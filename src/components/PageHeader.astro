@@ -7,16 +7,10 @@ interface Props {
 const { label, title, lead } = Astro.props;
 ---
 
-<header class="relative overflow-hidden border-b border-line pt-32 pb-14">
-  <div class="grid-backdrop pointer-events-none absolute inset-0 -z-10 opacity-40"></div>
-  <div
-    class="pointer-events-none absolute -top-24 left-1/2 -z-10 h-64 w-[40rem] -translate-x-1/2 rounded-full opacity-30 blur-3xl"
-    style="background: radial-gradient(circle, var(--color-iris), transparent 70%);"
-  >
-  </div>
-  <div class="mx-auto max-w-6xl px-5">
+<header class="px-5 pt-32 pb-14 text-center">
+  <div class="mx-auto max-w-3xl">
     <p class="label-mono mb-3">{label}</p>
-    <h1 class="text-4xl font-semibold sm:text-5xl md:text-6xl">{title}</h1>
-    {lead && <p class="mt-4 max-w-2xl text-lg text-muted">{lead}</p>}
+    <h1 class="text-4xl font-semibold tracking-tight text-text sm:text-5xl">{title}</h1>
+    {lead && <p class="mx-auto mt-4 max-w-2xl text-lg text-muted">{lead}</p>}
   </div>
 </header>

@@ -1,87 +1,107 @@
 @import 'tailwindcss';
 
-/* Self-hosted variable fonts */
-@import '@fontsource-variable/space-grotesk';
+/* Drive the `dark:` variant from a .dark class on <html>, not prefers-color-scheme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Self-hosted variable font — neutral sans fallback for non-Apple devices */
 @import '@fontsource-variable/inter';
-@import '@fontsource-variable/jetbrains-mono';
 
 /*
   ─────────────────────────────────────────────────────────────
-  DESIGN SYSTEM — "Neural Lab"
-  A sophisticated dark interface for an AI / Computer-Vision engineer.
-  Signature duotone: electric cyan ↔ iris violet, on deep blue-black.
-  Mono micro-labels nod to the systems/hacker roots.
+  DESIGN SYSTEM — "Clean" (Apple-inspired minimalism)
+  Light by default, with a dark theme via the .dark class on <html>.
+  System SF-Pro stack on Apple devices, Inter as the cross-platform
+  fallback. Generous whitespace, soft shadows, rounded surfaces.
+  Token names are kept stable so utilities (bg-ink, text-muted,
+  border-line, …) resolve consistently across the theme switch.
   ─────────────────────────────────────────────────────────────
 */
 @theme {
-  /* Canvas & surfaces */
-  --color-ink: #070a12;
-  --color-surface: #0d1320;
-  --color-surface-2: #131b2c;
-  --color-line: rgba(150, 170, 210, 0.12);
-  --color-line-strong: rgba(150, 170, 210, 0.22);
+  /* Canvas & surfaces (light) */
+  --color-ink: #ffffff; /* page background */
+  --color-surface: #f5f5f7; /* panels / cards */
+  --color-surface-2: #ececf0; /* nested / hover */
+  --color-line: rgba(0, 0, 0, 0.1);
+  --color-line-strong: rgba(0, 0, 0, 0.16);
 
   /* Text */
-  --color-text: #e7ecf5;
-  --color-muted: #9aa6be;
-  --color-faint: #5c6781;
+  --color-text: #1d1d1f;
+  --color-muted: #6e6e73;
+  --color-faint: #86868b;
 
-  /* Signal colors */
-  --color-accent: #22d3ee; /* cyan */
-  --color-accent-soft: #67e8f9;
-  --color-iris: #8b5cf6; /* violet */
-  --color-iris-soft: #a78bfa;
-  --color-lime: #a3e635; /* sparse positive highlight */
+  /* Accent — Apple blue, used sparingly */
+  --color-accent: #0071e3;
+  --color-accent-soft: #0077ed;
+  /* Legacy aliases kept pointing at the accent so old refs stay coherent */
+  --color-iris: #0071e3;
+  --color-iris-soft: #6e6e73;
+  --color-lime: #1d9e5e;
 
-  /* Typography */
-  --font-display: 'Space Grotesk Variable', system-ui, sans-serif;
-  --font-sans: 'Inter Variable', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  /* Typography — system SF stack first, Inter as fallback */
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+    'SF Pro Text', 'Inter Variable', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text',
+    'Inter Variable', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
   /* Motion */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-expo: cubic-bezier(0.4, 0, 0.6, 1);
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-lift: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+  --radius: 18px;
+}
+
+/* Dark theme overrides */
+:root.dark {
+  --color-ink: #000000;
+  --color-surface: #1d1d1f;
+  --color-surface-2: #2a2a2d;
+  --color-line: rgba(255, 255, 255, 0.14);
+  --color-line-strong: rgba(255, 255, 255, 0.22);
+
+  --color-text: #f5f5f7;
+  --color-muted: #a1a1a6;
+  --color-faint: #86868b;
+
+  --color-accent: #2997ff;
+  --color-accent-soft: #40a6ff;
+  --color-iris: #2997ff;
+  --color-iris-soft: #a1a1a6;
+  --color-lime: #30d158;
+
+  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-lift: 0 12px 40px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 @layer base {
-  :root {
-    color-scheme: dark;
-  }
-
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+  :root { color-scheme: light; }
+  :root.dark { color-scheme: dark; }
 
   body {
     background-color: var(--color-ink);
     color: var(--color-text);
     font-family: var(--font-sans);
-    font-feature-settings: 'ss01', 'cv11';
+    letter-spacing: -0.003em;
     overflow-x: hidden;
+    transition: background-color 0.4s var(--ease-out-expo), color 0.2s var(--ease-out-expo);
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
-    color: #fff;
+    background: color-mix(in oklab, var(--color-accent) 24%, transparent);
   }
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+    letter-spacing: -0.021em;
+    line-height: 1.08;
   }
-
-  /* Thin custom scrollbar */
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: var(--color-ink); }
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-surface-2);
-    border-radius: 999px;
-    border: 2px solid var(--color-ink);
-  }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-line-strong); }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -94,74 +114,72 @@
 }
 
 @layer components {
-  /* Mono label — small uppercase technical caption used throughout */
+  /* Eyebrow — small, quiet caption above headings (Apple style) */
   .label-mono {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: none;
     color: var(--color-accent);
   }
 
-  /* Gradient text for hero emphasis */
+  /* Solid heading emphasis (no neon gradient) */
   .text-gradient {
-    background: linear-gradient(105deg, var(--color-accent-soft) 0%, #fff 40%, var(--color-iris-soft) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--color-muted);
   }
 
-  /* Glass card */
+  /* Card — rounded surface with a soft shadow, gentle lift on hover */
   .card {
-    background: linear-gradient(180deg, color-mix(in oklab, var(--color-surface) 92%, transparent), var(--color-ink));
+    background: var(--color-surface);
     border: 1px solid var(--color-line);
-    border-radius: 1rem;
-    backdrop-filter: blur(8px);
-    transition: border-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo);
   }
   .card:hover {
-    border-color: var(--color-line-strong);
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
   }
 
-  /* Hairline grid backdrop */
-  .grid-backdrop {
-    background-image:
-      linear-gradient(var(--color-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
-    background-size: 64px 64px;
-    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  /* Micro-press interaction */
+  .press { transition: transform 0.08s ease-out; }
+  .press:active { transform: scale(1.08); }
+
+  /* Frosted glass surface (header / floating drawer) */
+  .glass {
+    background: color-mix(in oklab, var(--color-ink) 72%, transparent);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
   }
 
-  /* Article prose (markdown bodies) */
-  .prose {
-    color: var(--color-muted);
-    line-height: 1.75;
+  /* Blinking caret for the typed hero */
+  .caret {
+    display: inline-block;
+    width: 3px;
+    margin-left: 2px;
+    background: var(--color-accent);
+    animation: caret-blink 0.9s step-end infinite;
   }
+  @keyframes caret-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Article prose (legal / markdown bodies) */
+  .prose { color: var(--color-muted); line-height: 1.75; }
   .prose > * + * { margin-top: 1.25rem; }
   .prose h2 { color: var(--color-text); font-size: 1.5rem; margin-top: 2.5rem; }
   .prose h3 { color: var(--color-text); font-size: 1.2rem; margin-top: 2rem; }
   .prose strong { color: var(--color-text); font-weight: 600; }
   .prose a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
-  .prose code {
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-    background: var(--color-surface-2);
-    padding: 0.15em 0.4em;
-    border-radius: 0.35rem;
-  }
   .prose ul { list-style: disc; padding-left: 1.4rem; }
-  .prose em { color: var(--color-faint); }
 
   /* Reveal-on-scroll (driven by IntersectionObserver in Base layout) */
   .reveal {
     opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    transform: translateY(20px);
+    transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
   }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: none;
-  }
+  .reveal.is-visible { opacity: 1; transform: none; }
 }

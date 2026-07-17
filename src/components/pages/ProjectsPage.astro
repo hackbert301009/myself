@@ -8,84 +8,14 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
-
-const CAT_LABELS: Record<string, string> = {
-  cv: 'Computer Vision',
-  ml: 'Machine Learning',
-  embedded: 'Embedded / IoT',
-  web: 'Web / App',
-  security: 'Security',
-  systems: 'Systems',
-};
-const present = [...new Set(projects.map((p) => p.data.category))];
-const filters = [{ key: 'all', label: t('projects.all') }, ...present.map((c) => ({ key: c, label: CAT_LABELS[c] ?? c }))];
 ---
 
 <PageHeader label={t('projects.label')} title={t('projects.title')} lead={t('projects.lead')} />
 
-<section class="py-14">
-  <div class="mx-auto max-w-6xl px-5">
-    <!-- Filter bar -->
-    <div id="filter-bar" class="reveal mb-10 flex flex-wrap gap-2">
-      {
-        filters.map((f, i) => (
-          <button
-            data-filter={f.key}
-            class:list={[
-              'filter-btn rounded-lg border px-4 py-2 font-mono text-xs uppercase tracking-wider transition-colors',
-              i === 0
-                ? 'border-accent bg-accent/10 text-accent'
-                : 'border-line text-muted hover:border-line-strong hover:text-text',
-            ]}
-          >
-            {f.label}
-          </button>
-        ))
-      }
+<section class="pb-28">
+  <div class="mx-auto max-w-5xl px-5">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {projects.map((project) => <ProjectCard project={project} lang={lang} />)}
     </div>
-
-    <div id="project-grid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {
-        projects.map((project) => (
-          <div class="project-item contents" data-category={project.data.category}>
-            <ProjectCard project={project} lang={lang} />
-          </div>
-        ))
-      }
-    </div>
-    <p id="empty-msg" class="hidden py-16 text-center text-muted">{t('projects.empty')}</p>
   </div>
 </section>
-
-<script>
-  const btns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-  const items = document.querySelectorAll<HTMLElement>('.project-item');
-  const empty = document.getElementById('empty-msg');
-
-  const setActive = (active: HTMLButtonElement) => {
-    btns.forEach((b) => {
-      const on = b === active;
-      b.classList.toggle('border-accent', on);
-      b.classList.toggle('bg-accent/10', on);
-      b.classList.toggle('text-accent', on);
-      b.classList.toggle('border-line', !on);
-      b.classList.toggle('text-muted', !on);
-    });
-  };
-
-  btns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const f = btn.dataset.filter;
-      setActive(btn);
-      let visible = 0;
-      items.forEach((item) => {
-        const show = f === 'all' || item.dataset.category === f;
-        // .contents wrapper: toggle the child card display
-        const card = item.querySelector('article');
-        if (card) (card as HTMLElement).style.display = show ? '' : 'none';
-        if (show) visible++;
-      });
-      empty?.classList.toggle('hidden', visible > 0);
-    });
-  });
-</script>

@@ -6,69 +6,69 @@ const t = useTranslations(lang);
 const year = new Date().getFullYear();
 const lp = (p: string) => localizedPath(p, lang);
 
-const navLinks = [
-  { slug: '/projekte', label: t('nav.projects') },
-  { slug: '/labs', label: t('nav.labs') },
-  { slug: '/ueber-mich', label: t('nav.about') },
-  { slug: '/lebenslauf', label: t('nav.cv') },
-  { slug: '/zertifikate', label: t('nav.certificates') },
-  { slug: '/aktuelles', label: t('nav.news') },
-];
-const socials = [
-  { href: 'https://github.com/hackbert301009', label: 'GitHub' },
-  { href: 'https://www.linkedin.com/in/albert-heruth-37aa74379/', label: 'LinkedIn' },
-  { href: 'mailto:albert.heruth@gmail.com', label: 'E-Mail' },
+const cols = [
+  {
+    heading: t('footer.nav'),
+    links: [
+      { href: lp('/projekte'), label: t('nav.projects'), ext: false },
+      { href: lp('/kontakt'), label: t('nav.contact'), ext: false },
+    ],
+  },
+  {
+    heading: t('footer.projects.ext'),
+    links: [
+      { href: 'https://sterilvision.de', label: 'SterilVision', ext: true },
+      { href: 'https://hackbert-ai.streamlit.app/', label: 'Hackbert AI', ext: true },
+    ],
+  },
+  {
+    heading: t('footer.connect'),
+    links: [
+      { href: 'https://github.com/hackbert301009', label: 'GitHub', ext: true },
+      { href: 'https://www.linkedin.com/in/albert-heruth-37aa74379/', label: 'LinkedIn', ext: true },
+      { href: 'mailto:albert.heruth@gmail.com', label: 'E-Mail', ext: false },
+    ],
+  },
+  {
+    heading: t('footer.legal'),
+    links: [
+      { href: '/impressum', label: t('footer.imprint'), ext: false },
+      { href: '/datenschutz', label: t('footer.privacy'), ext: false },
+    ],
+  },
 ];
 ---
 
-<footer class="border-t border-line bg-surface/40">
-  <div class="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4">
-    <div class="lg:col-span-2">
-      <a href={lp('/')} class="flex items-center gap-2.5">
-        <span class="grid h-9 w-9 place-items-center rounded-lg border border-line-strong bg-surface-2 font-mono text-sm font-bold text-accent">ah</span>
-        <span class="font-mono text-sm text-muted">albert<span class="text-accent">.</span>heruth</span>
-      </a>
-      <p class="mt-4 max-w-sm text-sm text-muted">{t('meta.desc')}</p>
-      <div class="mt-4 font-mono text-xs text-faint">
-        <span class="text-accent">root@hackbert</span>:~$ <span class="text-muted">whoami → ai_engineer</span>
-      </div>
+<footer class="border-t border-line bg-surface">
+  <div class="mx-auto max-w-5xl px-5 py-12">
+    <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+      {
+        cols.map((c) => (
+          <div>
+            <p class="mb-3 text-xs font-semibold uppercase tracking-wide text-faint">{c.heading}</p>
+            <ul class="space-y-2">
+              {c.links.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    target={l.ext ? '_blank' : undefined}
+                    rel={l.ext ? 'noopener noreferrer' : undefined}
+                    class="text-sm text-muted transition-colors hover:text-accent"
+                  >
+                    {l.label}
+                    {l.ext && ' ↗'}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </div>
 
-    <div>
-      <p class="label-mono mb-4 !text-faint">{t('footer.nav')}</p>
-      <ul class="space-y-2">
-        {
-          navLinks.map((l) => (
-            <li>
-              <a href={lp(l.slug)} class="text-sm text-muted transition-colors hover:text-accent">
-                {l.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-
-    <div>
-      <p class="label-mono mb-4 !text-faint">{t('footer.connect')}</p>
-      <ul class="space-y-2">
-        {
-          socials.map((s) => (
-            <li>
-              <a href={s.href} rel="me noopener" class="text-sm text-muted transition-colors hover:text-accent">
-                {s.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </div>
-
-  <div class="border-t border-line/60">
-    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-5 py-5 sm:flex-row">
-      <span class="text-xs text-faint">© {year} Albert Heruth · {t('footer.rights')}</span>
-      <span class="font-mono text-[0.65rem] tracking-widest text-faint/70">{t('footer.built')}</span>
+    <div class="mt-10 flex flex-col items-center justify-between gap-2 border-t border-line pt-6 text-xs text-faint sm:flex-row">
+      <span>© {year} Albert Heruth · {t('footer.rights')}</span>
+      <span>{t('footer.built')}</span>
     </div>
   </div>
 </footer>

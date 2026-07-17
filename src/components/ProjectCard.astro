@@ -7,94 +7,45 @@ import type { Lang } from '../i18n/ui';
 interface Props {
   project: CollectionEntry<'projects'>;
   lang: Lang;
-  featured?: boolean;
 }
-const { project, lang, featured = false } = Astro.props;
-const { title, summary, category, tech, year, repo, demo, cover, status, needsConfirmation } =
-  project.data;
+const { project, lang } = Astro.props;
+const { title, summary, repo, demo, cover } = project.data;
 
-const CATEGORY: Record<string, { label: string; cls: string }> = {
-  cv: { label: 'Computer Vision', cls: 'text-accent border-accent/40' },
-  ml: { label: 'Machine Learning', cls: 'text-iris-soft border-iris/40' },
-  embedded: { label: 'Embedded / IoT', cls: 'text-lime border-lime/40' },
-  web: { label: 'Web / App', cls: 'text-accent-soft border-accent/30' },
-  security: { label: 'Security', cls: 'text-iris-soft border-iris/40' },
-  systems: { label: 'Systems / DevOps', cls: 'text-muted border-line-strong' },
-};
-const cat = CATEGORY[category] ?? CATEGORY.systems;
+const primary = demo ?? repo;
+const linkAttrs = primary ? { href: primary, target: '_blank', rel: 'noopener noreferrer' } : {};
+const Tag = primary ? 'a' : 'div';
 ---
 
-<article
-  class:list={[
-    'card reveal group flex flex-col overflow-hidden p-0',
-    featured ? 'md:col-span-2' : '',
-  ]}
->
+<Tag {...linkAttrs} class="card reveal group flex flex-col overflow-hidden">
   {
-    cover && (
-      <div class="relative aspect-[16/9] overflow-hidden border-b border-line">
+    cover ? (
+      <div class="aspect-[16/10] overflow-hidden bg-surface-2">
         <Image
           src={cover}
           alt={title}
           widths={[400, 800, 1200]}
-          sizes="(max-width: 768px) 100vw, 50vw"
-          class="h-full w-full object-cover opacity-85 transition-[transform,opacity] duration-700 group-hover:scale-[1.04] group-hover:opacity-100"
+          sizes="(max-width: 768px) 100vw, 33vw"
+          class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+      </div>
+    ) : (
+      <div class="flex aspect-[16/10] items-center justify-center bg-surface-2">
+        <span class="text-4xl font-semibold text-faint">{title.charAt(0)}</span>
       </div>
     )
   }
 
   <div class="flex flex-1 flex-col p-6">
-    <div class="mb-3 flex items-center justify-between gap-3">
-      <span class={`label-mono rounded-md border px-2 py-1 !text-[0.6rem] ${cat.cls}`}>
-        {cat.label}
-      </span>
-      <span class="font-mono text-xs text-faint">{year}</span>
-    </div>
-
-    <h3 class="text-xl font-semibold text-text">
-      {title}
-      {
-        needsConfirmation && (
-          <span
-            class="ml-2 align-middle font-mono text-[0.6rem] font-normal text-iris-soft"
-            title="Inhalt muss noch bestätigt werden"
-          >
-            ⓘ
-          </span>
-        )
-      }
-    </h3>
-
-    <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{pick(summary, lang)}</p>
-
-    <div class="mt-4 flex flex-wrap gap-1.5">
-      {
-        tech.slice(0, 5).map((tag) => (
-          <span class="rounded-md bg-surface-2 px-2 py-0.5 font-mono text-[0.65rem] text-faint">
-            {tag}
-          </span>
-        ))
-      }
-    </div>
-
+    <h3 class="text-lg font-semibold text-text">{title}</h3>
+    <p class="mt-2 flex-1 text-[0.95rem] leading-relaxed text-muted">{pick(summary, lang)}</p>
     {
-      (repo || demo) && (
-        <div class="mt-5 flex gap-4 border-t border-line pt-4 font-mono text-xs">
-          {repo && (
-            <a href={repo} rel="noopener" class="text-muted transition-colors hover:text-accent">
-              → code
-            </a>
-          )}
-          {demo && (
-            <a href={demo} rel="noopener" class="text-muted transition-colors hover:text-accent">
-              → demo
-            </a>
-          )}
-          <span class="ml-auto text-faint">{status}</span>
+      primary && (
+        <div class="mt-4 text-sm font-medium text-accent">
+          <span class="transition-opacity group-hover:opacity-80">
+            {demo ? (lang === 'de' ? 'Ansehen' : 'View') : 'Code'} →
+          </span>
         </div>
       )
     }
   </div>
-</article>
+</Tag>
