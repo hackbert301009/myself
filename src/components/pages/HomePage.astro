@@ -21,9 +21,50 @@ const skills = [
   'Angewandte Mathematik', 'C / C++', 'ESP32 / Arduino', 'Raspberry Pi', 'Flask / FastAPI',
   'Streamlit', 'Linux', 'Docker', 'Kotlin / Android', 'Git',
 ];
+
+// Affiliations & metrics — real, quiet credibility signals
+const affiliations = ['EyeSpec FAW Group', 'Juniorstudium CAU Kiel', 'BWKI 2026', 'SterilVision'];
+const stats = [
+  { v: `${Math.max(allProjects.length, 1)}`, k: t('home.stats.projects') },
+  { v: `${new Set(allProjects.map((p) => p.data.category)).size}`, k: t('home.stats.areas') },
+  { v: `${skills.length}`, k: t('home.stats.tech') },
+  { v: '2023', k: t('home.stats.since') },
+];
+const caps = [
+  { key: 'cv', icon: 'M12 5a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V16a3 3 0 0 0 6 0M12 5a3 3 0 0 1 3 3 3 3 0 0 1 1 5.8' },
+  { key: 'embedded', icon: 'M9 3v2M15 3v2M9 19v2M15 19v2M3 9h2M3 15h2M19 9h2M19 15h2|M5 5h14v14H5z|M9 9h6v6H9z' },
+  { key: 'systems', icon: 'M3 5h18v6H3zM3 13h18v6H3z|M7 8h.01M7 16h.01' },
+];
 ---
 
 <Hero />
+
+<!-- CREDIBILITY: affiliations + metrics -->
+<section class="border-y border-line bg-surface/50">
+  <div class="mx-auto max-w-5xl px-5 py-10">
+    <p class="reveal mb-6 text-center text-xs font-medium uppercase tracking-[0.12em] text-faint">{t('home.trust')}</p>
+    <div class="reveal mb-10 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm font-medium text-muted">
+      {
+        affiliations.map((a, i) => (
+          <>
+            {i > 0 && <span class="text-line-strong">·</span>}
+            <span>{a}</span>
+          </>
+        ))
+      }
+    </div>
+    <div class="reveal grid grid-cols-2 gap-y-8 sm:grid-cols-4">
+      {
+        stats.map((s) => (
+          <div class="flex flex-col items-center gap-1 border-line sm:border-l sm:first:border-l-0">
+            <span class="font-display text-3xl font-semibold text-text sm:text-4xl">{s.v}</span>
+            <span class="text-xs font-medium text-faint">{s.k}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
 
 <!-- ABOUT -->
 <section id="about" class="py-24 sm:py-32">
@@ -53,6 +94,32 @@ const skills = [
           }
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="border-t border-line bg-surface/40 py-24 sm:py-32">
+  <div class="mx-auto max-w-5xl px-5">
+    <div class="reveal mb-12 text-center">
+      <p class="label-mono mb-3">{t('home.caps.label')}</p>
+      <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{t('home.caps.title')}</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-muted">{t('home.caps.lead')}</p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-3">
+      {
+        caps.map((c) => (
+          <article class="card reveal flex flex-col p-7">
+            <span class="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-surface-2 text-accent">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="h-6 w-6">
+                {c.icon.split('|').map((p) => <path d={p} stroke-linecap="round" stroke-linejoin="round" />)}
+              </svg>
+            </span>
+            <h3 class="font-display text-lg font-semibold text-text">{t(`home.caps.${c.key}` as any)}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{t(`home.caps.${c.key}.desc` as any)}</p>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>

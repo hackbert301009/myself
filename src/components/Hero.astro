@@ -36,7 +36,21 @@ const socials = [
 ];
 ---
 
-<section class="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center">
+<section class="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-5 text-center">
+  <!-- Depth: soft aura + faint grid -->
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="hero-aura absolute left-1/2 top-[38%] h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full"></div>
+    <div class="hero-grid absolute inset-0"></div>
+  </div>
+
+  <div class="reveal is-visible mb-5 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-medium text-muted shadow-[var(--shadow-soft)]">
+    <span class="relative flex h-2 w-2">
+      <span class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" style="background: var(--color-lime)"></span>
+      <span class="relative inline-flex h-2 w-2 rounded-full" style="background: var(--color-lime)"></span>
+    </span>
+    {t('hero.status')}
+  </div>
+
   <p class="reveal is-visible label-mono mb-5">{t('hero.role')}</p>
 
   <h1 class="max-w-4xl text-4xl font-semibold leading-[1.06] tracking-tight text-text sm:text-6xl md:text-7xl">
@@ -134,3 +148,26 @@ const socials = [
     });
   })();
 </script>
+
+<style>
+  .hero-aura {
+    background: radial-gradient(circle, color-mix(in oklab, var(--color-accent) 22%, transparent), transparent 68%);
+    opacity: 0.5;
+    filter: blur(20px);
+    animation: aura-breathe 9s var(--ease-out-expo) infinite;
+  }
+  .hero-grid {
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 42%, #000 8%, transparent 72%);
+    mask-image: radial-gradient(ellipse 70% 55% at 50% 42%, #000 8%, transparent 72%);
+    opacity: 0.5;
+  }
+  @keyframes aura-breathe {
+    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-aura { animation: none; } }
+</style>
