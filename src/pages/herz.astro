@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import HeartPage from '../components/pages/HeartPage.astro';
+import { useTranslations } from '../i18n/utils';
+const t = useTranslations('de');
+---
+
+<Base title={`${t('heart.title')} — Albert Heruth`} description={t('heart.lead')}>
+  <HeartPage />
+</Base>

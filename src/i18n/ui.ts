@@ -12,6 +12,8 @@ export const ui = {
     // Navigation
     'nav.home': 'Start',
     'nav.projects': 'Projekte',
+    'nav.certificates': 'Zertifikate',
+    'nav.heart': 'Herz',
     'nav.contact': 'Kontakt',
     'nav.cta': 'Kontakt',
 
@@ -53,6 +55,28 @@ export const ui = {
     'projects.all': 'Alle',
     'projects.empty': 'Keine Projekte in dieser Kategorie.',
 
+    'certs.label': 'Zertifikate',
+    'certs.title': 'Zertifikate & Ausbildung',
+    'certs.lead': 'Verifizierte Qualifikationen und mein akademischer Werdegang.',
+    'certs.all': 'Alle',
+    'certs.stat.total': 'Zertifikate',
+    'certs.stat.areas': 'Bereiche',
+    'certs.stat.since': 'Seit',
+    'certs.verify': 'Verifizieren',
+
+    'heart.label': 'Herzensangelegenheiten',
+    'heart.title': 'Was mir am Herzen liegt',
+    'heart.lead':
+      'Technik ist für mich Mittel zum Zweck — Menschen helfen. Ein paar Organisationen und Werte, die Unterstützung verdienen und mich antreiben.',
+    'heart.causes': 'Organisationen, die Unterstützung verdienen',
+    'heart.causes.lead': 'Gemeinnützige Projekte, die einen echten Unterschied machen. Schau vorbei oder spende.',
+    'heart.values': 'Meine Werte',
+    'heart.values.lead': 'Was meine Arbeit und meine Entscheidungen leitet.',
+    'heart.support': 'Unterstützen',
+    'heart.note': 'Persönliche Auswahl — sie wächst mit der Zeit.',
+    'heart.cta.title': 'Gemeinsam Gutes bewegen.',
+    'heart.cta.lead': 'Kennst du eine Organisation, die hierher passt? Schreib mir.',
+
     // Contact
     'contact.label': 'Kontakt',
     'contact.title': 'Lass uns etwas bauen.',
@@ -86,6 +110,8 @@ export const ui = {
   en: {
     'nav.home': 'Home',
     'nav.projects': 'Projects',
+    'nav.certificates': 'Certificates',
+    'nav.heart': 'Heart',
     'nav.contact': 'Contact',
     'nav.cta': 'Contact',
 
@@ -122,6 +148,28 @@ export const ui = {
     'projects.lead': 'All work in computer vision, ML, embedded systems and more.',
     'projects.all': 'All',
     'projects.empty': 'No projects in this category.',
+
+    'certs.label': 'Certificates',
+    'certs.title': 'Certificates & education',
+    'certs.lead': 'Verified qualifications and my academic background.',
+    'certs.all': 'All',
+    'certs.stat.total': 'Certificates',
+    'certs.stat.areas': 'Areas',
+    'certs.stat.since': 'Since',
+    'certs.verify': 'Verify',
+
+    'heart.label': 'Close to my heart',
+    'heart.title': 'What matters to me',
+    'heart.lead':
+      'Technology is a means to an end for me — helping people. A few organizations and values that deserve support and keep me going.',
+    'heart.causes': 'Organizations worth supporting',
+    'heart.causes.lead': 'Non-profits that make a real difference. Take a look or donate.',
+    'heart.values': 'My values',
+    'heart.values.lead': 'What guides my work and my decisions.',
+    'heart.support': 'Support',
+    'heart.note': 'A personal selection — it keeps growing.',
+    'heart.cta.title': 'Let’s do some good together.',
+    'heart.cta.lead': 'Know an organization that belongs here? Get in touch.',
 
     'contact.label': 'Contact',
     'contact.title': "Let's build something.",
