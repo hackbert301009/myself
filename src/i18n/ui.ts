@@ -22,7 +22,7 @@ export const ui = {
     'hero.title.1': 'Ich bringe Maschinen',
     'hero.title.2': 'das Sehen bei.',
     'hero.lead':
-      'Von medizinischer Bildverarbeitung über neuronale Netze bis hin zu Embedded-Systemen — ich baue intelligente Systeme, die in der realen Welt funktionieren.',
+      'Von medizinischer Bildverarbeitung über neuronale Netze bis hin zu Embedded-Systemen, ich baue intelligente Systeme, die in der realen Welt funktionieren.',
     'hero.cta.work': 'Projekte ansehen',
     'hero.cta.contact': 'Kontakt aufnehmen',
     'hero.status': 'Verfügbar für Projekte',
@@ -31,13 +31,13 @@ export const ui = {
     'about.label': 'Über mich',
     'about.title': 'Mathematik, Modelle und Maschinen.',
     'about.p1':
-      'Ich bin Albert Heruth — ich verbinde angewandte Mathematik mit praktischem Engineering. Mein Schwerpunkt liegt auf Computer Vision und maschinellem Lernen, von der Idee bis zum lauffähigen System auf echter Hardware.',
+      'Ich bin Albert Heruth, ich verbinde angewandte Mathematik mit praktischem Engineering. Mein Schwerpunkt liegt auf Computer Vision und maschinellem Lernen, von der Idee bis zum lauffähigen System auf echter Hardware.',
     'about.p2':
-      'Neben meiner Arbeit an Automatisierung und Kamerainspektion entwickle ich eigene CV-Modelle, Embedded-Prototypen und Tools — am liebsten dort, wo Hardware auf intelligente Software trifft.',
+      'Neben meiner Arbeit an Automatisierung und Kamerainspektion entwickle ich eigene CV-Modelle, Embedded-Prototypen und Tools, am liebsten dort, wo Hardware auf intelligente Software trifft.',
     'about.skills': 'Kernkompetenzen',
     'about.philosophy': 'Meine Philosophie',
     'about.philosophy.p':
-      'Ich suche nicht nur den Fehler — ich suche die Lösung. Ein gut verstandenes, sauber dokumentiertes System ist mir lieber als ein schneller Hack.',
+      'Ich suche nicht nur den Fehler, ich suche die Lösung. Ein gut verstandenes, sauber dokumentiertes System ist mir lieber als ein schneller Hack.',
 
     // Home
     'home.featured': 'Ausgewählte Projekte',
@@ -51,13 +51,22 @@ export const ui = {
     'home.stats.since': 'Aktiv seit',
     'home.caps.label': 'Fähigkeiten',
     'home.caps.title': 'Was ich mache',
-    'home.caps.lead': 'Drei Bereiche, in denen ich zu Hause bin — von der ersten Idee bis zum lauffähigen System.',
+    'home.caps.lead': 'Drei Bereiche, in denen ich zu Hause bin, von der ersten Idee bis zum lauffähigen System.',
     'home.caps.cv': 'Computer Vision & ML',
     'home.caps.cv.desc': 'Neuronale Netze, Bildklassifikation, Objekt- und Anomalieerkennung, medizinische Bildverarbeitung.',
     'home.caps.embedded': 'Embedded & IoT',
-    'home.caps.embedded.desc': 'ESP32, Raspberry Pi, Sensorik und Echtzeit-Signalverarbeitung — wo Software auf Hardware trifft.',
+    'home.caps.embedded.desc': 'ESP32, Raspberry Pi, Sensorik und Echtzeit-Signalverarbeitung, wo Software auf Hardware trifft.',
     'home.caps.systems': 'Systeme & Infrastruktur',
     'home.caps.systems.desc': 'Linux, Docker, Netzwerke und saubere, wartbare Backends & Werkzeuge.',
+    'lab.label': 'Vision Lab',
+    'lab.title': 'Sieh, wie Maschinen sehen',
+    'lab.lead': 'Dieses Portrait läuft live durch echte Bildverarbeitung, direkt in deinem Browser. Bewege den Cursor über das Bild oder wähle einen Modus.',
+    'lab.mode.scan': 'Scan',
+    'lab.mode.edge': 'Kanten',
+    'lab.mode.threshold': 'Schwellwert',
+    'lab.mode.pixel': 'Pixel',
+    'lab.aria': 'Interaktives Bildverarbeitungs-Labor',
+    'lab.hint': 'Cursor bewegen zum Scannen',
     'home.cta.title': 'Lass uns etwas bauen.',
     'home.cta.lead':
       'Interesse an einer Zusammenarbeit oder Fragen zu meinen Projekten? Ich freue mich über eine Nachricht.',
@@ -77,17 +86,20 @@ export const ui = {
     'certs.stat.areas': 'Bereiche',
     'certs.stat.since': 'Seit',
     'certs.verify': 'Verifizieren',
+    'certs.pub': 'Publikationen',
+    'certs.pub.lead': 'Eigene Forschung und Veröffentlichungen.',
+    'certs.read': 'Paper lesen',
 
     'heart.label': 'Herzensangelegenheiten',
     'heart.title': 'Was mir am Herzen liegt',
     'heart.lead':
-      'Technik ist für mich Mittel zum Zweck — Menschen helfen. Ein paar Organisationen und Werte, die Unterstützung verdienen und mich antreiben.',
+      'Technik ist für mich Mittel zum Zweck, Menschen helfen. Ein paar Organisationen und Werte, die Unterstützung verdienen und mich antreiben.',
     'heart.causes': 'Organisationen, die Unterstützung verdienen',
     'heart.causes.lead': 'Gemeinnützige Projekte, die einen echten Unterschied machen. Schau vorbei oder spende.',
     'heart.values': 'Meine Werte',
     'heart.values.lead': 'Was meine Arbeit und meine Entscheidungen leitet.',
     'heart.support': 'Unterstützen',
-    'heart.note': 'Persönliche Auswahl — sie wächst mit der Zeit.',
+    'heart.note': 'Persönliche Auswahl, sie wächst mit der Zeit.',
     'heart.cta.title': 'Gemeinsam Gutes bewegen.',
     'heart.cta.lead': 'Kennst du eine Organisation, die hierher passt? Schreib mir.',
 
@@ -102,7 +114,7 @@ export const ui = {
     'contact.sending': 'Wird gesendet …',
     'contact.name': 'Name',
     'contact.message': 'Nachricht',
-    'contact.success': 'Nachricht gesendet — danke! Ich melde mich.',
+    'contact.success': 'Nachricht gesendet, danke! Ich melde mich.',
     'contact.error': 'Etwas ist schiefgelaufen. Versuch es erneut oder schreib mir direkt per E-Mail.',
     'contact.elsewhere': 'Oder finde mich hier',
 
@@ -117,7 +129,7 @@ export const ui = {
     'footer.privacy': 'Datenschutz',
 
     // Meta
-    'meta.title': 'Albert Heruth — AI & Computer-Vision Engineer',
+    'meta.title': 'Albert Heruth · AI & Computer-Vision Engineer',
     'meta.desc':
       'Portfolio von Albert Heruth: Computer Vision, maschinelles Lernen, Embedded Systems und Systemintegration.',
   },
@@ -133,7 +145,7 @@ export const ui = {
     'hero.title.1': 'I teach machines',
     'hero.title.2': 'how to see.',
     'hero.lead':
-      'From medical image processing and neural networks to embedded systems — I build intelligent systems that work in the real world.',
+      'From medical image processing and neural networks to embedded systems, I build intelligent systems that work in the real world.',
     'hero.cta.work': 'View projects',
     'hero.cta.contact': 'Get in touch',
     'hero.status': 'Available for projects',
@@ -141,13 +153,13 @@ export const ui = {
     'about.label': 'About',
     'about.title': 'Mathematics, models and machines.',
     'about.p1':
-      "I'm Albert Heruth — I combine applied mathematics with hands-on engineering. My focus is computer vision and machine learning, from the idea all the way to systems running on real hardware.",
+      "I'm Albert Heruth, I combine applied mathematics with hands-on engineering. My focus is computer vision and machine learning, from the idea all the way to systems running on real hardware.",
     'about.p2':
-      'Alongside my work on automation and camera inspection, I build my own CV models, embedded prototypes and tools — happiest where hardware meets intelligent software.',
+      'Alongside my work on automation and camera inspection, I build my own CV models, embedded prototypes and tools, happiest where hardware meets intelligent software.',
     'about.skills': 'Core skills',
     'about.philosophy': 'My philosophy',
     'about.philosophy.p':
-      "I don't just look for the bug — I look for the solution. A well-understood, well-documented system beats a quick hack.",
+      "I don't just look for the bug, I look for the solution. A well-understood, well-documented system beats a quick hack.",
 
     'home.featured': 'Selected projects',
     'home.featured.title': 'What I build',
@@ -160,13 +172,22 @@ export const ui = {
     'home.stats.since': 'Active since',
     'home.caps.label': 'Capabilities',
     'home.caps.title': 'What I do',
-    'home.caps.lead': 'Three areas I am at home in — from the first idea to a system that runs.',
+    'home.caps.lead': 'Three areas I am at home in, from the first idea to a system that runs.',
     'home.caps.cv': 'Computer Vision & ML',
     'home.caps.cv.desc': 'Neural networks, image classification, object and anomaly detection, medical imaging.',
     'home.caps.embedded': 'Embedded & IoT',
-    'home.caps.embedded.desc': 'ESP32, Raspberry Pi, sensors and real-time signal processing — where software meets hardware.',
+    'home.caps.embedded.desc': 'ESP32, Raspberry Pi, sensors and real-time signal processing, where software meets hardware.',
     'home.caps.systems': 'Systems & Infrastructure',
     'home.caps.systems.desc': 'Linux, Docker, networking and clean, maintainable backends & tooling.',
+    'lab.label': 'Vision Lab',
+    'lab.title': 'See how machines see',
+    'lab.lead': 'This portrait runs through real image processing, live in your browser. Move the cursor across it or pick a mode.',
+    'lab.mode.scan': 'Scan',
+    'lab.mode.edge': 'Edges',
+    'lab.mode.threshold': 'Threshold',
+    'lab.mode.pixel': 'Pixel',
+    'lab.aria': 'Interactive image-processing lab',
+    'lab.hint': 'Move the cursor to scan',
     'home.cta.title': "Let's build something.",
     'home.cta.lead':
       'Interested in working together or curious about my projects? I would love to hear from you.',
@@ -185,17 +206,20 @@ export const ui = {
     'certs.stat.areas': 'Areas',
     'certs.stat.since': 'Since',
     'certs.verify': 'Verify',
+    'certs.pub': 'Publications',
+    'certs.pub.lead': 'My own research and publications.',
+    'certs.read': 'Read paper',
 
     'heart.label': 'Close to my heart',
     'heart.title': 'What matters to me',
     'heart.lead':
-      'Technology is a means to an end for me — helping people. A few organizations and values that deserve support and keep me going.',
+      'Technology is a means to an end for me, helping people. A few organizations and values that deserve support and keep me going.',
     'heart.causes': 'Organizations worth supporting',
     'heart.causes.lead': 'Non-profits that make a real difference. Take a look or donate.',
     'heart.values': 'My values',
     'heart.values.lead': 'What guides my work and my decisions.',
     'heart.support': 'Support',
-    'heart.note': 'A personal selection — it keeps growing.',
+    'heart.note': 'A personal selection, it keeps growing.',
     'heart.cta.title': 'Let’s do some good together.',
     'heart.cta.lead': 'Know an organization that belongs here? Get in touch.',
 
@@ -209,7 +233,7 @@ export const ui = {
     'contact.sending': 'Sending …',
     'contact.name': 'Name',
     'contact.message': 'Message',
-    'contact.success': "Message sent — thank you! I'll get back to you.",
+    'contact.success': "Message sent, thank you! I'll get back to you.",
     'contact.error': 'Something went wrong. Please try again or email me directly.',
     'contact.elsewhere': 'Or find me here',
 
@@ -222,7 +246,7 @@ export const ui = {
     'footer.imprint': 'Imprint',
     'footer.privacy': 'Privacy',
 
-    'meta.title': 'Albert Heruth — AI & Computer-Vision Engineer',
+    'meta.title': 'Albert Heruth · AI & Computer-Vision Engineer',
     'meta.desc':
       'Portfolio of Albert Heruth: computer vision, machine learning, embedded systems and systems integration.',
   },

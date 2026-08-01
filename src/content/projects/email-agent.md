@@ -1,8 +1,8 @@
 ---
 title: "AI Email Agent"
 summary:
-  de: "Ein modularer KI-gestützter E-Mail-Agent, der personalisierte Akquise-E-Mails generiert und versendet — mehrsprachig, mit Review-Phase und Multi-Provider-Unterstützung."
-  en: "A modular AI-powered email agent that generates and sends personalized outreach emails — multilingual, with a review step and multi-provider support (Groq/Anthropic/OpenAI)."
+  de: "Ein modularer KI-gestützter E-Mail-Agent, der personalisierte Akquise-E-Mails generiert und versendet, mehrsprachig, mit Review-Phase und Multi-Provider-Unterstützung."
+  en: "A modular AI-powered email agent that generates and sends personalized outreach emails, multilingual, with a review step and multi-provider support (Groq/Anthropic/OpenAI)."
 category: "ml"
 tech: ["Python", "LLM", "Groq", "Anthropic"]
 year: "2026"

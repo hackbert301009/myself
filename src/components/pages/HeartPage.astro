@@ -13,8 +13,8 @@ const causes = [
     name: 'Ärzte ohne Grenzen',
     tag: { de: 'Medizinische Nothilfe', en: 'Medical emergency aid' },
     desc: {
-      de: 'Unabhängige medizinische Hilfe weltweit — dort, wo sie am dringendsten gebraucht wird. Als angehender Medizin-CV-Entwickler liegt mir das besonders nahe.',
-      en: 'Independent medical aid worldwide — where it is needed most. As someone building medical computer vision, this is close to my heart.',
+      de: 'Unabhängige medizinische Hilfe weltweit, dort, wo sie am dringendsten gebraucht wird. Als angehender Medizin-CV-Entwickler liegt mir das besonders nahe.',
+      en: 'Independent medical aid worldwide, where it is needed most. As someone building medical computer vision, this is close to my heart.',
     },
     url: 'https://www.aerzte-ohne-grenzen.de/spenden',
   },
@@ -23,8 +23,8 @@ const causes = [
     name: 'Die Tafeln',
     tag: { de: 'Gegen Armut & Verschwendung', en: 'Against poverty & waste' },
     desc: {
-      de: 'Retten gute Lebensmittel und geben sie an Menschen in Not weiter — praktisch, lokal und wirkungsvoll.',
-      en: 'Rescue good food and pass it to people in need — practical, local and effective.',
+      de: 'Retten gute Lebensmittel und geben sie an Menschen in Not weiter, praktisch, lokal und wirkungsvoll.',
+      en: 'Rescue good food and pass it to people in need, practical, local and effective.',
     },
     url: 'https://www.tafel.de/spenden',
   },
@@ -33,8 +33,8 @@ const causes = [
     name: 'Wikimedia / Wikipedia',
     tag: { de: 'Freies Wissen für alle', en: 'Free knowledge for all' },
     desc: {
-      de: 'Wissen frei und kostenlos für jeden — die Grundlage, auf der auch ich so vieles gelernt habe.',
-      en: 'Knowledge free for everyone — the foundation on which I have learned so much.',
+      de: 'Wissen frei und kostenlos für jeden, die Grundlage, auf der auch ich so vieles gelernt habe.',
+      en: 'Knowledge free for everyone, the foundation on which I have learned so much.',
     },
     url: 'https://spenden.wikimedia.de/',
   },
@@ -43,8 +43,8 @@ const causes = [
     name: 'Stiftung Jugend forscht',
     tag: { de: 'Nachwuchs fördern', en: 'Nurturing young talent' },
     desc: {
-      de: 'Gibt jungen Menschen die Bühne, ihre Ideen in Forschung und Technik umzusetzen — genau der Funke, der auch mich antreibt.',
-      en: 'Gives young people a stage to turn ideas into research and technology — exactly the spark that drives me.',
+      de: 'Gibt jungen Menschen die Bühne, ihre Ideen in Forschung und Technik umzusetzen, genau der Funke, der auch mich antreibt.',
+      en: 'Gives young people a stage to turn ideas into research and technology, exactly the spark that drives me.',
     },
     url: 'https://www.jugend-forscht.de/',
   },
@@ -52,10 +52,10 @@ const causes = [
 
 const values = [
   { icon: 'M4 19V6a2 2 0 0 1 2-2h9l5 5v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z|M9 9h4M9 13h6', title: { de: 'Bildung für alle', en: 'Education for all' }, desc: { de: 'Zugang zu Wissen darf nie eine Frage des Geldbeutels sein.', en: 'Access to knowledge should never be a matter of money.' } },
-  { icon: 'M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6C19 16.5 12 21 12 21Z', title: { de: 'Technik, die hilft', en: 'Technology that helps' }, desc: { de: 'Ich baue Dinge, die Menschen einen echten Vorteil bringen — nicht nur Demos.', en: 'I build things that give people a real advantage — not just demos.' } },
+  { icon: 'M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6C19 16.5 12 21 12 21Z', title: { de: 'Technik, die hilft', en: 'Technology that helps' }, desc: { de: 'Ich baue Dinge, die Menschen einen echten Vorteil bringen, nicht nur Demos.', en: 'I build things that give people a real advantage, not just demos.' } },
   { icon: 'M12 3 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-3Z|m9 12 2 2 4-4', title: { de: 'Ehrlichkeit & Transparenz', en: 'Honesty & transparency' }, desc: { de: 'Offener Code, offene Worte. Keine Black Boxes, wo Vertrauen zählt.', en: 'Open code, straight talk. No black boxes where trust matters.' } },
   { icon: 'M12 22c4-3 7-6 7-11a7 7 0 0 0-14 0c0 5 3 8 7 11Z', title: { de: 'Nachhaltigkeit', en: 'Sustainability' }, desc: { de: 'Effiziente Modelle, langlebige Hardware, bewusster Umgang mit Ressourcen.', en: 'Efficient models, durable hardware, mindful use of resources.' } },
-  { icon: 'M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1|M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z', title: { de: 'Neugier bewahren', en: 'Stay curious' }, desc: { de: 'Immer weiter fragen, lernen, ausprobieren — das hört nie auf.', en: 'Keep asking, learning, experimenting — it never stops.' } },
+  { icon: 'M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1|M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z', title: { de: 'Neugier bewahren', en: 'Stay curious' }, desc: { de: 'Immer weiter fragen, lernen, ausprobieren, das hört nie auf.', en: 'Keep asking, learning, experimenting, it never stops.' } },
   { icon: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2|M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z|M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11', title: { de: 'Menschen zuerst', en: 'People first' }, desc: { de: 'Hinter jeder Zeile Code steht ein Mensch, dem sie nützen soll.', en: 'Behind every line of code is a person it should serve.' } },
 ];
 ---

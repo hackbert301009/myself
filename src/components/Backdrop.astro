@@ -1,0 +1,23 @@
+---
+// Subtle, theme-aware technical background. Drop into a `relative` section.
+interface Props {
+  variant?: 'grid' | 'dots';
+  ticks?: boolean;
+  class?: string;
+}
+const { variant = 'grid', ticks = false, class: cls = '' } = Astro.props;
+---
+
+<div class:list={['fx -z-10', cls]} aria-hidden="true">
+  <div class={variant === 'dots' ? 'fx-dots' : 'fx-grid'}></div>
+  {
+    ticks && (
+      <>
+        <span class="fx-tick tl" />
+        <span class="fx-tick tr" />
+        <span class="fx-tick bl" />
+        <span class="fx-tick br" />
+      </>
+    )
+  }
+</div>

@@ -1,7 +1,7 @@
 ---
 title: "ACSESS"
 summary:
-  de: "Ein lokal laufender Forschungsprototyp (\"Adaptive Conversational Social Engineering Simulation System\") zur Untersuchung KI-gesteuerter Gesprächstaktiken in einwilligungsbasierten Experimenten — für Security-Awareness-Training."
+  de: "Ein lokal laufender Forschungsprototyp (\"Adaptive Conversational Social Engineering Simulation System\") zur Untersuchung KI-gesteuerter Gesprächstaktiken in einwilligungsbasierten Experimenten, für Security-Awareness-Training."
   en: "A fully local research prototype (\"Adaptive Conversational Social Engineering Simulation System\") studying AI-driven conversational tactics in consent-based experiments for security-awareness training."
 category: "security"
 tech: ["Python", "LLM", "Security Research"]

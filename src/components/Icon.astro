@@ -1,0 +1,88 @@
+---
+// Hand-drawn icon set, tuned to the computer-vision theme.
+// 24x24 grid, 1.6 stroke, currentColor. Solid marks flagged per entry.
+interface Props {
+  name: keyof typeof ICONS;
+  class?: string;
+}
+const { name, class: cls = 'h-6 w-6' } = Astro.props;
+
+const ICONS = {
+  // Object-detection box with a reticle
+  detect: {
+    body: '<path d="M4 8V5.2A1.2 1.2 0 0 1 5.2 4H8"/><path d="M16 4h2.8A1.2 1.2 0 0 1 20 5.2V8"/><path d="M20 16v2.8a1.2 1.2 0 0 1-1.2 1.2H16"/><path d="M8 20H5.2A1.2 1.2 0 0 1 4 18.8V16"/><circle cx="12" cy="12" r="2.6"/><path d="M12 6.4v1.4M12 16.2v1.4M6.4 12h1.4M16.2 12h1.4"/>',
+  },
+  // Microchip
+  chip: {
+    body: '<rect x="6.5" y="6.5" width="11" height="11" rx="1.4"/><rect x="10" y="10" width="4" height="4" rx="0.6"/><path d="M9.5 6.5V3.5M14.5 6.5V3.5M9.5 20.5v-3M14.5 20.5v-3M6.5 9.5h-3M6.5 14.5h-3M20.5 9.5h-3M20.5 14.5h-3"/>',
+  },
+  // Stacked systems / server
+  stack: {
+    body: '<rect x="3.5" y="4.5" width="17" height="6" rx="1.4"/><rect x="3.5" y="13.5" width="17" height="6" rx="1.4"/><path d="M7 7.5h.01M7 16.5h.01"/>',
+  },
+  // 3x3 convolution kernel grid
+  kernel: {
+    body: '<rect x="4.5" y="4.5" width="15" height="15" rx="1.4"/><path d="M4.5 9.5h15M4.5 14.5h15M9.5 4.5v15M14.5 4.5v15"/>',
+  },
+  // Scanner crosshair
+  scan: {
+    body: '<path d="M4 8V5.2A1.2 1.2 0 0 1 5.2 4H8"/><path d="M16 4h2.8A1.2 1.2 0 0 1 20 5.2V8"/><path d="M20 16v2.8a1.2 1.2 0 0 1-1.2 1.2H16"/><path d="M8 20H5.2A1.2 1.2 0 0 1 4 18.8V16"/><path d="M4 12h16"/>',
+  },
+  heart: {
+    body: '<path d="M12 20S3.5 15.2 3.5 9.6A3.9 3.9 0 0 1 12 7a3.9 3.9 0 0 1 8.5 2.6C20.5 15.2 12 20 12 20Z"/>',
+  },
+  mail: {
+    body: '<rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 5.5L20 7"/>',
+  },
+  phone: {
+    body: '<path d="M6.6 3.5c.5 0 .95.3 1.14.77l1.1 2.7a1.2 1.2 0 0 1-.28 1.32L7.3 9.5a11.5 11.5 0 0 0 5.2 5.2l1.2-1.26a1.2 1.2 0 0 1 1.32-.28l2.7 1.1c.47.2.77.64.77 1.14v2.1a2.3 2.3 0 0 1-2.5 2.3A15.8 15.8 0 0 1 3.4 6a2.3 2.3 0 0 1 2.3-2.5Z"/>',
+  },
+  github: {
+    solid: true,
+    body: '<path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>',
+  },
+  linkedin: {
+    solid: true,
+    body: '<path d="M4.98 3.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.75-1.95 4 0 4.4 2.5 4.4 5.8V21h-4v-5.2c0-1.24-.02-2.84-1.75-2.84s-2 1.35-2 2.75V21h-4z"/>',
+  },
+  arrow: {
+    body: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  },
+  external: {
+    body: '<path d="M8 6h10v10M18 6 6 18"/>',
+  },
+  layers: {
+    body: '<path d="m12 3 8 4.5-8 4.5-8-4.5L12 3Z"/><path d="m4 12 8 4.5 8-4.5M4 16.5 12 21l8-4.5"/>',
+  },
+  book: {
+    body: '<path d="M5 4.5h9A2.5 2.5 0 0 1 16.5 7v12.5A2 2 0 0 0 14.5 18H5Z"/><path d="M8 8.5h5M8 11.5h5"/>',
+  },
+  shield: {
+    body: '<path d="M12 3.5 5 6v5.5c0 4.2 3 6.7 7 8.5 4-1.8 7-4.3 7-8.5V6Z"/><path d="m9.2 12 2 2 3.6-3.6"/>',
+  },
+  leaf: {
+    body: '<path d="M20 5c0 8-5.5 12-11 12a5 5 0 0 1-5-5C4 8.5 9.5 5 20 5Z"/><path d="M4 20c3.5-6 8-8 12-9"/>',
+  },
+  spark: {
+    body: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/><circle cx="12" cy="12" r="3"/>',
+  },
+  users: {
+    body: '<circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.5a3 3 0 0 1 0 5.5M15.5 14.5A5.5 5.5 0 0 1 20.5 20"/>',
+  },
+} as const;
+
+const icon = ICONS[name];
+const solid = 'solid' in icon && icon.solid;
+---
+
+<svg
+  class={cls}
+  viewBox="0 0 24 24"
+  fill={solid ? 'currentColor' : 'none'}
+  stroke={solid ? 'none' : 'currentColor'}
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  set:html={icon.body}
+/>

@@ -1,5 +1,6 @@
 ---
 import PageHeader from '../PageHeader.astro';
+import Icon from '../Icon.astro';
 import { getLangFromUrl, useTranslations, pick } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -23,12 +24,26 @@ const ICON: Record<string, string> = {
 type Cert = { title: string; issuer: string; year: string; cat: keyof typeof CAT; url?: string };
 const certs: Cert[] = [
   { title: 'Juniorstudium Angewandte Mathematik', issuer: 'CAU Kiel', year: '2025', cat: 'academic' },
+  { title: 'AI for Medicine', issuer: 'DeepLearning.AI', year: '2026', cat: 'ml', url: 'https://www.deeplearning.ai/courses/ai-for-medicine-specialization/' },
   { title: 'Building an Image Classifier', issuer: 'Coursera', year: '2025', cat: 'ml' },
   { title: 'Time Series Forecasting with Machine Learning', issuer: 'openHPI · Hasso-Plattner-Institut', year: '2025', cat: 'ml' },
   { title: 'Time Series Analysis / Big Data', issuer: 'openHPI · Hasso-Plattner-Institut', year: '2025', cat: 'ml' },
   { title: 'LPIC-1 Linux Administrator', issuer: 'Linux Professional Institute', year: '2025', cat: 'linux' },
   { title: 'Cryptography', issuer: 'Google', year: '2024', cat: 'security' },
   { title: 'Datenschutz / DSGVO-Schulung', issuer: 'Wissto International', year: '2026', cat: 'security' },
+];
+
+const publications = [
+  {
+    title: 'S2P-Net: A Spectral-Spatial Polar Network for Rotation-Invariant Object Recognition in Low-Data Regimes',
+    venue: 'arXiv:2605.09667',
+    year: '2026',
+    url: 'https://arxiv.org/abs/2605.09667',
+    desc: {
+      de: 'Eine kompakte Deep-Learning-Architektur mit mathematisch garantierter Rotationsinvarianz, ganz ohne Data Augmentation. Mit Vergleich zu klassischen CNNs und experimenteller Auswertung.',
+      en: 'A compact deep-learning architecture with mathematically guaranteed rotation invariance, entirely without data augmentation. Includes a comparison to conventional CNNs and experimental evaluation.',
+    },
+  },
 ];
 
 const present = [...new Set(certs.map((c) => c.cat))];
@@ -99,6 +114,46 @@ const stats = [
       }
     </div>
     <p id="cert-empty" class="hidden py-16 text-center text-muted">{t('projects.empty')}</p>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="relative overflow-hidden border-t border-line bg-surface/40 py-20 sm:py-24">
+  <div class="relative mx-auto max-w-5xl px-5">
+    <div class="reveal mb-10 text-center">
+      <p class="label-mono mb-3">{t('certs.pub')}</p>
+      <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{t('certs.pub')}</h2>
+      <p class="mx-auto mt-4 max-w-xl text-lg text-muted">{t('certs.pub.lead')}</p>
+    </div>
+    <div class="mx-auto grid max-w-3xl gap-5">
+      {
+        publications.map((pub) => (
+          <article class="card reveal p-7 sm:p-8">
+            <div class="flex items-start gap-5">
+              <span class="hidden h-12 w-12 shrink-0 place-items-center rounded-2xl bg-surface-2 text-accent sm:grid">
+                <Icon name="detect" class="h-6 w-6" />
+              </span>
+              <div class="min-w-0">
+                <div class="mb-2 flex flex-wrap items-center gap-3">
+                  <span class="font-mono text-xs text-accent">{pub.venue}</span>
+                  <span class="font-mono text-xs text-faint">{pub.year}</span>
+                </div>
+                <h3 class="font-display text-lg font-semibold leading-snug text-text sm:text-xl">{pub.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-muted">{pick(pub.desc, lang)}</p>
+                <a
+                  href={pub.url}
+                  target="_blank"
+                  rel="noopener"
+                  class="press mt-5 inline-flex items-center gap-1.5 rounded-full border border-line-strong px-4 py-1.5 text-sm font-medium text-text transition-colors hover:border-accent hover:text-accent"
+                >
+                  {t('certs.read')} <Icon name="external" class="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
   </div>
 </section>
 

@@ -29,9 +29,11 @@
   --color-muted: #6e6e73;
   --color-faint: #86868b;
 
-  /* Accent — Apple blue, used sparingly */
+  /* Accent, Apple blue, used sparingly */
   --color-accent: #0071e3;
   --color-accent-soft: #0077ed;
+  /* Scan accent, reserved for the vision lab / technical layer */
+  --color-scan: #0891b2;
   /* Legacy aliases kept pointing at the accent so old refs stay coherent */
   --color-iris: #0071e3;
   --color-iris-soft: #6e6e73;
@@ -79,12 +81,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    background-color: var(--color-ink);
+    transition: background-color 0.4s var(--ease-out-expo);
   }
   :root { color-scheme: light; }
   :root.dark { color-scheme: dark; }
 
   body {
-    background-color: var(--color-ink);
+    background-color: transparent;
     color: var(--color-text);
     font-family: var(--font-sans);
     letter-spacing: -0.003em;
@@ -175,6 +179,35 @@
   .prose a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
   .prose ul { list-style: disc; padding-left: 1.4rem; }
 
+  /* Technical background layer, theme-aware and very subtle */
+  .fx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .fx-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    opacity: 0.5;
+    -webkit-mask-image: radial-gradient(ellipse 92% 82% at 50% 0%, #000 18%, transparent 78%);
+    mask-image: radial-gradient(ellipse 92% 82% at 50% 0%, #000 18%, transparent 78%);
+  }
+  .fx-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(var(--color-line) 1px, transparent 1px);
+    background-size: 22px 22px;
+    opacity: 0.65;
+    -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 35%, #000 8%, transparent 74%);
+    mask-image: radial-gradient(ellipse 85% 80% at 50% 35%, #000 8%, transparent 74%);
+  }
+  .fx-tick { position: absolute; width: 11px; height: 11px; opacity: 0.55; }
+  .fx-tick::before, .fx-tick::after { content: ''; position: absolute; background: var(--color-line-strong); }
+  .fx-tick::before { width: 11px; height: 1px; }
+  .fx-tick::after { width: 1px; height: 11px; }
+  .fx-tick.tl { top: 20px; left: 20px; }
+  .fx-tick.tr { top: 20px; right: 20px; transform: scaleX(-1); }
+  .fx-tick.bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+  .fx-tick.br { bottom: 20px; right: 20px; transform: scale(-1); }
+
   /* Reveal-on-scroll (driven by IntersectionObserver in Base layout) */
   .reveal {
     opacity: 0;
@@ -182,4 +215,42 @@
     transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
   }
   .reveal.is-visible { opacity: 1; transform: none; }
+
+  /* Easter egg: Konami code toggles a night-vision scan of the content */
+  .egg-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 84px;
+    transform: translate(-50%, 16px);
+    z-index: 70;
+    opacity: 0;
+    pointer-events: none;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #0a0f14;
+    color: #7cf5b0;
+    border: 1px solid rgba(124, 245, 176, 0.4);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .egg-toast.show { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Night-vision scan (Konami) applied to the main content only, so the nav stays usable */
+html.scan-mode #main {
+  filter: invert(1) sepia(1) saturate(3.2) hue-rotate(72deg) contrast(0.96);
+  transition: filter 0.4s var(--ease-out-expo);
+}
+html.scan-mode::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(30, 255, 140, 0.06) 0 2px, transparent 2px 4px);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.scan-mode #main { transition: none; }
 }

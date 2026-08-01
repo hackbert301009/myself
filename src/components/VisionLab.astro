@@ -1,0 +1,262 @@
+---
+// Interactive image-processing lab. Runs real algorithms (Sobel edge,
+// threshold, mosaic, ASCII) on a sample portrait, entirely client-side.
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const modes = [
+  { id: 'scan', label: t('lab.mode.scan') },
+  { id: 'edge', label: t('lab.mode.edge') },
+  { id: 'threshold', label: t('lab.mode.threshold') },
+  { id: 'pixel', label: t('lab.mode.pixel') },
+  { id: 'ascii', label: 'ASCII' },
+];
+---
+
+<figure class="vlab" data-vlab>
+  <div class="vlab-bar">
+    <span class="vlab-dot"></span>
+    <span class="vlab-mono">sensor.cam // 600x600</span>
+    <span class="vlab-mono vlab-fps" data-fps>rdy</span>
+  </div>
+
+  <div class="vlab-stage">
+    <canvas data-canvas width="600" height="600" aria-label={t('lab.aria')}></canvas>
+    <div class="vlab-scanhint vlab-mono" data-hint>{t('lab.hint')}</div>
+  </div>
+
+  <div class="vlab-controls" role="group" aria-label={t('lab.aria')}>
+    {
+      modes.map((m, i) => (
+        <button type="button" class:list={['vlab-btn', i === 0 && 'is-active']} data-mode={m.id}>
+          {m.label}
+        </button>
+      ))
+    }
+  </div>
+</figure>
+
+<style>
+  .vlab {
+    margin: 0;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
+  }
+  .vlab-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--color-line);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-faint);
+    background: color-mix(in oklab, var(--color-surface-2) 60%, transparent);
+  }
+  .vlab-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--color-scan);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-scan) 60%, transparent);
+    animation: vlab-pulse 2s ease-out infinite;
+  }
+  @keyframes vlab-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-scan) 55%, transparent); }
+    70%, 100% { box-shadow: 0 0 0 7px transparent; }
+  }
+  .vlab-fps { margin-left: auto; }
+  .vlab-stage { position: relative; background: #05070a; aspect-ratio: 1 / 1; }
+  .vlab-stage canvas {
+    display: block; width: 100%; height: 100%;
+    cursor: crosshair; touch-action: none;
+  }
+  .vlab-scanhint {
+    position: absolute; left: 12px; bottom: 12px;
+    padding: 4px 9px; border-radius: 7px;
+    background: color-mix(in oklab, #05070a 60%, transparent);
+    color: #cfe9f2; letter-spacing: 0.02em;
+    pointer-events: none; transition: opacity 0.4s ease;
+  }
+  .vlab-controls { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 14px; }
+  .vlab-btn {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background: transparent;
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .vlab-btn:hover { color: var(--color-text); border-color: var(--color-line-strong); }
+  .vlab-btn.is-active {
+    color: #fff;
+    background: var(--color-scan);
+    border-color: var(--color-scan);
+  }
+  @media (prefers-reduced-motion: reduce) { .vlab-dot { animation: none; } }
+</style>
+
+<script>
+  // ── One self-contained lab per [data-vlab] on the page ──────────────
+  function initVisionLab(root: HTMLElement) {
+    const canvas = root.querySelector<HTMLCanvasElement>('[data-canvas]');
+    const fpsEl = root.querySelector<HTMLElement>('[data-fps]');
+    const hintEl = root.querySelector<HTMLElement>('[data-hint]');
+    const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-mode]'));
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    if (!ctx) return;
+    const W = canvas.width, H = canvas.height;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Offscreen layers
+    const mk = () => { const c = document.createElement('canvas'); c.width = W; c.height = H; return c; };
+    const orig = mk(), edge = mk(), thr = mk(), pix = mk(), asc = mk();
+
+    let mode = 'scan';
+    let px = -999, py = -999, hovering = false;
+    let scanY = 0, dir = 1, raf = 0;
+    const R = Math.round(W * 0.18);
+
+    const img = new Image();
+    img.src = '/vision-sample.jpg';
+    img.onload = () => {
+      // original
+      const oc = orig.getContext('2d')!;
+      oc.drawImage(img, 0, 0, W, H);
+      const src = oc.getImageData(0, 0, W, H).data;
+
+      // grayscale buffer
+      const gray = new Float32Array(W * H);
+      for (let i = 0, p = 0; i < src.length; i += 4, p++) {
+        gray[p] = 0.299 * src[i] + 0.587 * src[i + 1] + 0.114 * src[i + 2];
+      }
+
+      // Sobel edges (tinted toward the scan accent)
+      const eImg = ctx.createImageData(W, H);
+      const Gx = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
+      const Gy = [-1, -2, -1, 0, 0, 0, 1, 2, 1];
+      for (let y = 1; y < H - 1; y++) {
+        for (let x = 1; x < W - 1; x++) {
+          let sx = 0, sy = 0, k = 0;
+          for (let ky = -1; ky <= 1; ky++)
+            for (let kx = -1; kx <= 1; kx++) {
+              const v = gray[(y + ky) * W + (x + kx)];
+              sx += v * Gx[k]; sy += v * Gy[k]; k++;
+            }
+          let m = Math.sqrt(sx * sx + sy * sy);
+          if (m > 255) m = 255;
+          const o = (y * W + x) * 4;
+          eImg.data[o] = m * 0.35;
+          eImg.data[o + 1] = m * 0.85;
+          eImg.data[o + 2] = m;
+          eImg.data[o + 3] = 255;
+        }
+      }
+      edge.getContext('2d')!.putImageData(eImg, 0, 0);
+
+      // Threshold
+      const tImg = ctx.createImageData(W, H);
+      for (let p = 0; p < gray.length; p++) {
+        const v = gray[p] >= 128 ? 255 : 12;
+        const o = p * 4;
+        tImg.data[o] = tImg.data[o + 1] = tImg.data[o + 2] = v; tImg.data[o + 3] = 255;
+      }
+      thr.getContext('2d')!.putImageData(tImg, 0, 0);
+
+      // Pixelate (mosaic via down/up scale)
+      const pc = pix.getContext('2d')!;
+      const s = 14;
+      pc.imageSmoothingEnabled = false;
+      pc.drawImage(orig, 0, 0, Math.ceil(W / s), Math.ceil(H / s));
+      pc.drawImage(pix, 0, 0, Math.ceil(W / s), Math.ceil(H / s), 0, 0, W, H);
+
+      // ASCII
+      const ac = asc.getContext('2d')!;
+      ac.fillStyle = '#05070a'; ac.fillRect(0, 0, W, H);
+      const RAMP = ' .:-=+*#%@';
+      const cw = 6, ch = 10;
+      ac.font = `${ch}px ui-monospace, monospace`;
+      ac.textBaseline = 'top';
+      for (let cy = 0; cy < H; cy += ch) {
+        for (let cx = 0; cx < W; cx += cw) {
+          let sum = 0, n = 0;
+          for (let yy = cy; yy < Math.min(cy + ch, H); yy += 2)
+            for (let xx = cx; xx < Math.min(cx + cw, W); xx += 2) { sum += gray[yy * W + xx]; n++; }
+          const L = sum / n;
+          const idx = Math.min(RAMP.length - 1, Math.floor((L / 255) * (RAMP.length - 1)));
+          ac.fillStyle = `rgb(${L * 0.35 | 0}, ${L * 0.85 | 0}, ${L})`;
+          ac.fillText(RAMP[idx], cx, cy);
+        }
+      }
+
+      if (fpsEl) fpsEl.textContent = 'live';
+      loop();
+    };
+
+    const layer = (m: string) => (m === 'edge' ? edge : m === 'threshold' ? thr : m === 'pixel' ? pix : m === 'ascii' ? asc : orig);
+
+    function render() {
+      if (mode === 'scan') {
+        ctx!.drawImage(orig, 0, 0);
+        // sweeping scan band reveals edges
+        if (!reduce) {
+          const band = 46;
+          ctx!.save();
+          ctx!.beginPath(); ctx!.rect(0, scanY - band / 2, W, band); ctx!.clip();
+          ctx!.drawImage(edge, 0, 0); ctx!.restore();
+          ctx!.fillStyle = 'rgba(8,145,178,0.55)';
+          ctx!.fillRect(0, scanY, W, 2);
+          scanY += dir * 1.6;
+          if (scanY > H || scanY < 0) dir *= -1;
+        }
+        // cursor spotlight reveals edges
+        if (hovering) {
+          ctx!.save();
+          ctx!.beginPath(); ctx!.arc(px, py, R, 0, Math.PI * 2); ctx!.clip();
+          ctx!.drawImage(edge, 0, 0); ctx!.restore();
+          ctx!.strokeStyle = 'rgba(120,220,240,0.9)'; ctx!.lineWidth = 1.5;
+          ctx!.beginPath(); ctx!.arc(px, py, R, 0, Math.PI * 2); ctx!.stroke();
+          ctx!.beginPath();
+          ctx!.moveTo(px - 10, py); ctx!.lineTo(px + 10, py);
+          ctx!.moveTo(px, py - 10); ctx!.lineTo(px, py + 10); ctx!.stroke();
+        }
+      } else {
+        ctx!.drawImage(layer(mode), 0, 0);
+      }
+    }
+    function loop() { render(); raf = requestAnimationFrame(loop); }
+
+    const toXY = (e: PointerEvent) => {
+      const r = canvas.getBoundingClientRect();
+      px = ((e.clientX - r.left) / r.width) * W;
+      py = ((e.clientY - r.top) / r.height) * H;
+    };
+    canvas.addEventListener('pointermove', (e) => { hovering = true; toXY(e); if (hintEl) hintEl.style.opacity = '0'; });
+    canvas.addEventListener('pointerleave', () => { hovering = false; if (hintEl && mode === 'scan') hintEl.style.opacity = '1'; });
+
+    btns.forEach((b) =>
+      b.addEventListener('click', () => {
+        mode = b.dataset.mode || 'scan';
+        btns.forEach((x) => x.classList.toggle('is-active', x === b));
+        if (hintEl) hintEl.style.opacity = mode === 'scan' && !hovering ? '1' : '0';
+      })
+    );
+
+    // pause when offscreen
+    const io = new IntersectionObserver(([en]) => {
+      if (en.isIntersecting && !raf) loop();
+      else if (!en.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
+    });
+    io.observe(canvas);
+  }
+
+  const boot = () => document.querySelectorAll<HTMLElement>('[data-vlab]').forEach(initVisionLab);
+  boot();
+  document.addEventListener('astro:page-load', boot);
+</script>
