@@ -1,0 +1,144 @@
+---
+import Icon from './Icon.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const traits = [
+  { icon: 'rotate' as const, k: 't1' },
+  { icon: 'polar' as const, k: 't2' },
+  { icon: 'layers' as const, k: 't3' },
+];
+
+// Precompute polar node coordinates (8 spokes x 3 rings) around center 90,90
+const cx = 90;
+const cy = 90;
+const rings = [26, 50, 74];
+const nodes: { x: number; y: number; r: number }[] = [];
+for (let s = 0; s < 8; s++) {
+  const a = (s / 8) * Math.PI * 2 - Math.PI / 2;
+  for (const rr of rings) {
+    nodes.push({ x: cx + Math.cos(a) * rr, y: cy + Math.sin(a) * rr, r: rr });
+  }
+}
+---
+
+<section id="research" class="relative overflow-hidden border-t border-line py-24 sm:py-32">
+  <div class="relative mx-auto max-w-5xl px-5">
+    <div class="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
+      <!-- Copy -->
+      <div class="reveal">
+        <p class="label-mono mb-3 flex items-center gap-2">
+          <span style="color: var(--color-scan)"><Icon name="polar" class="h-4 w-4" /></span>
+          {t('home.research.label')}
+        </p>
+        <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{t('home.research.title')}</h2>
+        <p class="mt-5 text-lg leading-relaxed text-muted">{t('home.research.lead')}</p>
+
+        <dl class="mt-8 space-y-4">
+          {
+            traits.map((tr) => (
+              <div class="flex gap-4">
+                <dt class="mt-0.5 grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-surface-2" style="color: var(--color-scan)">
+                  <Icon name={tr.icon} class="h-5 w-5" />
+                </dt>
+                <dd>
+                  <span class="block font-display text-[0.98rem] font-semibold text-text">{t(`home.research.${tr.k}` as any)}</span>
+                  <span class="mt-0.5 block text-sm leading-relaxed text-muted">{t(`home.research.${tr.k}d` as any)}</span>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <div class="mt-9">
+          <a
+            href="https://arxiv.org/abs/2605.09667"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="press inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium text-white transition-[filter] hover:brightness-110"
+            style="background: var(--color-scan)"
+          >
+            <Icon name="paper" class="h-4 w-4" />
+            {t('home.research.cta')}
+          </a>
+          <p class="mt-4 font-mono text-xs text-faint">{t('home.research.meta')}</p>
+        </div>
+      </div>
+
+      <!-- Signature graphic: spectral-spatial polar network -->
+      <div class="reveal">
+        <figure class="card relative overflow-hidden p-6 sm:p-8">
+          <figcaption class="mb-4 font-mono text-[0.72rem] leading-relaxed text-faint">
+            {t('home.research.paper')}
+          </figcaption>
+          <div class="relative mx-auto aspect-square w-full max-w-[380px]">
+            <svg viewBox="0 0 180 180" class="polar-net h-full w-full" role="img" aria-label="S2P-Net">
+              <defs>
+                <radialGradient id="polar-glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="var(--color-scan)" stop-opacity="0.22" />
+                  <stop offset="70%" stop-color="var(--color-scan)" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <circle cx="90" cy="90" r="80" fill="url(#polar-glow)" />
+
+              <!-- concentric rings -->
+              {rings.map((r) => (
+                <circle cx="90" cy="90" r={r} fill="none" stroke="var(--color-line-strong)" stroke-width="0.8" />
+              ))}
+              <!-- radial spokes -->
+              {Array.from({ length: 8 }).map((_, s) => {
+                const a = (s / 8) * Math.PI * 2 - Math.PI / 2;
+                return (
+                  <line
+                    x1="90"
+                    y1="90"
+                    x2={90 + Math.cos(a) * 82}
+                    y2={90 + Math.sin(a) * 82}
+                    stroke="var(--color-line)"
+                    stroke-width="0.8"
+                  />
+                );
+              })}
+
+              <!-- rotating scan sweep -->
+              <g class="polar-sweep" style="transform-origin: 90px 90px;">
+                <path d="M90 90 L90 8 A82 82 0 0 1 148 32 Z" fill="var(--color-scan)" opacity="0.12" />
+                <line x1="90" y1="90" x2="90" y2="8" stroke="var(--color-scan)" stroke-width="1.3" />
+              </g>
+
+              <!-- nodes -->
+              {nodes.map((n, i) => (
+                <circle
+                  class="polar-node"
+                  cx={n.x}
+                  cy={n.y}
+                  r={i % 5 === 0 ? 3 : 1.9}
+                  fill={i % 5 === 0 ? 'var(--color-scan)' : 'var(--color-muted)'}
+                  style={`animation-delay: ${(i % 8) * 0.18}s`}
+                />
+              ))}
+              <circle cx="90" cy="90" r="4" fill="var(--color-text)" />
+            </svg>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .polar-sweep { animation: polar-rotate 7s linear infinite; }
+  @keyframes polar-rotate {
+    to { transform: rotate(360deg); }
+  }
+  .polar-node { animation: polar-pulse 3.6s var(--ease-out-expo) infinite; }
+  @keyframes polar-pulse {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .polar-sweep, .polar-node { animation: none; }
+  }
+</style>

@@ -38,6 +38,8 @@ export const ui = {
     'about.philosophy': 'Meine Philosophie',
     'about.philosophy.p':
       'Ich suche nicht nur den Fehler, ich suche die Lösung. Ein gut verstandenes, sauber dokumentiertes System ist mir lieber als ein schneller Hack.',
+    'about.p3':
+      'Zwei Themen treiben mich besonders an: eigene Forschung wie mein Netz S2P-Net, und Technik, die Menschen im Alltag hilft, etwa meine Assistenz-App Skill-Lens.',
 
     // Home
     'home.featured': 'Ausgewählte Projekte',
@@ -70,6 +72,32 @@ export const ui = {
     'home.cta.title': 'Lass uns etwas bauen.',
     'home.cta.lead':
       'Interesse an einer Zusammenarbeit oder Fragen zu meinen Projekten? Ich freue mich über eine Nachricht.',
+
+    // Research highlight (S2P-Net)
+    'home.research.label': 'Eigene Forschung',
+    'home.research.title': 'Objekterkennung, die sich nicht aus der Ruhe bringen lässt',
+    'home.research.lead':
+      'S2P-Net ist mein eigenes neuronales Netz. Es erkennt Objekte zuverlässig, auch wenn sie gedreht sind und nur wenige Trainingsbilder vorliegen. Dafür verbindet es spektrale und räumliche Merkmale in einer polaren Darstellung.',
+    'home.research.paper': 'S2P-Net: A Spectral-Spatial Polar Network for Rotation-Invariant Object Recognition in Low-Data Regimes',
+    'home.research.meta': 'arXiv · 2026 · Erstautor',
+    'home.research.t1': 'Rotationsinvariant',
+    'home.research.t1d': 'Erkennt Objekte unabhängig von ihrer Drehung.',
+    'home.research.t2': 'Spektral & räumlich',
+    'home.research.t2d': 'Verbindet Frequenz- und Ortsmerkmale in polarer Form.',
+    'home.research.t3': 'Wenig Daten',
+    'home.research.t3d': 'Funktioniert dort, wo kaum Trainingsbilder da sind.',
+    'home.research.cta': 'Paper auf arXiv lesen',
+
+    // Skill-Lens spotlight
+    'home.spotlight.label': 'Herzensprojekt',
+    'home.spotlight.title': 'Skill-Lens: Ich schaff das!',
+    'home.spotlight.lead':
+      'Eine Assistenz-App für Menschen mit Lernschwierigkeiten. Sie führt in Leichter Sprache durch Alltagsaufgaben, die Kamera bestätigt jeden Schritt im echten Moment. Ganz ohne Cloud, ohne Gewinn.',
+    'home.spotlight.p1': 'Leichte Sprache & große Knöpfe',
+    'home.spotlight.p2': 'Läuft offline, Fotos bleiben auf dem Gerät',
+    'home.spotlight.p3': 'Kein Gewinn, ein Herzensprojekt',
+    'home.spotlight.cta': 'Zur Skill-Lens Webseite',
+    'home.spotlight.alt': 'Skill-Lens App: junge Person hält ein Handy, das Schritt für Schritt durch das Händewaschen führt.',
 
     // Projects
     'projects.label': 'Projekte',
@@ -160,6 +188,8 @@ export const ui = {
     'about.philosophy': 'My philosophy',
     'about.philosophy.p':
       "I don't just look for the bug, I look for the solution. A well-understood, well-documented system beats a quick hack.",
+    'about.p3':
+      'Two themes drive me most: my own research, like my S2P-Net network, and technology that helps people in everyday life, such as my assistive app Skill-Lens.',
 
     'home.featured': 'Selected projects',
     'home.featured.title': 'What I build',
@@ -191,6 +221,32 @@ export const ui = {
     'home.cta.title': "Let's build something.",
     'home.cta.lead':
       'Interested in working together or curious about my projects? I would love to hear from you.',
+
+    // Research highlight (S2P-Net)
+    'home.research.label': 'My own research',
+    'home.research.title': 'Object recognition that keeps its cool',
+    'home.research.lead':
+      'S2P-Net is my own neural network. It recognizes objects reliably even when they are rotated and only a handful of training images exist, by combining spectral and spatial features in a polar representation.',
+    'home.research.paper': 'S2P-Net: A Spectral-Spatial Polar Network for Rotation-Invariant Object Recognition in Low-Data Regimes',
+    'home.research.meta': 'arXiv · 2026 · First author',
+    'home.research.t1': 'Rotation-invariant',
+    'home.research.t1d': 'Recognizes objects regardless of how they are turned.',
+    'home.research.t2': 'Spectral & spatial',
+    'home.research.t2d': 'Fuses frequency and location cues in a polar form.',
+    'home.research.t3': 'Low data',
+    'home.research.t3d': 'Works where hardly any training images exist.',
+    'home.research.cta': 'Read the paper on arXiv',
+
+    // Skill-Lens spotlight
+    'home.spotlight.label': 'A project close to my heart',
+    'home.spotlight.title': 'Skill-Lens: I can do this!',
+    'home.spotlight.lead':
+      'An assistive app for people with learning difficulties. It guides through everyday tasks in easy language, and the camera confirms every step in the real moment. No cloud, no profit.',
+    'home.spotlight.p1': 'Easy language & large buttons',
+    'home.spotlight.p2': 'Runs offline, photos stay on the device',
+    'home.spotlight.p3': 'No profit, a labour of love',
+    'home.spotlight.cta': 'Visit the Skill-Lens site',
+    'home.spotlight.alt': 'Skill-Lens app: a young person holds a phone that guides them step by step through washing hands.',
 
     'projects.label': 'Projects',
     'projects.title': 'Project archive',

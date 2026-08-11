@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import marketing from '../assets/skill-lens/marketing.png';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const points = ['p1', 'p2', 'p3'];
+---
+
+<section id="skill-lens" class="sl-spot relative overflow-hidden border-t border-line py-24 sm:py-32">
+  <!-- soft brand aura -->
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="sl-aura absolute right-[-10%] top-1/2 h-[34rem] w-[34rem] -translate-y-1/2 rounded-full"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-5xl px-5">
+    <div class="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
+      <!-- Copy -->
+      <div class="reveal order-2 lg:order-1">
+        <p class="label-mono mb-3 flex items-center gap-2" style="color: var(--sl-brand)">
+          <Icon name="heart" class="h-4 w-4" />
+          {t('home.spotlight.label')}
+        </p>
+        <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{t('home.spotlight.title')}</h2>
+        <p class="mt-5 text-lg leading-relaxed text-muted">{t('home.spotlight.lead')}</p>
+
+        <ul class="mt-7 space-y-3">
+          {
+            points.map((p) => (
+              <li class="flex items-start gap-3 text-[0.98rem] text-text">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full" style="background: color-mix(in oklab, var(--sl-brand) 14%, transparent); color: var(--sl-brand)">
+                  <Icon name="lens" class="h-4 w-4" />
+                </span>
+                {t(`home.spotlight.${p}` as any)}
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="mt-9">
+          <a
+            href="https://skill-lens.de"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="press inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium text-white transition-[filter] hover:brightness-110"
+            style="background: var(--sl-brand)"
+          >
+            {t('home.spotlight.cta')}
+            <Icon name="arrow" class="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Illustration -->
+      <div class="reveal order-1 lg:order-2">
+        <div class="sl-frame overflow-hidden rounded-3xl border border-line shadow-[var(--shadow-lift)]">
+          <Image
+            src={marketing}
+            alt={t('home.spotlight.alt')}
+            widths={[480, 800, 1200]}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            class="w-full"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sl-spot {
+    /* Skill-Lens brand indigo, used only inside this section */
+    --sl-brand: #3d5ae0;
+  }
+  :global(:root.dark) .sl-spot {
+    --sl-brand: #7c93ff;
+  }
+  .sl-aura {
+    background: radial-gradient(circle, color-mix(in oklab, var(--sl-brand) 18%, transparent), transparent 68%);
+    filter: blur(30px);
+    opacity: 0.7;
+  }
+  .sl-frame { background: var(--color-surface-2); }
+</style>

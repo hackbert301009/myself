@@ -4,6 +4,8 @@ import { getCollection } from 'astro:content';
 import Hero from '../Hero.astro';
 import ProjectCard from '../ProjectCard.astro';
 import VisionLab from '../VisionLab.astro';
+import ResearchHighlight from '../ResearchHighlight.astro';
+import SkillLensSpotlight from '../SkillLensSpotlight.astro';
 import Icon from '../Icon.astro';
 import { getLangFromUrl, useTranslations, localizedPath } from '../../i18n/utils';
 import portraitImg from '../../assets/portrait.jpg';
@@ -13,8 +15,9 @@ const t = useTranslations(lang);
 const lp = (p: string) => localizedPath(p, lang);
 
 const allProjects = await getCollection('projects');
+// Skill-Lens has its own spotlight section below, so keep it out of the grid here.
 const featured = allProjects
-  .filter((p) => p.data.featured)
+  .filter((p) => p.data.featured && p.id !== 'skill-lens')
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
 
@@ -67,6 +70,9 @@ const caps = [
   </div>
 </section>
 
+<!-- RESEARCH HIGHLIGHT (S2P-Net) -->
+<ResearchHighlight />
+
 <!-- VISION LAB (signature interactive) -->
 <section id="lab" class="relative overflow-hidden py-24 sm:py-32">
   <div class="relative mx-auto max-w-5xl px-5">
@@ -91,6 +97,9 @@ const caps = [
   </div>
 </section>
 
+<!-- SKILL-LENS SPOTLIGHT (heart / social) -->
+<SkillLensSpotlight />
+
 <!-- ABOUT -->
 <section id="about" class="border-t border-line py-24 sm:py-32">
   <div class="mx-auto max-w-5xl px-5">
@@ -106,8 +115,9 @@ const caps = [
         <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{t('about.title')}</h2>
         <p class="mt-5 text-lg leading-relaxed text-muted">{t('about.p1')}</p>
         <p class="mt-4 text-lg leading-relaxed text-muted">{t('about.p2')}</p>
+        <p class="mt-4 text-lg leading-relaxed text-muted">{t('about.p3')}</p>
 
-        <p class="mt-6 text-base leading-relaxed text-text">{t('about.philosophy.p')}</p>
+        <p class="mt-6 border-l-2 border-accent/40 pl-4 text-base leading-relaxed text-text">{t('about.philosophy.p')}</p>
 
         <div class="mt-7 flex flex-wrap gap-2">
           {
