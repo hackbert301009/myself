@@ -1,7 +1,7 @@
 # hackbert.org — Portfolio von Albert Heruth
 
-Zweisprachiges (DE/EN) Portfolio als **AI & Computer-Vision Engineer**.
-Gebaut mit **Astro 6 + Tailwind CSS v4 + Three.js**, gehostet kostenlos auf **GitHub Pages**.
+Zweisprachiges (DE/EN) Portfolio rund um **Angewandte Mathematik, Machine Learning und Embedded Systems**.
+Gebaut mit **Astro 6 + Tailwind CSS v4**, gehostet kostenlos auf **GitHub Pages**.
 
 ---
 
@@ -21,14 +21,14 @@ npm run preview    # Build lokal ansehen
 
 ## ✏️ Inhalte pflegen (das Wichtigste)
 
-Alle Inhalte liegen als **Markdown-Dateien** unter `src/content/`. Du brauchst
+Projekte liegen als **Markdown-Dateien** unter `src/content/projects/`. Du brauchst
 kein HTML/JS anzufassen — eine neue Datei = ein neuer Eintrag.
 
-| Was              | Ordner                        |
-| ---------------- | ----------------------------- |
-| Projekte         | `src/content/projects/`       |
-| Forschung        | `src/content/research/`       |
-| Zertifikate      | `src/content/certificates/`   |
+| Was              | Wo                                              |
+| ---------------- | ----------------------------------------------- |
+| Projekte         | `src/content/projects/` (Markdown-Collection)   |
+| Zertifikate      | Array `certs` in `src/components/pages/CertificatesPage.astro` |
+| Publikationen    | Array `publications` in derselben Datei         |
 
 ### Neues Projekt anlegen
 
@@ -45,11 +45,10 @@ tech: ["Python", "PyTorch"]
 year: "2026"
 status: "active"        # active | finished | prototype | research
 featured: false
-order: 5                # kleinere Zahl = weiter oben
+order: 5                # kleinere Zahl = weiter oben, pro Projekt eindeutig halten
 repo: "https://github.com/..."   # optional
 demo: "https://..."              # optional
 cover: "../../assets/projects/mein-bild.jpg"  # optional
-needsConfirmation: false         # true = markiert als "noch zu bestätigen" (ⓘ)
 ---
 
 Längerer Beschreibungstext (Markdown).
@@ -76,7 +75,8 @@ Zentral in **`src/i18n/ui.ts`** — pro Schlüssel je ein `de`- und `en`-Wert.
 ## 🎨 Design-System
 
 Alle Farben, Fonts und Tokens stehen zentral in **`src/styles/global.css`**
-im `@theme`-Block ("Neural Lab"-Theme: tiefes Blau-Schwarz, Cyan↔Violett).
+im `@theme`-Block (Apple-minimalistisch: Hell als Standard, Dunkel per `.dark`,
+Akzent `#0071e3`, Scan-Akzent für die technische Ebene). Siehe auch `DESIGN.md`.
 Eine Farbe dort ändern → wirkt überall.
 
 ---
@@ -100,8 +100,8 @@ Eine Farbe dort ändern → wirkt überall.
 ```
 src/
 ├── assets/            Bilder (werden optimiert)
-├── components/        Hero (Three.js), Nav, Footer, ProjectCard, …
-├── content/           ← Inhalte als Markdown (projects/research/certificates)
+├── components/        Hero, Nav, Footer, ProjectCard, VisionLab, …
+├── content/projects/  ← Projekte als Markdown
 ├── content.config.ts  Schema der Inhalte (Zod)
 ├── i18n/              Übersetzungen + Helfer
 ├── layouts/Base.astro Grund-Layout (Head, SEO, Reveal-Animationen)
@@ -113,6 +113,11 @@ src/
 
 ## ✅ Offene Punkte
 
-Einträge mit `needsConfirmation: true` (Marker **ⓘ**) müssen inhaltlich noch
-bestätigt werden (z. B. SterilVision, BWKI, einige Zertifikat-Aussteller).
-Nach Bestätigung einfach `needsConfirmation: false` setzen.
+Einige Projektdateien tragen im Frontmatter ein `needsConfirmation: true` für
+Aussagen, die inhaltlich noch bestätigt werden müssen. **Achtung:** Das Feld ist
+nur eine Notiz für dich. Es steht nicht im Schema (`content.config.ts`), wird von
+Zod stillschweigend verworfen und nirgends auf der Seite angezeigt — es gibt
+keinen **ⓘ**-Marker. Aktuell betroffen: `acsess.md`, `web-vulnerability-scanner.md`.
+
+Wenn der Marker wirklich sichtbar sein soll, muss das Feld ins Schema aufgenommen
+und in `ProjectCard.astro` gerendert werden.

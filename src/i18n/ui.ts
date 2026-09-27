@@ -18,11 +18,11 @@ export const ui = {
     'nav.cta': 'Kontakt',
 
     // Hero
-    'hero.role': 'AI & Computer-Vision Engineer',
+    'hero.role': 'Angewandte Mathematik & KI',
     'hero.title.1': 'Ich bringe Maschinen',
     'hero.title.2': 'das Sehen bei.',
     'hero.lead':
-      'Von medizinischer Bildverarbeitung über neuronale Netze bis hin zu Embedded-Systemen, ich baue intelligente Systeme, die in der realen Welt funktionieren.',
+      'Von medizinischer Bildverarbeitung über neuronale Netze bis hin zu Embedded Systems: Ich baue intelligente Systeme, die in der realen Welt funktionieren.',
     'hero.cta.work': 'Projekte ansehen',
     'hero.cta.contact': 'Kontakt aufnehmen',
     'hero.status': 'Verfügbar für Projekte',
@@ -62,7 +62,7 @@ export const ui = {
     'home.caps.systems.desc': 'Linux, Docker, Netzwerke und saubere, wartbare Backends & Werkzeuge.',
     'lab.label': 'Vision Lab',
     'lab.title': 'Sieh, wie Maschinen sehen',
-    'lab.lead': 'Dieses Portrait läuft live durch echte Bildverarbeitung, direkt in deinem Browser. Bewege den Cursor über das Bild oder wähle einen Modus.',
+    'lab.lead': 'Dieses Porträt läuft live durch echte Bildverarbeitung, direkt in deinem Browser. Bewege den Cursor über das Bild oder wähle einen Modus.',
     'lab.mode.scan': 'Scan',
     'lab.mode.edge': 'Kanten',
     'lab.mode.threshold': 'Schwellwert',
@@ -92,12 +92,12 @@ export const ui = {
     'home.spotlight.label': 'Herzensprojekt',
     'home.spotlight.title': 'Skill-Lens: Ich schaff das!',
     'home.spotlight.lead':
-      'Eine Assistenz-App für Menschen mit Lernschwierigkeiten. Sie führt in Leichter Sprache durch Alltagsaufgaben, die Kamera bestätigt jeden Schritt im echten Moment. Ganz ohne Cloud, ohne Gewinn.',
+      'Eine Assistenz-App für Menschen mit Lernschwierigkeiten. Sie führt in Leichter Sprache durch Alltagsaufgaben. Die Kamera bestätigt jeden Schritt im echten Moment. Ganz ohne Cloud, ohne Gewinn.',
     'home.spotlight.p1': 'Leichte Sprache & große Knöpfe',
     'home.spotlight.p2': 'Läuft offline, Fotos bleiben auf dem Gerät',
     'home.spotlight.p3': 'Kein Gewinn, ein Herzensprojekt',
-    'home.spotlight.cta': 'Zur Skill-Lens Webseite',
-    'home.spotlight.alt': 'Skill-Lens App: junge Person hält ein Handy, das Schritt für Schritt durch das Händewaschen führt.',
+    'home.spotlight.cta': 'Zur Skill-Lens-Website',
+    'home.spotlight.alt': 'Skill-Lens-App: Eine junge Person hält ein Handy, das Schritt für Schritt durch das Händewaschen führt.',
 
     // Projects
     'projects.label': 'Projekte',
@@ -115,19 +115,20 @@ export const ui = {
     'certs.stat.since': 'Seit',
     'certs.verify': 'Verifizieren',
     'certs.pub': 'Publikationen',
+    'certs.pub.title': 'Eigene Veröffentlichungen',
     'certs.pub.lead': 'Eigene Forschung und Veröffentlichungen.',
     'certs.read': 'Paper lesen',
 
     'heart.label': 'Herzensangelegenheiten',
     'heart.title': 'Was mir am Herzen liegt',
     'heart.lead':
-      'Technik ist für mich Mittel zum Zweck, Menschen helfen. Ein paar Organisationen und Werte, die Unterstützung verdienen und mich antreiben.',
+      'Technik ist für mich Mittel zum Zweck: Menschen helfen. Ein paar Organisationen und Werte, die Unterstützung verdienen und mich antreiben.',
     'heart.causes': 'Organisationen, die Unterstützung verdienen',
-    'heart.causes.lead': 'Gemeinnützige Projekte, die einen echten Unterschied machen. Schau vorbei oder spende.',
+    'heart.causes.lead': 'Gemeinnützige Projekte, die wirklich etwas bewirken. Schau vorbei oder spende.',
     'heart.values': 'Meine Werte',
     'heart.values.lead': 'Was meine Arbeit und meine Entscheidungen leitet.',
     'heart.support': 'Unterstützen',
-    'heart.note': 'Persönliche Auswahl, sie wächst mit der Zeit.',
+    'heart.note': 'Persönliche Auswahl. Sie wächst mit der Zeit.',
     'heart.cta.title': 'Gemeinsam Gutes bewegen.',
     'heart.cta.lead': 'Kennst du eine Organisation, die hierher passt? Schreib mir.',
 
@@ -156,8 +157,17 @@ export const ui = {
     'footer.imprint': 'Impressum',
     'footer.privacy': 'Datenschutz',
 
+    // Accessibility labels (screen readers) & easter egg
+    'a11y.skip': 'Zum Inhalt springen',
+    'a11y.home': 'Albert Heruth, Startseite',
+    'a11y.lang': 'Sprache auf Englisch umstellen',
+    'a11y.theme': 'Farbschema umschalten',
+    'a11y.portrait': 'Porträt von Albert Heruth',
+    'easter.on': 'scan_mode // aktiviert',
+    'easter.off': 'scan_mode // aus',
+
     // Meta
-    'meta.title': 'Albert Heruth · AI & Computer-Vision Engineer',
+    'meta.title': 'Albert Heruth · Angewandte Mathematik & KI',
     'meta.desc':
       'Portfolio von Albert Heruth: Computer Vision, maschinelles Lernen, Embedded Systems und Systemintegration.',
   },
@@ -169,7 +179,7 @@ export const ui = {
     'nav.contact': 'Contact',
     'nav.cta': 'Contact',
 
-    'hero.role': 'AI & Computer-Vision Engineer',
+    'hero.role': 'Applied Mathematics & AI',
     'hero.title.1': 'I teach machines',
     'hero.title.2': 'how to see.',
     'hero.lead':
@@ -187,22 +197,22 @@ export const ui = {
     'about.skills': 'Core skills',
     'about.philosophy': 'My philosophy',
     'about.philosophy.p':
-      "I don't just look for the bug, I look for the solution. A well-understood, well-documented system beats a quick hack.",
+      "I don't just look for the bug, I look for the solution. I'd take a well-understood, cleanly documented system over a quick hack any day.",
     'about.p3':
-      'Two themes drive me most: my own research, like my S2P-Net network, and technology that helps people in everyday life, such as my assistive app Skill-Lens.',
+      'Two themes drive me most: my own research, like my network S2P-Net, and technology that helps people in everyday life, such as my assistive app Skill-Lens.',
 
     'home.featured': 'Selected projects',
-    'home.featured.title': 'What I build',
+    'home.featured.title': "What I'm working on",
     'home.featured.lead': 'A glimpse of my work. Find everything in the archive.',
     'home.viewall': 'All projects',
-    'home.trust': 'Currently working & involved',
+    'home.trust': 'Currently working with',
     'home.stats.projects': 'Projects',
-    'home.stats.areas': 'Domains',
+    'home.stats.areas': 'Areas',
     'home.stats.tech': 'Technologies',
     'home.stats.since': 'Active since',
     'home.caps.label': 'Capabilities',
     'home.caps.title': 'What I do',
-    'home.caps.lead': 'Three areas I am at home in, from the first idea to a system that runs.',
+    'home.caps.lead': 'Three areas I feel at home in, from the first idea to a system that actually runs.',
     'home.caps.cv': 'Computer Vision & ML',
     'home.caps.cv.desc': 'Neural networks, image classification, object and anomaly detection, medical imaging.',
     'home.caps.embedded': 'Embedded & IoT',
@@ -226,25 +236,25 @@ export const ui = {
     'home.research.label': 'My own research',
     'home.research.title': 'Object recognition that keeps its cool',
     'home.research.lead':
-      'S2P-Net is my own neural network. It recognizes objects reliably even when they are rotated and only a handful of training images exist, by combining spectral and spatial features in a polar representation.',
+      'S2P-Net is my own neural network. It recognizes objects reliably even when they are rotated and only a handful of training images are available, by combining spectral and spatial features in a polar representation.',
     'home.research.paper': 'S2P-Net: A Spectral-Spatial Polar Network for Rotation-Invariant Object Recognition in Low-Data Regimes',
     'home.research.meta': 'arXiv · 2026 · First author',
     'home.research.t1': 'Rotation-invariant',
     'home.research.t1d': 'Recognizes objects regardless of how they are turned.',
     'home.research.t2': 'Spectral & spatial',
-    'home.research.t2d': 'Fuses frequency and location cues in a polar form.',
-    'home.research.t3': 'Low data',
-    'home.research.t3d': 'Works where hardly any training images exist.',
+    'home.research.t2d': 'Fuses frequency and spatial features in polar form.',
+    'home.research.t3': 'Low-data regime',
+    'home.research.t3d': 'Works where hardly any training data is available.',
     'home.research.cta': 'Read the paper on arXiv',
 
     // Skill-Lens spotlight
-    'home.spotlight.label': 'A project close to my heart',
+    'home.spotlight.label': 'Close to my heart',
     'home.spotlight.title': 'Skill-Lens: I can do this!',
     'home.spotlight.lead':
-      'An assistive app for people with learning difficulties. It guides through everyday tasks in easy language, and the camera confirms every step in the real moment. No cloud, no profit.',
-    'home.spotlight.p1': 'Easy language & large buttons',
+      'An assistive app for people with learning difficulties. It guides you through everyday tasks in Easy Language. The camera confirms every step as it happens. No cloud, non-profit.',
+    'home.spotlight.p1': 'Easy Language & large buttons',
     'home.spotlight.p2': 'Runs offline, photos stay on the device',
-    'home.spotlight.p3': 'No profit, a labour of love',
+    'home.spotlight.p3': 'Non-profit, a labor of love',
     'home.spotlight.cta': 'Visit the Skill-Lens site',
     'home.spotlight.alt': 'Skill-Lens app: a young person holds a phone that guides them step by step through washing hands.',
 
@@ -263,30 +273,31 @@ export const ui = {
     'certs.stat.since': 'Since',
     'certs.verify': 'Verify',
     'certs.pub': 'Publications',
+    'certs.pub.title': 'My own publications',
     'certs.pub.lead': 'My own research and publications.',
     'certs.read': 'Read paper',
 
     'heart.label': 'Close to my heart',
     'heart.title': 'What matters to me',
     'heart.lead':
-      'Technology is a means to an end for me, helping people. A few organizations and values that deserve support and keep me going.',
+      'Technology is a means to an end for me: helping people. A few organizations and values that deserve support and keep me going.',
     'heart.causes': 'Organizations worth supporting',
     'heart.causes.lead': 'Non-profits that make a real difference. Take a look or donate.',
     'heart.values': 'My values',
     'heart.values.lead': 'What guides my work and my decisions.',
     'heart.support': 'Support',
     'heart.note': 'A personal selection, it keeps growing.',
-    'heart.cta.title': 'Let’s do some good together.',
+    'heart.cta.title': "Let's do some good together.",
     'heart.cta.lead': 'Know an organization that belongs here? Get in touch.',
 
     'contact.label': 'Contact',
     'contact.title': "Let's build something.",
     'contact.lead':
-      'Interested in working together, have questions about my projects, or just want to talk tech? Drop me a line.',
+      'Want to work together, have questions about my projects, or just want to talk tech? Drop me a line.',
     'contact.email': 'Email',
     'contact.phone': 'Phone',
     'contact.send': 'Send message',
-    'contact.sending': 'Sending …',
+    'contact.sending': 'Sending…',
     'contact.name': 'Name',
     'contact.message': 'Message',
     'contact.success': "Message sent, thank you! I'll get back to you.",
@@ -299,10 +310,19 @@ export const ui = {
     'footer.connect': 'Connect',
     'footer.projects.ext': 'Live projects',
     'footer.legal': 'Legal',
-    'footer.imprint': 'Imprint',
+    'footer.imprint': 'Legal notice',
     'footer.privacy': 'Privacy',
 
-    'meta.title': 'Albert Heruth · AI & Computer-Vision Engineer',
+    // Accessibility labels (screen readers) & easter egg
+    'a11y.skip': 'Skip to content',
+    'a11y.home': 'Albert Heruth, Home',
+    'a11y.lang': 'Switch language to German',
+    'a11y.theme': 'Toggle color theme',
+    'a11y.portrait': 'Portrait of Albert Heruth',
+    'easter.on': 'scan_mode // on',
+    'easter.off': 'scan_mode // off',
+
+    'meta.title': 'Albert Heruth · Applied Mathematics & AI',
     'meta.desc':
       'Portfolio of Albert Heruth: computer vision, machine learning, embedded systems and systems integration.',
   },

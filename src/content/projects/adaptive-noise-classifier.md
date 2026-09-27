@@ -2,13 +2,13 @@
 title: "Adaptive Noise Classifier"
 summary:
   de: "Ein ESP32-Audioklassifikator, der mit FFT Klangbänder erkennt und adaptive Geräuschmaskierung anwendet."
-  en: "An ESP32 audio classifier that uses FFT to recognise sound bands and applies adaptive noise masking."
+  en: "An ESP32 audio classifier that uses FFT to recognize sound bands and applies adaptive noise masking."
 category: "embedded"
 tech: ["C++", "Arduino", "ESP32", "ArduinoFFT"]
 year: "2025"
 status: "prototype"
 featured: false
-order: 8
+order: 11
 needsConfirmation: false
 ---
 

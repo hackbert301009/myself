@@ -17,13 +17,25 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL('/og.png', Astro.site).href;
 const siteName = 'Albert Heruth';
 
+// Per-page hreflang. Derive the language-independent slug the same way Nav does,
+// then emit alternates only for routes that actually exist in both languages —
+// the legal pages are German-only and get x-default alone.
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const slug = lang === 'en' ? path.replace(/^\/en/, '') || '/' : path;
+const LOCALIZED = ['/', '/projekte', '/zertifikate', '/herz', '/kontakt'];
+const hasAlternates = LOCALIZED.includes(slug);
+// Trailing slash, so these match the canonical URL byte for byte.
+const deHref = new URL(slug === '/' ? '/' : `${slug}/`, Astro.site).href;
+const enHref = new URL(slug === '/' ? '/en/' : `/en${slug}/`, Astro.site).href;
+
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Albert Heruth',
   url: Astro.site?.href,
   image: ogImage,
-  jobTitle: 'AI & Computer-Vision Engineer',
+  // No jobTitle: these are fields of work, not a professional title.
+  knowsAbout: ['Applied Mathematics', 'Machine Learning', 'Computer Vision', 'Embedded Systems'],
   description: t('meta.desc'),
   sameAs: [
     'https://github.com/hackbert301009',
@@ -75,19 +87,36 @@ const personSchema = {
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Hreflang -->
-    <link rel="alternate" hreflang="de" href={new URL('/', Astro.site).href} />
-    <link rel="alternate" hreflang="en" href={new URL('/en', Astro.site).href} />
-    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site).href} />
+    {
+      hasAlternates && (
+        <>
+          <link rel="alternate" hreflang="de" href={deHref} />
+          <link rel="alternate" hreflang="en" href={enHref} />
+        </>
+      )
+    }
+    <link rel="alternate" hreflang="x-default" href={deHref} />
 
     <!-- Structured data -->
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+    <!-- Scroll-reveal starts at opacity 0 and is switched on by JS below.
+         Without JS that would leave most of every page blank, so opt out. -->
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <DetectionBG />
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-surface-2 focus:px-4 focus:py-2 focus:text-text"
-      >Skip to content</a
+      >{t('a11y.skip')}</a
     >
     <Nav />
     <main id="main">
@@ -95,7 +124,15 @@ const personSchema = {
     </main>
     <Footer />
 
-    <div id="egg-toast" class="egg-toast" role="status" aria-live="polite"></div>
+    <div
+      id="egg-toast"
+      class="egg-toast"
+      role="status"
+      aria-live="polite"
+      data-on={t('easter.on')}
+      data-off={t('easter.off')}
+    >
+    </div>
 
     <!-- Easter egg: Konami code toggles a night-vision scan of the page -->
     <script is:inline>
@@ -116,7 +153,8 @@ const personSchema = {
           if (idx === seq.length) {
             idx = 0;
             const on = document.documentElement.classList.toggle('scan-mode');
-            show(on ? 'scan_mode // aktiviert' : 'scan_mode // aus');
+            const el = toast();
+            show(on ? el?.dataset.on : el?.dataset.off);
           }
         });
       })();

@@ -1,14 +1,14 @@
 ---
 title: "MNIST Neural Network HMI"
 summary:
-  de: "Eine Desktop-App, in der man eine Ziffer zeichnet und die vollständige Vorverarbeitungspipeline sowie Live-CNN-Vorhersagen sieht."
+  de: "Eine Desktop-App, in der du eine Ziffer zeichnest und die vollständige Vorverarbeitungspipeline sowie Live-CNN-Vorhersagen siehst."
   en: "A desktop app where you draw a digit and watch the full preprocessing pipeline and live CNN predictions."
 category: "ml"
 tech: ["Python", "PyTorch", "CustomTkinter", "torchvision"]
 year: "2025"
 status: "finished"
 featured: false
-order: 5
+order: 7
 needsConfirmation: false
 ---
 

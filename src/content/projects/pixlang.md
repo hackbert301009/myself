@@ -1,14 +1,14 @@
 ---
 title: "PixLang"
 summary:
-  de: "Eine minimale, lesbare domänenspezifische Sprache (DSL) zum Beschreiben von Computer-Vision-Pipelines, mit Variablen, Schleifen, Plugins, Linter und browserbasiertem visuellem Editor."
+  de: "Eine minimale, lesbare domänenspezifische Sprache (DSL) zum Beschreiben von Computer-Vision-Pipelines, mit Variablen, Schleifen, Plugins, Linter und browserbasiertem visuellem Flow-Editor (35 Befehle, 253 bestandene Tests)."
   en: "A minimal, human-readable DSL for describing computer-vision pipelines, with variables, loops, plugins, a linter and a browser-based visual flow editor (35 commands, 253 passing tests)."
 category: "cv"
 tech: ["Python", "DSL", "Computer Vision", "Parser"]
 year: "2026"
 status: "active"
 featured: true
-order: 1
+order: 2
 repo: "https://github.com/hackbert301009/pixlang"
 needsConfirmation: false
 ---

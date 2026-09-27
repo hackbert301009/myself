@@ -9,7 +9,7 @@ const socials = [
   { href: 'https://github.com/hackbert301009', label: 'GitHub', handle: '@hackbert301009', ext: true },
   { href: 'https://www.linkedin.com/in/albert-heruth-37aa74379/', label: 'LinkedIn', handle: 'Albert Heruth', ext: true },
   { href: 'mailto:albert.heruth@gmail.com', label: t('contact.email'), handle: 'albert.heruth@gmail.com', ext: false },
-  { href: 'tel:+4915204277531', label: t('contact.phone'), handle: '015204277531', ext: false },
+  { href: 'tel:+4915204277531', label: t('contact.phone'), handle: lang === 'de' ? '0152 04277531' : '+49 152 04277531', ext: false },
 ];
 ---
 
@@ -84,7 +84,7 @@ const socials = [
       </div>
       <div class="mt-6 rounded-xl border border-line bg-surface p-4 text-sm text-muted">
         <span class="font-medium text-lime">●</span> {t('hero.status')}<br />
-        <span>Deutschland / Remote</span>
+        <span>{lang === 'de' ? 'Deutschland / Remote' : 'Germany / Remote'}</span>
       </div>
     </aside>
   </div>

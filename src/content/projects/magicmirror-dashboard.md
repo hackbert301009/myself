@@ -1,14 +1,14 @@
 ---
 title: "MagicMirror Dashboard"
 summary:
-  de: "Ein Raspberry Pi hinter einem Zwei-Wege-Spiegel, der Systemlaufzeiten, Docker-Status und Kalender anzeigt."
+  de: "Ein Raspberry Pi, der hinter einem Spionspiegel Systemlaufzeiten, Docker-Status und Kalender anzeigt."
   en: "A Raspberry Pi behind a two-way mirror showing system uptimes, Docker status and a calendar."
 category: "embedded"
 tech: ["Raspberry Pi", "Node.js", "JavaScript"]
 year: "2025"
 status: "finished"
 featured: false
-order: 12
+order: 15
 cover: "../../assets/projects/magic-mirror.jpg"
 needsConfirmation: false
 ---

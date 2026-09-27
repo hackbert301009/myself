@@ -1,14 +1,14 @@
 ---
 title: "Albert's Weather Station"
 summary:
-  de: "Eine Flask-Web-App auf dem Raspberry Pi, die einen DHT22-Sensor ausliest und einen Komfortindex berechnet."
-  en: "A Flask web app on the Raspberry Pi that reads a DHT22 sensor and computes a comfort index."
+  de: "Eine Flask-Web-App auf einem Raspberry Pi, die einen DHT22-Sensor ausliest und einen Komfortindex berechnet."
+  en: "A Flask web app on a Raspberry Pi that reads a DHT22 sensor and computes a comfort index."
 category: "embedded"
 tech: ["Python", "Flask", "Raspberry Pi", "DHT22", "GPIO"]
 year: "2025"
 status: "finished"
 featured: false
-order: 7
+order: 10
 cover: "../../assets/projects/wetterstation.jpg"
 needsConfirmation: false
 ---

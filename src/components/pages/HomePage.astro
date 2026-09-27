@@ -23,7 +23,8 @@ const featured = allProjects
 
 const skills = [
   'Computer Vision', 'PyTorch', 'OpenCV', 'Python', 'Machine Learning', 'Deep Learning',
-  'Angewandte Mathematik', 'C / C++', 'ESP32 / Arduino', 'Raspberry Pi', 'Flask / FastAPI',
+  lang === 'de' ? 'Angewandte Mathematik' : 'Applied Mathematics',
+  'C / C++', 'ESP32 / Arduino', 'Raspberry Pi', 'Flask / FastAPI',
   'Streamlit', 'Linux', 'Docker', 'Kotlin / Android', 'Git',
 ];
 
@@ -87,7 +88,7 @@ const caps = [
         <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm text-muted">
           <li class="flex items-center gap-2"><Icon name="scan" class="h-4 w-4" />Scan / Spotlight</li>
           <li class="flex items-center gap-2"><Icon name="kernel" class="h-4 w-4" />Sobel</li>
-          <li class="flex items-center gap-2"><Icon name="detect" class="h-4 w-4" />Threshold</li>
+          <li class="flex items-center gap-2"><Icon name="detect" class="h-4 w-4" />{t('lab.mode.threshold')}</li>
         </ul>
       </div>
       <div class="reveal">
@@ -106,7 +107,7 @@ const caps = [
     <div class="grid items-center gap-12 md:grid-cols-[0.8fr_1.2fr]">
       <div class="reveal mx-auto w-full max-w-xs">
         <div class="overflow-hidden rounded-3xl border border-line shadow-[var(--shadow-soft)]">
-          <Image src={portraitImg} alt="Albert Heruth" widths={[320, 480, 640]} class="w-full" />
+          <Image src={portraitImg} alt={t('a11y.portrait')} widths={[320, 480, 640]} class="w-full" />
         </div>
       </div>
 

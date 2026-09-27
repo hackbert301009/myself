@@ -1,14 +1,14 @@
 ---
 title: "MVTec Vision Lab"
 summary:
-  de: "Ein quelloffenes Browser-Tool zum Erkunden der MVTec-AD-Datensätze, Trainieren von PaDiM-Anomalieerkennungsmodellen und Inspizieren von XAI-Heatmaps."
+  de: "Ein quelloffenes Browser-Tool zum Erkunden der MVTec-AD-Datensätze, Trainieren von PaDiM-Anomalieerkennungsmodellen und Inspizieren von XAI-Heatmaps pro Bild."
   en: "An open-source browser tool to explore the MVTec AD datasets, train PaDiM anomaly-detection models and inspect per-image XAI heatmaps."
 category: "cv"
 tech: ["Python", "FastAPI", "PaDiM", "Anomaly Detection", "XAI"]
 year: "2026"
 status: "active"
 featured: false
-order: 13
+order: 16
 repo: "https://github.com/hackbert301009/mvtec_datensatz_visualisierer"
 needsConfirmation: false
 ---

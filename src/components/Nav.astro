@@ -18,12 +18,15 @@ const links = [
 ];
 
 const otherLang = lang === 'de' ? 'en' : 'de';
-const otherHref = localizedPath(slug, otherLang);
+// Only these routes exist in both languages. The legal pages are German-only,
+// so switching from them would 404; fall back to the other language's home.
+const LOCALIZED = ['/', '/projekte', '/zertifikate', '/herz', '/kontakt'];
+const otherHref = LOCALIZED.includes(slug) ? localizedPath(slug, otherLang) : localizedPath('/', otherLang);
 ---
 
 <header class="glass fixed inset-x-0 top-0 z-40 border-b border-line">
   <nav class="mx-auto flex h-14 max-w-5xl items-center justify-between px-5">
-    <a href={lp('/')} class="press text-[0.95rem] font-semibold tracking-tight text-text" aria-label="Albert Heruth, Home">
+    <a href={lp('/')} class="press text-[0.95rem] font-semibold tracking-tight text-text" aria-label={t('a11y.home')}>
       Albert Heruth
     </a>
 
@@ -48,7 +51,7 @@ const otherHref = localizedPath(slug, otherLang);
       <a
         href={otherHref}
         class="press rounded-full px-3 py-1.5 text-sm text-muted transition-colors hover:text-text"
-        aria-label={`Switch language to ${otherLang.toUpperCase()}`}
+        aria-label={t('a11y.lang')}
       >
         {lang === 'de' ? 'EN' : 'DE'}
       </a>
@@ -57,7 +60,7 @@ const otherHref = localizedPath(slug, otherLang);
       <button
         id="theme-toggle"
         class="press grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:text-text"
-        aria-label="Toggle color theme"
+        aria-label={t('a11y.theme')}
       >
         <svg class="h-5 w-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4" />

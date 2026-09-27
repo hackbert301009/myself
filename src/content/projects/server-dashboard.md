@@ -8,7 +8,7 @@ tech: ["Python", "Flask", "SQLite", "psutil", "Docker"]
 year: "2025"
 status: "active"
 featured: false
-order: 9
+order: 12
 cover: "../../assets/projects/server.jpg"
 needsConfirmation: false
 ---
@@ -17,4 +17,4 @@ Server Dashboard is a system-monitoring dashboard built with Flask for Docker an
 
 It reports CPU, RAM and disk metrics through psutil, offers container management, and keeps an event log in SQLite.
 
-The result is a single web interface for keeping an eye on a containerised host and acting on it directly.
+The result is a single web interface for keeping an eye on a containerized host and acting on it directly.

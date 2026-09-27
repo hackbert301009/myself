@@ -150,6 +150,14 @@
   .press { transition: transform 0.08s ease-out; }
   .press:active { transform: scale(1.08); }
 
+  /* Keyboard focus. The UA default outline is near-invisible on our surfaces,
+     so give every interactive element one consistent, visible ring. */
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: inherit;
+  }
+
   /* Frosted glass surface (header / floating drawer) */
   .glass {
     background: color-mix(in oklab, var(--color-ink) 72%, transparent);

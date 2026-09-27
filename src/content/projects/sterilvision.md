@@ -8,7 +8,7 @@ tech: ["Computer Vision", "Python", "Deep Learning"]
 year: "2025"
 status: "active"
 featured: true
-order: 2
+order: 3
 demo: "https://sterilvision.de"
 cover: "../../assets/sterilvision/product.png"
 ---

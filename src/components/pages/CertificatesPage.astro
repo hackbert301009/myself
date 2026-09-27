@@ -21,16 +21,34 @@ const ICON: Record<string, string> = {
   security: 'M12 3 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6l-8-3Z',
 };
 
-type Cert = { title: string; issuer: string; year: string; cat: keyof typeof CAT; url?: string };
+// title is bilingual only where a German name would be opaque in English;
+// the rest are English course titles that stand on their own.
+type Cert = {
+  title: string | { de: string; en: string };
+  issuer: string;
+  year: string;
+  cat: keyof typeof CAT;
+  url?: string;
+};
 const certs: Cert[] = [
-  { title: 'Juniorstudium Angewandte Mathematik', issuer: 'CAU Kiel', year: '2025', cat: 'academic' },
+  {
+    title: { de: 'Juniorstudium Angewandte Mathematik', en: 'Junior Studies in Applied Mathematics' },
+    issuer: 'CAU Kiel',
+    year: '2025',
+    cat: 'academic',
+  },
   { title: 'AI for Medicine', issuer: 'DeepLearning.AI', year: '2026', cat: 'ml', url: 'https://www.deeplearning.ai/courses/ai-for-medicine-specialization/' },
   { title: 'Building an Image Classifier', issuer: 'Coursera', year: '2025', cat: 'ml' },
   { title: 'Time Series Forecasting with Machine Learning', issuer: 'openHPI · Hasso-Plattner-Institut', year: '2025', cat: 'ml' },
   { title: 'Time Series Analysis / Big Data', issuer: 'openHPI · Hasso-Plattner-Institut', year: '2025', cat: 'ml' },
   { title: 'LPIC-1 Linux Administrator', issuer: 'Linux Professional Institute', year: '2025', cat: 'linux' },
   { title: 'Cryptography', issuer: 'Google', year: '2024', cat: 'security' },
-  { title: 'Datenschutz / DSGVO-Schulung', issuer: 'Wissto International', year: '2026', cat: 'security' },
+  {
+    title: { de: 'Datenschutz / DSGVO-Schulung', en: 'Data Protection / GDPR Training' },
+    issuer: 'Wissto International',
+    year: '2026',
+    cat: 'security',
+  },
 ];
 
 const publications = [
@@ -40,7 +58,7 @@ const publications = [
     year: '2026',
     url: 'https://arxiv.org/abs/2605.09667',
     desc: {
-      de: 'Eine kompakte Deep-Learning-Architektur mit mathematisch garantierter Rotationsinvarianz, ganz ohne Data Augmentation. Mit Vergleich zu klassischen CNNs und experimenteller Auswertung.',
+      de: 'Eine kompakte Deep-Learning-Architektur mit mathematisch garantierter Rotationsinvarianz, ganz ohne Data Augmentation. Inklusive Vergleich mit klassischen CNNs und experimenteller Auswertung.',
       en: 'A compact deep-learning architecture with mathematically guaranteed rotation invariance, entirely without data augmentation. Includes a comparison to conventional CNNs and experimental evaluation.',
     },
   },
@@ -102,7 +120,9 @@ const stats = [
               <span class="text-sm font-medium text-faint">{cert.year}</span>
             </div>
             <span class="mb-2 w-fit rounded-full bg-surface-2 px-2.5 py-0.5 text-xs font-medium text-muted">{pick(CAT[cert.cat], lang)}</span>
-            <h3 class="font-display text-lg font-semibold leading-snug text-text">{cert.title}</h3>
+            <h3 class="font-display text-lg font-semibold leading-snug text-text">
+              {typeof cert.title === 'string' ? cert.title : pick(cert.title, lang)}
+            </h3>
             <p class="mt-1 flex-1 text-sm text-muted">{cert.issuer}</p>
             {cert.url && (
               <a href={cert.url} rel="noopener" class="mt-4 text-sm font-medium text-accent hover:underline">
@@ -122,7 +142,7 @@ const stats = [
   <div class="relative mx-auto max-w-5xl px-5">
     <div class="reveal mb-10 text-center">
       <p class="label-mono mb-3">{t('certs.pub')}</p>
-      <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{t('certs.pub')}</h2>
+      <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{t('certs.pub.title')}</h2>
       <p class="mx-auto mt-4 max-w-xl text-lg text-muted">{t('certs.pub.lead')}</p>
     </div>
     <div class="mx-auto grid max-w-3xl gap-5">

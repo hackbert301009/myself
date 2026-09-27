@@ -1,14 +1,14 @@
 ---
 title: "CV & AI Knowledge Lab"
 summary:
-  de: "Ein deutschsprachiger interaktiver Wissenshub (Streamlit) mit 33+ Lernmodulen zu Computer Vision und KI, vom mathematischen Fundament bis Transformer, Diffusion Models und multimodaler KI, mit Live-Demos."
+  de: "Ein deutschsprachiger interaktiver Wissenshub (Streamlit) mit 33+ Lernmodulen zu Computer Vision und KI, vom mathematischen Fundament bis hin zu Transformern, Diffusion Models und multimodaler KI, mit Live-Demos."
   en: "A German-language interactive knowledge hub (Streamlit) with 33+ learning modules across computer vision and AI, from mathematical foundations to transformers, diffusion models and multimodal AI, with live demos."
 category: "ml"
 tech: ["Python", "Streamlit", "Computer Vision", "Deep Learning"]
 year: "2026"
 status: "active"
 featured: true
-order: 4
+order: 5
 repo: "https://github.com/hackbert301009/cv-ai-knowledge-lab"
 needsConfirmation: false
 ---

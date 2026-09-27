@@ -8,7 +8,7 @@ tech: ["Python", "Tkinter", "Cryptography"]
 year: "2026"
 status: "finished"
 featured: false
-order: 17
+order: 20
 repo: "https://github.com/hackbert301009/passswordmanager"
 needsConfirmation: false
 ---
@@ -17,4 +17,4 @@ Password Manager is a simple, local password manager written in Python. It keeps
 
 Stored passwords are protected using Fernet encryption, which provides authenticated AES-based symmetric encryption, so the underlying data is not held in plain text.
 
-The project is a compact, practical demonstration of applying the Python cryptography library to a everyday security tool.
+The project is a compact, practical demonstration of applying the Python cryptography library to an everyday security tool.

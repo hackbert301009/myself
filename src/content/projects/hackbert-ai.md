@@ -8,7 +8,7 @@ tech: ["Python", "Streamlit", "LLM"]
 year: "2026"
 status: "active"
 featured: false
-order: 18
+order: 21
 demo: "https://hackbert-ai.streamlit.app/"
 ---
 
